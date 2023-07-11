@@ -1,8 +1,11 @@
 FROM node:18-alpine
 
 WORKDIR /usr/src/app
-WORKDIR /app
 
 COPY . .
 
 RUN npm install
+
+CMD ["npm" "run" "dev:auth"]
+
+EXPOSE 3001
