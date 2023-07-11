@@ -1,0 +1,58 @@
+apiVersion: skaffold/v2alpha3
+kind: Config
+deploy:
+  kubectl:
+    manifests:
+      - ./infra/k8s/*
+build:
+  local:
+    push: false
+  artifacts:
+    - image: cygnetops/client-95 # docker id 1 e.g stephengrider/client
+      context: auth
+      docker: 
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "src/**/*.ts"
+            dest: .
+    # - image: cygnetops/comments-84 #2
+    #   context: comments
+    #   docker:
+    #     dockerfile: Dockerfile
+    #   sync:
+    #     manual:
+    #       - src: "*.js"
+    #         dest: .
+    # - image: cygnetops/event-bus-85
+    #   context: event-bus
+    #   docker:
+    #     dockerfile: Dockerfile
+    #   sync:
+    #     manual:
+    #       - src: "*.js"
+    #         dest: .
+    # - image: cygnetops/moderation-84 #3
+    #   context: moderation
+    #   docker:
+    #     dockerfile: Dockerfile
+    #   sync:
+    #     manual:
+    #       - src: "*.js"
+    #         dest: .
+    # - image: cygnetops/posts-95 #4
+    #   context: posts
+    #   docker:
+    #     dockerfile: Dockerfile
+    #   sync:
+    #     manual:
+    #       - src: "*.js"
+    #         dest: .
+    # - image: cygnetops/query-84 #5
+    #   context: query
+    #   docker:
+    #     dockerfile: Dockerfile
+    #   sync:
+    #     manual:
+    #       - src: "*.js"
+    #         dest: .
