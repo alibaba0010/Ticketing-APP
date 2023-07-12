@@ -1,30 +1,13 @@
-FROM node:18-alpine As development
-
+FROM node:18-alpine
+ARG APP_DIR
 WORKDIR /usr/src/app
-COPY package*.json ./
+COPY $APP_DIR/package*.json ./
 
 RUN npm install
 
 COPY ./ ./
 
-RUN npm run dev:auth
 
-FROM node:18-alpine As production
+CMD [ "/bin/sh" ]
 
-
-ARG NODE_ENV=production
-ENV NODE_ENV=${NODE_ENV}
-
-WORKDIR /usr/src/app
-
-COPY package*.json ./
-
-RUN npm install --only=production
-
-COPY . .
-
-COPY --from=development /usr/src/app/dist ./dist
-
-CMD ["node", "dist/apps/auth/main"]
-
-EXPOSE 3002
+EXPOSE 3001

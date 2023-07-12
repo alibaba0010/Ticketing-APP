@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: auth
-          image: ticket/auth
+          image: alibaba0010/ticketing-auth
 
 ---
 apiVersion: v1
