@@ -1,14 +1,12 @@
 services:
   auth:
-    build:
-      context: .
-      dockerfile: ./auth/Dockerfile
-      target: development
-    command: npm run dev:auth 
-    # env_file:
-    #   - ./apps/orders/.env
+    build: ./auth
+    container_name: auth
+    image: "ticketing/auth"
+    working_dir: /usr/src/app
+    command: npm run dev:auth
+
     volumes:
       - .:/usr/src/app
-      - /usr/src/app/node_modules
     ports:
-      - '3001:3001'
+      - "3001:3001"
