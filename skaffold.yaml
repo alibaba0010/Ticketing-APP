@@ -7,10 +7,11 @@ deploy:
 build:
   local:
     push: false
-  googleCloudBuild:
-    projectId: # id on google cloud
+  # googleCloudBuild:
+  #   projectId: # id on google cloud
   artifacts:
-    - image: cygnetops/client-95 # docker id 1 e.g stephengrider/client
+    - image: alibaba0010/ticketing-auth # docker id 1 e.g stephengrider/client
+      # - image: cygnetops/client-95 # docker id 1 e.g stephengrider/client
       context: auth
       docker:
         dockerfile: Dockerfile
