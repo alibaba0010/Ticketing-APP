@@ -3,20 +3,20 @@ kind: Deployment
 metadata:
   name: auth-depl
 spec:
-  replicas: 1
   selector:
     matchLabels:
       app: auth
+  replicas: 1
   template:
     metadata:
       labels:
         app: auth
     spec:
       containers:
-      - name: ticketing-auth
-        image: alibaba0010/ticketing-auth
-        ports:
-        - containerPort: 3001
+        - name: auth
+          image: nginx:1.14.2
+          ports:
+            - containerPort: 3001
 
 ---
 apiVersion: v1
