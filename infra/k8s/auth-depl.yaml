@@ -13,8 +13,10 @@ spec:
         app: auth
     spec:
       containers:
-        - name: auth
-          image: alibaba0010/ticketing-auth
+      - name: ticketing-auth
+        image: alibaba0010/ticketing-auth
+        ports:
+        - containerPort: 3001
 
 ---
 apiVersion: v1

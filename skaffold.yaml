@@ -10,8 +10,7 @@ build:
   # googleCloudBuild:
   #   projectId: # id on google cloud
   artifacts:
-    - image: alibaba0010/ticketing-auth # docker id 1 e.g stephengrider/client
-      # - image: cygnetops/client-95 # docker id 1 e.g stephengrider/client
+    - image: alibaba0010/ticketing-auth 
       context: auth
       docker:
         dockerfile: Dockerfile
