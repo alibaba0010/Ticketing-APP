@@ -14,10 +14,7 @@ spec:
     spec:
       containers:
         - name: auth
-          image: nginx:1.14.2
-          ports:
-            - containerPort: 3001
-
+          image: alibaba0010/auth:1
 ---
 apiVersion: v1
 kind: Service

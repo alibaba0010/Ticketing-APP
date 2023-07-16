@@ -7,7 +7,7 @@ RUN npm install
 
 COPY ./ ./
 
-
-CMD [ "/bin/sh" ]
+# RUN npm run dev:auth
+CMD [ "npm", "run", "dev:auth" ]
 
 EXPOSE 3001
