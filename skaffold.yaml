@@ -10,13 +10,13 @@ build:
   # googleCloudBuild:
   #   projectId: # id on google cloud
   artifacts:
-    - image: alibaba0010/ticketing-auth 
+    - image: alibaba0010/auth:1
       context: auth
       docker:
-        dockerfile: Dockerfile
+        dockerfile: ./auth/Dockerfile
       sync:
         manual:
-          - src: "src/**/*.ts"
+          - src: ".auth/src/**/*.ts"
             dest: .
     # - image: cygnetops/comments-84 #2
     #   context: comments
