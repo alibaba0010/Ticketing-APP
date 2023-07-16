@@ -5,13 +5,13 @@ import {
   signIn,
   signUp,
 } from "../controller/user.controller";
-
+import { validateBody } from "../middlewares/validator";
 const userRouter = Router();
 
 userRouter
   .get("/currentuser", currentUser)
-  .post("/signup", signUp)
-  .post("/signin", signIn)
+  .post("/signup", validateBody, signUp)
+  .post("/signin", validateBody, signIn)
   .post("/signout", signOut);
 
 export default userRouter;
