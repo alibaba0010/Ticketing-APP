@@ -10,14 +10,15 @@ build:
   # googleCloudBuild:
   #   projectId: # id on google cloud
   artifacts:
-    - image: alibaba0010/auth:1
-      context: auth
-      docker:
-        dockerfile: ./auth/Dockerfile
+    - image: alibaba0010/auth
+      custom:
+        buildCommand: bash -c "docker build -f auth/Dockerfile --build-arg APP_DIR=.. -t alibaba0010/auth:982e267-dirty ."
+      context: .
       sync:
         manual:
-          - src: ".auth/src/**/*.ts"
+          - src: "src/**/*.ts"
             dest: .
+
     # - image: cygnetops/comments-84 #2
     #   context: comments
     #   docker:
