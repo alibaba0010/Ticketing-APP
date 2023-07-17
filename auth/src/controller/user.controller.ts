@@ -1,5 +1,7 @@
 import { Request, Response } from "express";
 import { validationResult } from "express-validator";
+import { RequestValidationError } from "../middlewares/errors/validationError";
+// import { DatabaseConnectionError } from "../middlewares/errors/dbConnectionError";
 
 export const currentUser = async (req: Request, res: Response) => {
   res.json({ msg: "HEllo" });
@@ -11,7 +13,7 @@ export const signUp = (req: Request, res: Response) => {
   const error = validationResult(req);
   //if there's error
   if (!error.isEmpty()) {
-    res.status(400).json(error.array());
+    throw new RequestValidationError(error.array());
   }
   res.json({ msg: "HEllo" });
 };
