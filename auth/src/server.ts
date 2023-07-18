@@ -12,7 +12,12 @@ app
   .all("*", () => {
     throw new NotFoundError();
   });
-const startDB = async () => {
-  await mongoose.connect("mongodb://auth-mongo-srv:27017/auth");
-};
-app.listen(3001, () => console.log("Listen to port 3001"));
+(async () => {
+  try {
+    await mongoose.connect("mongodb://auth-mongo-srv:27017/auth");
+    console.log("Connected to MongoDB");
+  } catch (e) {
+    console.log(e);
+  }
+  app.listen(3001, () => console.log("Listen to port 3001"));
+})();
