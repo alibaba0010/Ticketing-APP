@@ -7,8 +7,9 @@ import { CustomError } from "./customError";
 // }
 export class RequestValidationError extends CustomError {
   statusCode = 400;
-  constructor(public error: ValidationError[], message: string) {
-    super(message);
+  constructor(public error: ValidationError[]) {
+    super("Invalid request params");
+    // Only because we are extending a built in class
     Object.setPrototypeOf(this, RequestValidationError.prototype);
   }
   serializeError() {

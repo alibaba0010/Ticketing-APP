@@ -4,6 +4,7 @@ export abstract class CustomError extends Error {
     super(message);
     Object.setPrototypeOf(this, CustomError.prototype);
   }
+  abstract serializeError(): { message: string; field?: string }[];
 }
 
 // class NotFoundError extends CustomError{

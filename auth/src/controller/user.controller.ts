@@ -9,14 +9,15 @@ export const currentUser = async (req: Request, res: Response) => {
 // REGISTER
 export const signUp = (req: Request, res: Response) => {
   const { email, passowrd } = req.body;
-  console.log(`${email} with ${passowrd}`);
   const error = validationResult(req);
+  console.log(`${email} with ${passowrd}`);
   //if there's error
   if (!error.isEmpty()) {
     throw new RequestValidationError(error.array());
   }
-  res.json({ msg: "HEllo" });
+  res.status(200).json({ msg: "HEllo" });
 };
+// LOGIN
 export const signIn = (req: Request, res: Response) => {
   res.json({ msg: "HEllo" });
 };
