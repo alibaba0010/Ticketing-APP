@@ -9,15 +9,13 @@ export const errorHandler = (
 ) => {
   console.log(`SOmething went wrong ${err} `);
   if (err instanceof RequestValidationError) {
-    const formattedError = err.error.map((error) => {
-      return { message: error.msg, field: error.type };
-    });
     console.log("Handling Validation Error");
-    return res.status(400).json({ error: formattedError });
+    return res.status(err.statusCode).json({ error: err.serializeError() });
   }
   if (err instanceof DatabaseConnectionError) {
     console.log("Handling DB Error");
-    return res.status(500).json({ error: [{ message: err.message }] });
+    return res.status(err.statusCode).json({ error: err.serializeError() });
   }
-  res.status(400).json({ error: [{ message: "Service Unavailable" }] });
+  res.status(500).json({ error: [{ message: "Service Unavailable" }] });
 };
+  
