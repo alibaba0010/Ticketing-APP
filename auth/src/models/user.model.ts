@@ -1,5 +1,6 @@
-import pkg from "mongoose";
-const { Schema, model, Model, Document } = pkg;
+// import pkg from "mongoose";
+// const { Schema, model, Model, Document } = pkg;
+import mongoose from "mongoose";
 
 // An interface that describes the properties
 // that are requried to create a new User
@@ -10,17 +11,17 @@ interface UserAttrs {
 
 // An interface that describes the properties
 // that a User Model has
-interface UserModel extends Model<UserDoc> {
+interface UserModel extends mongoose.Model<UserDoc> {
   build(attrs: UserAttrs): UserDoc;
 }
 
 // An interface that describes the properties
 // that a User Document has
-interface UserDoc extends Document {
+interface UserDoc extends mongoose.Document {
   email: string;
   password: string;
 }
-const UserSchema = new Schema({
+const UserSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
@@ -31,4 +32,4 @@ const UserSchema = new Schema({
   },
 });
 
-export default model<UserDoc, UserModel>("User", UserSchema);
+export default mongoose.model<UserDoc, UserModel>("User", UserSchema);

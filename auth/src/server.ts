@@ -2,6 +2,8 @@ import express, { json } from "express";
 import userRouter from "./routes/user.router";
 import "express-async-errors";
 import mongoose from "mongoose";
+import connectDB from "./db";
+
 import { errorHandler } from "./middlewares/errors/errorHandler";
 import { NotFoundError } from "./middlewares/errors/notFoundError";
 const app = express();
@@ -14,8 +16,8 @@ app
   });
 (async () => {
   try {
-    await mongoose.connect("mongodb://auth-mongo-srv:27017/auth");
-    console.log("Connected to MongoDB");
+    await connectDB();
+    //  await mongoose.connect("mongodb://auth-mongo-srv:27017/auth");
   } catch (e) {
     console.log(e);
   }

@@ -12,7 +12,7 @@ build:
   artifacts:
     - image: alibaba0010/auth
       custom:
-        buildCommand: bash -c "docker build -f auth/Dockerfile --build-arg APP_DIR=.. -t alibaba0010/auth:982e267-dirty ."
+        buildCommand: bash -c "docker build -f auth/Dockerfile --build-arg APP_DIR=.. -t alibaba0010/auth:8e28568-dirty ."
       context: .
       sync:
         manual:
