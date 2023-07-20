@@ -1,6 +1,5 @@
 import { body } from "express-validator";
 export const validateBody = (next: () => void) => {
-  console.log("In validate body");
   body("email").isEmail().trim().withMessage("Provide a valid email"),
     body("password")
       .trim()

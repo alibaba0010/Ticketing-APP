@@ -8,11 +8,9 @@ import { errorHandler } from "./middlewares/errors/errorHandler";
 import { NotFoundError } from "./middlewares/errors/notFoundError";
 const app = express();
 
-console.log("In server");
 app
   .use(json())
-  .use("/", (req, res) => res.json({ msg: "Hello" }))
-  .use("api/v1/users", userRouter)
+  .use("/api/v1/users", userRouter)
   .use(errorHandler)
   .all("*", () => {
     throw new NotFoundError();
