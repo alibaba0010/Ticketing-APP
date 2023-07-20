@@ -10,7 +10,7 @@ const userRouter = Router();
 
 userRouter
   .get("/currentuser", currentUser)
-  .post("/signup", validateBody, signUp)
+  .post("/signup", signUp)
   .post("/signin", validateBody, signIn)
   .post("/signout", signOut);
 

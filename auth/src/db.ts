@@ -5,8 +5,9 @@ const connectDB = () => {
   try {
     connection.once("open", () => console.log("MongoDB connected"));
     set("strictQuery", false);
-    return connect("mongodb://auth-mongo-srv:27017/auth");
+    return connect("mongodb://10.106.140.193:27017/auth");
   } catch (e) {
+    console.log(e);
     process.exit(1);
   }
 };

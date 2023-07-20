@@ -9,6 +9,7 @@ export const currentUser = async (req: Request, res: Response) => {
 };
 // REGISTER
 export const signUp = async (req: Request, res: Response) => {
+  console.log("In signUp")
   const { email, password } = req.body;
   const error = validationResult(req);
   console.log(`${email} with ${password}`); 

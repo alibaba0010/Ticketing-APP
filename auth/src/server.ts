@@ -7,8 +7,11 @@ import connectDB from "./db";
 import { errorHandler } from "./middlewares/errors/errorHandler";
 import { NotFoundError } from "./middlewares/errors/notFoundError";
 const app = express();
+
+console.log("In server");
 app
   .use(json())
+  .use("/", (req, res) => res.json({ msg: "Hello" }))
   .use("api/v1/users", userRouter)
   .use(errorHandler)
   .all("*", () => {
@@ -17,7 +20,6 @@ app
 (async () => {
   try {
     await connectDB();
-    //  await mongoose.connect("mongodb://auth-mongo-srv:27017/auth");
   } catch (e) {
     console.log(e);
   }
