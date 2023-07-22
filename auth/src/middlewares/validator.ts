@@ -1,9 +1,31 @@
 import { body } from "express-validator";
-export const validateBody = (next: () => void) => {
-  body("email").isEmail().trim().withMessage("Provide a valid email"),
-    body("password")
-      .trim()
-      .isLength({ min: 6, max: 20 })
-      .withMessage("Password must be between 4 and 20 characters");
+import { Request, Response, NextFunction } from "express";
+import { validationResult } from "express-validator";
+import { RequestValidationError } from "./errors/validationError";
+
+export const validateBody = [
+  body("email").isEmail().withMessage("Email must be valid"),
+  body("password")
+    .trim()
+    .isLength({ min: 4, max: 20 })
+    .withMessage("Password must be between 4 and 20 characters"),
+];
+
+export const validateBodyLogIn = [
+  body("email").isEmail().withMessage("Email must be valid"),
+  body("password").trim().notEmpty().withMessage("You must supply a password"),
+];
+
+export const validateRequest = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const errors = validationResult(req);
+  //if there's error
+  if (!errors.isEmpty()) {
+    throw new RequestValidationError(errors.array());
+  }
+
   next();
 };

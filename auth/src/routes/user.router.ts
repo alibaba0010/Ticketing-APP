@@ -6,7 +6,7 @@ import {
   signUp,
 } from "../controller/user.controller";
 const userRouter = Router();
-
+// add validate Body
 userRouter
   .get("/currentuser", currentUser)
   .post("/signup", signUp)
