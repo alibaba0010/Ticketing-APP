@@ -1,6 +1,6 @@
 import { Router } from "express";
 import {
-  currentUser,
+  current_user,
   signOut,
   signIn,
   signUp,
@@ -8,7 +8,7 @@ import {
 const userRouter = Router();
 // add validate Body
 userRouter
-  .get("/currentuser", currentUser)
+  .get("/currentuser", current_user)
   .post("/signup", signUp)
   .post("/signin", signIn)
   .post("/signout", signOut);

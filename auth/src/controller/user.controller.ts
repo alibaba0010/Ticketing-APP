@@ -1,13 +1,14 @@
 import { Request, Response } from "express";
 import { validationResult } from "express-validator";
 import jwt from "jsonwebtoken";
+import { currentUser } from '../middlewares/currentUser';
 import { RequestValidationError } from "../middlewares/errors/validationError";
 import { User } from "../models/user.mongo";
 import { BadRequestError } from "../middlewares/errors/badRequest";
 import { PasswordMgt } from "../services/hashPassword";
 
-export const currentUser = async (req: Request, res: Response) => {
-  res.json({ msg: "HEllo" });
+export const current_user = async (req: Request, res: Response) => {
+  res.json({ currentUser: req.currentUser || null });
 };
 // REGISTER
 export const signUp = async (req: Request, res: Response) => {

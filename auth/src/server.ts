@@ -3,13 +3,14 @@ import userRouter from "./routes/user.router";
 import "express-async-errors";
 import mongoose from "mongoose";
 import connectDB from "./db";
-
+import cookieSession from "cookie-session";
 import { errorHandler } from "./middlewares/errors/errorHandler";
 import { NotFoundError } from "./middlewares/errors/notFoundError";
 const app = express();
 
 app
   .use(json())
+  .use(cookieSession({ signed: false, secure: true }))
   .use("/api/v1/users", userRouter)
   .use(errorHandler)
   .all("*", () => {
