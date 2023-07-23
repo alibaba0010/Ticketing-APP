@@ -11,9 +11,11 @@ import {
   validateRequest,
 } from "../middlewares/validator";
 const userRouter = Router();
+import { currentUser } from "../middlewares/currentUser";
+
 // add validate Body
 userRouter
-  .get("/currentuser", current_user)
+  .get("/currentuser", currentUser, current_user)
   .post("/signup", validateBody, validateRequest, signUp)
   .post("/signin", validateBodyLogIn, validateRequest, signIn)
   .post("/signout", signOut);

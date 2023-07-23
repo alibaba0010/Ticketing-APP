@@ -1,8 +1,5 @@
 import { Request, Response } from "express";
-import { validationResult } from "express-validator";
 import jwt from "jsonwebtoken";
-import { currentUser } from "../middlewares/currentUser";
-import { RequestValidationError } from "../middlewares/errors/validationError";
 import { User } from "../models/user.mongo";
 import { BadRequestError } from "../middlewares/errors/badRequest";
 import { PasswordMgt } from "../services/hashPassword";
@@ -33,7 +30,8 @@ export const signUp = async (req: Request, res: Response) => {
   req.session = {
     jwt: userToken,
   };
-  res.status(200).json(user);
+  const session = req.session;
+  res.status(201).json({ user, session });
 };
 // LOGIN
 export const signIn = async (req: Request, res: Response) => {
@@ -63,8 +61,11 @@ export const signIn = async (req: Request, res: Response) => {
   req.session = {
     jwt: userToken,
   };
-  res.status(200).json(existingUser);
+  const session = req.session;
+  res.status(200).json({ existingUser, session });
 };
 export const signOut = (req: Request, res: Response) => {
-  res.json({ msg: "HEllo" });
+  req.session = null;
+
+  res.json({ message: "Signout successful" });
 };
