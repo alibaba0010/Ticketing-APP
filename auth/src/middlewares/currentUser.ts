@@ -1,5 +1,5 @@
-import { Request, Response, NextFunction } from 'express';
-import jwt from 'jsonwebtoken';
+import { Request, Response, NextFunction } from "express";
+import jwt from "jsonwebtoken";
 
 interface UserPayload {
   id: string;
@@ -19,6 +19,7 @@ export const currentUser = (
   res: Response,
   next: NextFunction
 ) => {
+  console.log("session in cureent user: ", req.session);
   if (!req.session?.jwt) {
     return next();
   }
@@ -29,7 +30,9 @@ export const currentUser = (
       process.env.JWT_SECRET!
     ) as UserPayload;
     req.currentUser = payload;
-  } catch (err) {}
+  } catch (err) {
+    console.log("right here");
+  }
 
   next();
 };

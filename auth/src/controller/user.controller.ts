@@ -30,6 +30,8 @@ export const signUp = async (req: Request, res: Response) => {
   req.session = {
     jwt: userToken,
   };
+  console.log("req: ", req);
+  console.log("res: ", res);
   const session = req.session;
   res.status(201).json({ user, session });
 };
