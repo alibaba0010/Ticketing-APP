@@ -9,11 +9,13 @@ const app = express();
 app
   .set("trust proxy", true)
   .use(json())
-  .use(cookieSession({ signed: false, secure: true }))
+  .use(
+    cookieSession({ signed: false, secure: true, maxAge: 24 * 60 * 60 * 1000 })
+  ) // 24 hours
   .use("/api/v1/users", userRouter)
   .all("*", () => {
     throw new NotFoundError();
   })
   .use(errorHandler);
 
-export {app}
+export { app };

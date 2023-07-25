@@ -25,16 +25,21 @@ export const signUp = async (req: Request, res: Response) => {
     },
     process.env.JWT_SECRET!
   );
-
   // Store it on session object
   req.session = {
     jwt: userToken,
   };
+<<<<<<< HEAD
   console.log("req: ", req);
   console.log("res: ", res);
   const session = req.session;
   res.status(201).json({ user, session });
+=======
+
+  res.status(201).json({ user });
+>>>>>>> e98e5d14f668d49a86bdfc9a8d1a9a081a6db4cf
 };
+
 // LOGIN
 export const signIn = async (req: Request, res: Response) => {
   const { email, password } = req.body;
@@ -63,8 +68,7 @@ export const signIn = async (req: Request, res: Response) => {
   req.session = {
     jwt: userToken,
   };
-  const session = req.session;
-  res.status(200).json({ existingUser, session });
+  res.status(200).json({ existingUser });
 };
 export const signOut = (req: Request, res: Response) => {
   req.session = null;
