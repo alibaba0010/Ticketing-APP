@@ -13,7 +13,7 @@ export const signUp = async (req: Request, res: Response) => {
 
   const existingEmail = await User.findOne({ email });
   if (existingEmail) {
-    throw new Error("Email in use");
+    throw new BadRequestError("Email in use");
   }
   const user = User.build({ email, password });
   await user.save();
@@ -29,15 +29,8 @@ export const signUp = async (req: Request, res: Response) => {
   req.session = {
     jwt: userToken,
   };
-<<<<<<< HEAD
-  console.log("req: ", req);
-  console.log("res: ", res);
-  const session = req.session;
-  res.status(201).json({ user, session });
-=======
 
   res.status(201).json({ user });
->>>>>>> e98e5d14f668d49a86bdfc9a8d1a9a081a6db4cf
 };
 
 // LOGIN

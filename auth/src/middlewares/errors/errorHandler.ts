@@ -7,7 +7,8 @@ export const errorHandler = (
   next: NextFunction
 ) => {
   if (err instanceof CustomError) {
-    return res.status(err.statusCode).json({ error: err.serializeError() });
+    console.log("In Error Handling");
+    return res.status(err.statusCode).send({ error: err.serializeError() }); //json
   }
 
   res.status(500).json({ error: [{ message: "Service Unavailable" }] });
