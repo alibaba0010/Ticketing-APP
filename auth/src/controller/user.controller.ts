@@ -13,7 +13,7 @@ export const signUp = async (req: Request, res: Response) => {
 
   const existingEmail = await User.findOne({ email });
   if (existingEmail) {
-    throw new BadRequestError("Email in use");
+    throw new Error("Email in use");
   }
   const user = User.build({ email, password });
   await user.save();

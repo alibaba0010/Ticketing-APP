@@ -4,6 +4,7 @@ WORKDIR /usr/src/app
 COPY $APP_DIR/package*.json ./
 
 RUN npm install
+# --only=prod
 
 COPY ./ ./
 
