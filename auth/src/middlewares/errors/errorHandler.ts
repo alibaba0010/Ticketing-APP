@@ -11,5 +11,5 @@ export const errorHandler = (
     return res.status(err.statusCode).send({ error: err.serializeError() }); //json
   }
 
-  res.status(500).json({ error: [{ message: "Service Unavailable" }] });
+  res.status(500).send({ error: [{ message: "Service Unavailable" }] });
 };

@@ -4,7 +4,6 @@ import "express-async-errors";
 import cookieSession from "cookie-session";
 import { errorHandler } from "./middlewares/errors/errorHandler";
 import { NotFoundError } from "./middlewares/errors/notFoundError";
-import cookieParser from "cookie-parser";
 const app = express();
 
 app
@@ -12,12 +11,11 @@ app
   .use(json())
   .use(
     cookieSession({ signed: false, secure: false, maxAge: 24 * 60 * 60 * 1000 })
-    //  cookieParser()
   ) // 24 hours
   .use("/api/v1/users", userRouter)
-  .all("*", () => {
-    throw new NotFoundError();
-  })
+  // .all("*", async (req, res) => {
+  //   throw new NotFoundError("Route doesn't exist");
+  // });
   .use(errorHandler);
 
 export { app };

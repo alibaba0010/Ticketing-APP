@@ -13,7 +13,6 @@ export const signUp = async (req: Request, res: Response) => {
 
   const existingEmail = await User.findOne({ email });
   if (existingEmail) {
-    console.log("Email already exists");
     throw new BadRequestError("Email already exists");
   }
   const user = User.build({ email, password });
