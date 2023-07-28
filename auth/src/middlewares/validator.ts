@@ -1,7 +1,7 @@
 import { body } from "express-validator";
 import { Request, Response, NextFunction } from "express";
 import { validationResult } from "express-validator";
-import { RequestValidationError } from "./errors/validationError";
+import RequestValidationError from "./errors/validationError";
 
 export const validateBody = [
   body("email").isEmail().withMessage("Email must be valid"),

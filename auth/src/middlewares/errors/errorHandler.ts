@@ -1,15 +1,17 @@
 import { NextFunction, Response, Request } from "express";
-import { CustomError } from "./customError";
-export const errorHandler = (
+import CustomError from "./customError";
+export async function errorHandler(
   err: Error,
   req: Request,
   res: Response,
   next: NextFunction
-) => {
+) {
+  console.log("In Handling Error page");
   if (err instanceof CustomError) {
-    console.log("In Error Handling");
+    //Error
+    console.log("In Error Handling: ", err.serializeError());
     return res.status(err.statusCode).send({ error: err.serializeError() }); //json
   }
 
-  res.status(500).send({ error: [{ message: "Service Unavailable" }] });
-};
+  return res.status(500).send({ error: [{ message: "Service Unavailable" }] });
+}

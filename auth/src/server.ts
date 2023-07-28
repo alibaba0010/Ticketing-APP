@@ -8,7 +8,7 @@ import connectDB from "./db";
   try {
     await connectDB();
   } catch (e) {
-    console.log(e);
+    console.log("In catch: ", e);
   }
   app.listen(3001, () => console.log("Listen to port 3001"));
 })();

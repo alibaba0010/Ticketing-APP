@@ -1,4 +1,4 @@
-import { CustomError } from "./customError";
+import  CustomError from "./customError";
 
 export class DatabaseConnectionError extends CustomError {
   statusCode = 500;
@@ -12,3 +12,4 @@ export class DatabaseConnectionError extends CustomError {
     return [{ message: this.message }];
   }
 }
+export { DatabaseConnectionError as default };

@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import { User } from "../models/user.mongo";
-import { BadRequestError } from "../middlewares/errors/badRequest";
+import BadRequestError from "../middlewares/errors/badRequest";
 import { PasswordMgt } from "../services/hashPassword";
 
 export const current_user = async (req: Request, res: Response) => {

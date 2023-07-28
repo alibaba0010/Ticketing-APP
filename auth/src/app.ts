@@ -13,9 +13,9 @@ app
     cookieSession({ signed: false, secure: false, maxAge: 24 * 60 * 60 * 1000 })
   ) // 24 hours
   .use("/api/v1/users", userRouter)
-  // .all("*", async (req, res) => {
-  //   throw new NotFoundError("Route doesn't exist");
-  // });
-  .use(errorHandler);
+  .use("*", async () => {
+    throw new NotFoundError("Route doesn't exist");
+  })
+  .use("*", errorHandler);
 
 export { app };
