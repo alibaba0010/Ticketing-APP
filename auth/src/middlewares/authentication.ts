@@ -6,9 +6,13 @@ export const authentication = (
   res: Response,
   next: NextFunction
 ) => {
+  // try {
   if (!req.currentUser) {
     throw new NotAuthorizedError();
   }
 
   next();
+  // } catch (error) {
+  //   next(error);
+  // }
 };

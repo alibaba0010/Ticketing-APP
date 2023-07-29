@@ -16,6 +16,6 @@ app
   .use("*", async () => {
     throw new NotFoundError("Route doesn't exist");
   })
-  .use("*", errorHandler);
+  .use(errorHandler);
 
 export { app };

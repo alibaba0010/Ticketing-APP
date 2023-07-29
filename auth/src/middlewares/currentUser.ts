@@ -31,7 +31,6 @@ export const currentUser = (
     ) as UserPayload;
     req.currentUser = payload;
   } catch (err) {
-    console.log("right here");
   }
 
   next();
