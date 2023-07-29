@@ -9,9 +9,9 @@ export async function errorHandler(
   console.log("In Handling Error page");
   if (err instanceof CustomError) {
     //Error
-    console.log("In Error Handling: ", err.serializeError());
-    return res.status(err.statusCode).send({ error: err.serializeError() }); //json
+    console.log("In Error Handling: ", err.message);
+    return res.status(err.statusCode).json({ error: err.message }); //json
   }
 
-  return res.status(500).send({ error: [{ message: "Service Unavailable" }] });
+  return res.status(500).json({ error: [{ message: "Service Unavailable" }] });
 }

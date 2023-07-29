@@ -1,4 +1,4 @@
-import  CustomError from "./customError";
+import CustomError from "./customError";
 
 export class DatabaseConnectionError extends CustomError {
   statusCode = 500;
@@ -8,8 +8,8 @@ export class DatabaseConnectionError extends CustomError {
     super("Error connecting to DB");
     Object.setPrototypeOf(this, DatabaseConnectionError.prototype);
   }
-  serializeError() {
-    return [{ message: this.message }];
-  }
+  // serializeError() {
+  //   return [{ message: this.message }];
+  // }
 }
 export { DatabaseConnectionError as default };
