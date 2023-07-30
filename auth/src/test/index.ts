@@ -13,13 +13,12 @@ declare global {
 
 let mongo: any;
 beforeAll(async () => {
-  process.env.JWT_KEY = "asdfasdf";
+  process.env.JWT_SECRET = "asdfasdf";
   process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
   mongo = await MongoMemoryServer.create(); // Assign the MongoMemoryServer instance to the global mongo variable
   const mongoUri = mongo.getUri(); // Get the URI from the MongoMemoryServer instance
-  console.log("mongoURI:", mongoUri);
-  await mongoose.connect(mongoUri);
+   await mongoose.connect(mongoUri);
 });
 
 beforeEach(async () => {
