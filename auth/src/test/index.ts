@@ -11,19 +11,18 @@ declare global {
   }
 }
 
-let mongo: any; //declare mongo global
+let mongo: any;
 beforeAll(async () => {
   process.env.JWT_KEY = "asdfasdf";
   process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
-  mongo = new MongoMemoryServer();
-  const mongoUri = await mongo.getUri();
-
-  await mongoose.connect(mongoUri);    
+  mongo = await MongoMemoryServer.create(); // Assign the MongoMemoryServer instance to the global mongo variable
+  const mongoUri = mongo.getUri(); // Get the URI from the MongoMemoryServer instance
+  console.log("mongoURI:", mongoUri);
+  await mongoose.connect(mongoUri);
 });
 
 beforeEach(async () => {
-  // before test delete collections in in-memory db
   const collections = await mongoose.connection.db.collections();
 
   for (let collection of collections) {
@@ -35,3 +34,20 @@ afterAll(async () => {
   await mongo.stop();
   await mongoose.connection.close();
 });
+
+// global.signin = async () => {
+//   const email = 'test@test.com';
+//   const password = 'password';
+
+//   const response = await request(app)
+//     .post('/api/users/signup')
+//     .send({
+//       email,
+//       password
+//     })
+//     .expect(201);
+
+//   const cookie = response.get('Set-Cookie');
+
+//   return cookie;
+// };
