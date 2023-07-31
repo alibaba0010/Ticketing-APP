@@ -18,15 +18,14 @@ build:
         manual:
           - src: "src/**/*.ts"
             dest: .
-
-    # - image: cygnetops/comments-84 #2
-    #   context: comments
-    #   docker:
-    #     dockerfile: Dockerfile
-    #   sync:
-    #     manual:
-    #       - src: "*.js"
-    #         dest: .
+    - image: alibaba0010/client
+      context: client
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "**/*.js"
+            dest: .
     # - image: cygnetops/event-bus-85
     #   context: event-bus
     #   docker:
