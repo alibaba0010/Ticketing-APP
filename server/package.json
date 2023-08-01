@@ -50,5 +50,12 @@
     "mongodbMemoryServer": {
       "debug": "1"
     }
+  },
+  "roots": [
+    "<rootDir>/*/",
+    "<rootDir>/common/"
+  ],
+  "moduleNameMapper": {
+    "^@app/common(|/.*)$": "<rootDir>/common/src/$1"
   }
 }

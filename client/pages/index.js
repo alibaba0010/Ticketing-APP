@@ -1,4 +1,5 @@
 import Link from "next/link";
+import client from "../api/build-client";
 
 const LandingPage = ({ currentUser, tickets }) => {
   const ticketList = tickets.map((ticket) => {
@@ -33,7 +34,8 @@ const LandingPage = ({ currentUser, tickets }) => {
 };
 // server fetch data SSR-- server side rendering process
 LandingPage.getInitialProps = async (context, client, currentUser) => {
-  const { data } = await    client.get("/api/tickets");
+  // const { data } = await client.get("/api/tickets");
+  const { data } = await client.get("/api/v1/users/currentuser");
 
   return { tickets: data };
 };
