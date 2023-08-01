@@ -21,10 +21,10 @@ export const validateRequest = (
   res: Response,
   next: NextFunction
 ) => {
-  const errors = validationResult(req);
+  const error = validationResult(req);
   //if there's error
-  if (!errors.isEmpty()) {
-    throw new RequestValidationError(errors.array());
+  if (!error.isEmpty()) {
+    throw new RequestValidationError(error.array());
   }
 
   next();

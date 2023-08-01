@@ -1,10 +1,10 @@
 import { ValidationError } from "express-validator";
-import  CustomError  from "./customError";
+import CustomError from "./customError";
 
- class RequestValidationError extends CustomError {
+class RequestValidationError extends CustomError {
   statusCode = 400;
 
-  constructor(public errors: ValidationError[]) {
+  constructor(public error: ValidationError[]) {
     super("Invalid request parameters");
 
     // Only because we are extending a built in class
@@ -12,7 +12,7 @@ import  CustomError  from "./customError";
   }
 
   serializeError() {
-    return this.errors.map((err) => {
+    return this.error.map((err) => {
       return { message: err.msg, field: err.type };
     });
   }
