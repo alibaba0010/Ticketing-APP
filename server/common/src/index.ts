@@ -1,1 +1,1 @@
-export * from "./"
+export { default } from "./errors/badRequest";
