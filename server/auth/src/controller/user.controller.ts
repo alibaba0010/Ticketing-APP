@@ -1,7 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
+
+import { BadRequestError } from "@app/common";
 import { User } from "../models/user.mongo";
-import BadRequestError from "@app/common";
 import { PasswordMgt } from "../services/hashPassword";
 
 // GET CURRENT USER

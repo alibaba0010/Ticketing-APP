@@ -13,7 +13,7 @@ build:
     - image: alibaba0010/auth
       custom:
         buildCommand: bash -c "docker build -f server/auth/Dockerfile --build-arg APP_DIR=.. -t alibaba0010/auth:a9ccc11-dirty ."
-      context: .
+      context: . #./server/auth
       sync:
         manual:
           - src: "src/**/*.ts"
@@ -26,14 +26,14 @@ build:
         manual:
           - src: "**/*.js"
             dest: .
-    # - image: cygnetops/event-bus-85
-    #   context: event-bus
-    #   docker:
-    #     dockerfile: Dockerfile
-    #   sync:
-    #     manual:
-    #       - src: "*.js"
-    #         dest: .
+    - image: alibaba0010/tickets
+      custom:
+        buildCommand: bash -c "docker build -f server/auth/Dockerfile --build-arg APP_DIR=.. -t alibaba0010/auth:a9ccc11-dirty ."
+      context:  . #./server/tickets
+      sync:
+        manual:
+          - src: "src/**/*.ts"
+            dest: .
     # - image: cygnetops/moderation-84 #3
     #   context: moderation
     #   docker:

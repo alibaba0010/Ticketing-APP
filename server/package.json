@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev:auth": "ts-node-dev auth/src/server.ts",
+    "dev:tickets": "ts-node-dev tickets/src/server.ts",
     "test": "jest --watchAll --no-cache",
     "test:ci": "jest"
   },
@@ -51,5 +52,4 @@
       "debug": "1"
     }
   }
- 
 }

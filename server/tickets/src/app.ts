@@ -3,7 +3,7 @@ import "express-async-errors";
 import cookieSession from "cookie-session";
 
 import { errorHandler, NotFoundError } from "@app/common";
-import userRouter from "./routes/user.router";
+import ticketRouter from "./routes/tickets.router";
 
 const app = express();
 
@@ -17,7 +17,7 @@ app
       maxAge: 24 * 60 * 60 * 1000,
     })
   ) // 24 hours
-  .use("/api/v1/users", userRouter)
+  .use("/api/v1/tickets", ticketRouter)
   .use("*", async () => {
     throw new NotFoundError("Route doesn't exist");
   })

@@ -9,9 +9,9 @@ import {
   validateBody,
   validateBodyLogIn,
   validateRequest,
-} from "../middlewares/validator";
+  currentUser,
+} from "@app/common";
 const userRouter = Router();
-import { currentUser } from "../middlewares/currentUser";
 
 // add validate Body
 userRouter
@@ -19,6 +19,5 @@ userRouter
   .post("/signup", validateBody, validateRequest, signUp)
   .post("/signin", validateBodyLogIn, validateRequest, signIn)
   .post("/signout", signOut);
-
 
 export default userRouter;

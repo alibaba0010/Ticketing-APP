@@ -9,8 +9,9 @@ import connectDB from "./db";
     throw new Error("MONGO_URL must be included");
   }
   const uri = process.env.MONGO_URL;
+
   try {
     await connectDB(uri);
   } catch (e) {}
-  app.listen(3001, () => console.log("Listen to port 3001"));
+  app.listen(3002, () => console.log("Listen to port 3001"));
 })();

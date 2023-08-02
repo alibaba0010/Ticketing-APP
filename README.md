@@ -1,6 +1,6 @@
 kubectl create secret generic jwt-secret --from-literal=JWT_KEY=<secret_key>
 
-Build docker image and push to docker hub
+Build docker image and push to docker hub in client for client and server for tickets
 
 change routes in sign in,up& out, index.js
 
@@ -11,7 +11,7 @@ to connect to a service on a differnet namespace we use http://NAMEOFSERVICE.NAM
 http://ingress-nginx-controller.ingress-nginx.svc.cluster.local
 kubectl get services
 kubectl get services -n ingress-nginx-controller
-
+kubectl exec -it pods_name sh
 Using npm registry at common lib
 Publishing npm registry-- public, private, organization
 Pay money or host an open source version of a registry which requires additional setup

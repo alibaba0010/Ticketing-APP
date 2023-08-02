@@ -12,3 +12,5 @@ export class NotFoundError extends CustomError {
     return [{ message: this.message }];
   }
 }
+
+export { NotFoundError as default };
