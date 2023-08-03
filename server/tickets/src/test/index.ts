@@ -2,11 +2,12 @@ import { MongoMemoryServer } from "mongodb-memory-server";
 import mongoose from "mongoose";
 import request from "supertest";
 import { app } from "../app";
+import jwt from "jsonwebtoken";
 
 declare global {
   namespace NodeJS {
     interface Global {
-      signin(): Promise<string[]>; //aditional property
+      login(): string[];
     }
   }
 }
@@ -20,10 +21,6 @@ beforeAll(async () => {
     instance: {
       dbName: "test-db", // Your desired database name
       storageEngine: "wiredTiger", // Optional: Specify the storage engine
-      port: 27017, // Optional: Specify a custom port number
-      // debug: true, // Optional: Set to true to enable debugging output
-      // Extend the launch timeout to 10 seconds (10000 milliseconds)
-      // Adjust this value as needed for your specific environment
       launchTimeout: 10000,
     },
   }); // Assign the MongoMemoryServer instance to the global mongo variable
@@ -44,19 +41,25 @@ afterAll(async () => {
   await mongoose.connection.close();
 });
 
-global.signin = async () => {
-  const email = "test@test.com";
-  const password = "password";
+global.login = () => {
+  // Build a JWT payload.  { id, email }
+  const payload = {
+    id: new mongoose.Types.ObjectId().toHexString(),
+    email: "test@test.com",
+  };
 
-  const response = await request(app)
-    .post("/api/v1/users/signup")
-    .send({
-      email,
-      password,
-    })
-    .expect(201);
+  // Create the JWT!
+  const token = jwt.sign(payload, process.env.JWT_KEY!);
 
-  const cookie = response.get("Set-Cookie");
+  // Build session Object. { jwt: MY_JWT }
+  const session = { jwt: token };
 
-  return cookie;
+  // Turn that session into JSON
+  const sessionJSON = JSON.stringify(session);
+
+  // Take JSON and encode it as base64
+  const base64 = Buffer.from(sessionJSON).toString("base64");
+  console.log("base64: ", base64);
+  // return a string thats the cookie with the encoded data
+  return [`express:sess=${base64}`];
 };

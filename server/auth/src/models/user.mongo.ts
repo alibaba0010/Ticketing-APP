@@ -50,6 +50,6 @@ UserSchema.pre("save", async function (next) {
 });
 UserSchema.statics.build = (attrs: UserAttrs) => {
   return new User(attrs);
-};
+}; // to allow typescript to do some validation and type checking on the properties
 const User = model<UserDoc, UserModel>("User", UserSchema);
 export { User };

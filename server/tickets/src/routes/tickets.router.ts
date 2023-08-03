@@ -1,13 +1,14 @@
+import { authentication, validateRequest, validateTicket } from "@app/common";
 import { Request, Response, Router } from "express";
-// import { Ticket } from '../models/ticket';
+import { createTicket } from "../controllers/tickets.controller";
 
 const ticketRouter = Router();
 
-ticketRouter.get("/", async (req: Request, res: Response) => {
-  const tickets = await Ticket.find({
-    orderId: undefined,
-  });
-
-  res.send(tickets);
-});
+ticketRouter.get(
+  "/",
+  validateTicket,
+  validateRequest,
+  authentication,
+  createTicket
+);
 export default ticketRouter;

@@ -16,6 +16,12 @@ export const validateBodyLogIn = [
   body("password").trim().notEmpty().withMessage("You must supply a password"),
 ];
 
+export const validateTicket = [
+  body("title").not().isEmpty().withMessage("Title is required"), //empty string
+  body("price")
+    .isFloat({ gt: 0 })
+    .withMessage("Price must be greater than zero"),
+];
 export const validateRequest = (
   req: Request,
   res: Response,
