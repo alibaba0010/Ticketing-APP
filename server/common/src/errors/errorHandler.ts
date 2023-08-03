@@ -13,3 +13,6 @@ export const errorHandler = (
 
   return res.status(500).json({ error: [{ message: "Service Unavailable" }] });
 };
+
+// cast error id or params issues
+// err.name = "CastError"

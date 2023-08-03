@@ -1,14 +1,13 @@
 import { authentication, validateRequest, validateTicket } from "@app/common";
 import { Request, Response, Router } from "express";
-import { createTicket } from "../controllers/tickets.controller";
+import {
+  createTicket,
+  getTicketWithId,
+} from "../controllers/tickets.controller";
 
 const ticketRouter = Router();
 
-ticketRouter.get(
-  "/",
-  validateTicket,
-  validateRequest,
-  authentication,
-  createTicket
-);
+ticketRouter
+  .post("/", validateTicket, validateRequest, authentication, createTicket)
+  .get("/:id", authentication, getTicketWithId);
 export default ticketRouter;
