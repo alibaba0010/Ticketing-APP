@@ -13,5 +13,5 @@ import connectDB from "./db";
   try {
     await connectDB(uri);
   } catch (e) {}
-  app.listen(3002, () => console.log("Listen to port 3001"));
+  app.listen(3002, () => console.log("Listen to port 3002"));
 })();

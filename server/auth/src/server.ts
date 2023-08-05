@@ -14,3 +14,4 @@ import connectDB from "./db";
   } catch (e) {}
   app.listen(3001, () => console.log("Listen to port 3001"));
 })();
+

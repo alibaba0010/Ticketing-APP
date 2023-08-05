@@ -11,19 +11,28 @@ spec:
       http:
         paths:
           - path: /api/v1/users/?(.*)
-            # pathType: Prefix
-            backend:
-              service:
-                name: auth-srv
-                port:
-                  number: 3001
-          - path: /?(.*)
             pathType: Prefix
             backend:
               service:
+                name: auth-srv
+                port: 
+                  number: 3001
+          - path: /api/v1/tickets/?(.*)
+            pathType: Prefix
+            backend:
+              service: 
+                name: tickets-srv
+                port: 
+                  number: 3002
+          - path: /?(.*)
+            pathType: Prefix
+            backend:
+              service: 
                 name: client-srv
-                port:
+                port: 
                   number: 3000
+          # port:
+          #   - number: 3000
           # - path: /posts/?(.*)/comments #?(.*) RegExp for :id
           #   pathType: Prefix
           #   backend:

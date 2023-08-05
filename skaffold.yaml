@@ -12,8 +12,8 @@ build:
   artifacts:
     - image: alibaba0010/auth
       custom:
-        buildCommand: bash -c "docker build -f server/auth/Dockerfile --build-arg APP_DIR=.. -t alibaba0010/auth:a9ccc11-dirty ."
-      context: . #./server/auth
+        buildCommand: bash -c "docker build -f server/auth/Dockerfile --build-arg APP_DIR=../../server -t alibaba0010/auth:38fed26-dirty ."
+      context: .
       sync:
         manual:
           - src: "src/**/*.ts"
@@ -28,8 +28,8 @@ build:
             dest: .
     - image: alibaba0010/tickets
       custom:
-        buildCommand: bash -c "docker build -f server/auth/Dockerfile --build-arg APP_DIR=.. -t alibaba0010/auth:a9ccc11-dirty ."
-      context:  . #./server/tickets
+        buildCommand: bash -c "docker build -f server/tickets/Dockerfile --build-arg APP_DIR=../../server -t alibaba0010/tickets:38fed26-dirty ."
+      context: .
       sync:
         manual:
           - src: "src/**/*.ts"

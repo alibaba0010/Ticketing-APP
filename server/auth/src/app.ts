@@ -1,12 +1,13 @@
+import "module-alias/register";
 import express, { json } from "express";
 import "express-async-errors";
 import cookieSession from "cookie-session";
-
 import { errorHandler, NotFoundError } from "@app/common";
 import userRouter from "./routes/user.router";
 
-const app = express();
+console.log("Hello");
 
+const app = express();
 app
   .set("trust proxy", true)
   .use(json())
