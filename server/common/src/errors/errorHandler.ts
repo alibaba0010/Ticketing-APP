@@ -10,9 +10,10 @@ export const errorHandler = (
     //Error
     return res.status(err.statusCode).json({ error: err.serializeError() }); //json
   }
+  if ((err.name = "CastError")) {
+    //Error
+    return res.status(400).json({ error: { message: err } }); //json
+  }
 
   return res.status(500).json({ error: [{ message: "Service Unavailable" }] });
 };
-
-// cast error id or params issues
-// err.name = "CastError"

@@ -23,5 +23,20 @@ export const getTicketWithId = async (req: Request, res: Response) => {
   if (!ticket) {
     throw new NotFoundError("Ticket not found");
   }
-  res.status(200).send(ticket);
+  res.status(200).json(ticket);
+};
+
+// UPDATE TICKET
+export const updateTicket = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const ticket = await Ticket.findById(id);
+
+  if (!ticket) {
+    throw new NotFoundError("Ticket not found");
+  }
+  ticket.set({
+    title: req.body.title,
+    price: req.body.price,
+  });
+  await ticket.save();
 };
