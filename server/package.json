@@ -6,7 +6,7 @@
   "scripts": {
     "dev:auth": "ts-node-dev ./alias.ts auth/src/server.ts",
     "dev:tickets": "ts-node-dev ./alias.ts tickets/src/server.ts",
-    "test": "jest --watchAll --no-cache",
+    "test": "jest --watchAll --no-cache ./alias.ts",
     "test:ci": "jest"
   },
   "jest": {
