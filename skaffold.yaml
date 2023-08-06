@@ -11,13 +11,13 @@ build:
   #   projectId: # id on google cloud
   artifacts:
     - image: alibaba0010/auth
-      custom:
-        buildCommand: bash -c "docker build -f server/auth/Dockerfile --build-arg APP_DIR=../../server -t alibaba0010/auth:da20ab3-dirty ."
       context: server/auth
+      docker:
+        dockerfile: Dockerfile
       sync:
-        manual:
-          - src: "src/**/*.ts"
-            dest: .
+       manual:
+         - src: "server/auth/src/**/*.ts"
+           dest: .
     - image: alibaba0010/client
       context: client
       docker:
@@ -27,12 +27,15 @@ build:
           - src: "**/*.js"
             dest: .
     - image: alibaba0010/tickets
-      custom:
-        buildCommand: bash -c "docker build -f server/tickets/Dockerfile --build-arg APP_DIR=../../server -t alibaba0010/tickets:da20ab3-dirty ."
       context: server/tickets
+      docker:
+        dockerfile: Dockerfile
+      # custom:
+      #   buildCommand: bash -c "docker build -f server/tickets/Dockerfile --build-arg APP_DIR=../../server -t alibaba0010/tickets:a6d8f41-dirty ."
+      # context: ./server/tickets
       sync:
         manual:
-          - src: "src/**/*.ts"
+          - src: "server/tickets/src/**/*.ts"
             dest: .
     # - image: cygnetops/moderation-84 #3
     #   context: moderation
@@ -58,3 +61,6 @@ build:
     #     manual:
     #       - src: "*.js"
     #         dest: .
+
+# custom:
+        # buildCommand: bash -c "docker build -f server/auth/Dockerfile --build-arg APP_DIR=../../server -t alibaba0010/auth:a6d8f41-dirty ."

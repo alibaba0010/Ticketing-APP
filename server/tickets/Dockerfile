@@ -1,11 +1,10 @@
 FROM node:18-alpine
-ENV APP_DIR=$APP_DIR
 
-ARG APP_DIR
+# ARG APP_DIR
 
 WORKDIR /usr/src/app
 
-COPY $APP_DIR/package.json ./
+COPY package.json ./
 
 RUN npm install --omit=dev
 
