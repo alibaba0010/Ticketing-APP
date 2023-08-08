@@ -1,6 +1,6 @@
 import { Response, Request } from "express";
 import { Ticket } from "../models/tickets.mongo";
-import { NotFoundError } from "@app/common";
+import { NotFoundError, UnAuthorizedError } from "@app/common";
 
 export const createTicket = async (req: Request, res: Response) => {
   const { title, price } = req.body;
@@ -38,5 +38,10 @@ export const updateTicket = async (req: Request, res: Response) => {
     title: req.body.title,
     price: req.body.price,
   });
+  if (ticket.userId !== req.currentUser!.id) {
+    throw new UnAuthorizedError();
+  }
+
   await ticket.save();
+  res.status(200).send(ticket);
 };

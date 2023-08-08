@@ -11,5 +11,5 @@ const ticketRouter = Router();
 ticketRouter
   .post("/", validateTicket, validateRequest, authentication, createTicket)
   .get("/:id", authentication, getTicketWithId)
-  .patch("/:id", authentication, updateTicket);
+  .patch("/:id", validateTicket, authentication, updateTicket);
 export default ticketRouter;
