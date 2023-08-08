@@ -4,9 +4,9 @@ import useRequest from "../../hooks/use-request.js";
 
 export default () => {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState(""); 
-  const { doRequest, error } = useRequest({    
-    url: "http:localhost/3001/api/v1/users/signup",
+  const [password, setPassword] = useState("");
+  const { doRequest, error } = useRequest({
+    url: "http:localhost/3000/api/v1/users/signup",
     method: "post",
     body: {
       email,
@@ -16,7 +16,7 @@ export default () => {
   });
   // console.log(response.data)
   //try catch console.log(err.response.data)
-  // change errors to error 
+  // change errors to error
   const onSubmit = async (event) => {
     event.preventDefault();
 

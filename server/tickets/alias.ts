@@ -1,5 +1,5 @@
 // module-alias.js
-const moduleAlias = require("module-alias");
+import moduleAlias from "module-alias";
 
 moduleAlias.addAliases({
   "@app/common": "./common/src",

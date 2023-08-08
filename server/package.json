@@ -1,12 +1,12 @@
 {
   "name": "ticketing-api",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "ticketing-service",
   "main": "index.js",
   "scripts": {
     "dev:auth": "ts-node-dev ./alias.ts auth/src/server.ts",
     "dev:tickets": "ts-node-dev ./alias.ts tickets/src/server.ts",
-    "test": "jest --watchAll --no-cache ./alias.ts",
+    "test": "jest --watchAll --no-cache",
     "test:ci": "jest"
   },
   "jest": {
@@ -16,7 +16,10 @@
     "setupFilesAfterEnv": [
       "./auth/src/test/index.ts",
       "./tickets/src/test/index.ts"
-    ]
+    ],
+    "moduleNameMapper": {
+      "^@app/common(|/.*)$": "<rootDir>/common/src/$1"
+    }
   },
   "keywords": [],
   "author": "",

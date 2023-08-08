@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { NotAuthorizedError } from "../errors/notAuthorizedError";
+import { UnAuthorizedError } from "../errors/notAuthorizedError";
 
 export const authentication = (
   req: Request,
@@ -7,8 +7,8 @@ export const authentication = (
   next: NextFunction
 ) => {
   if (!req.currentUser) {
-    throw new NotAuthorizedError();
+    throw new UnAuthorizedError();
   }
 
   next();
-};
+}; 

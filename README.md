@@ -15,3 +15,7 @@ kubectl exec -it pods_name sh
 Using npm registry at common lib
 Publishing npm registry-- public, private, organization
 Pay money or host an open source version of a registry which requires additional setup
+
+client url http://192.168.49.2:31379/
+
+minikube service auth-depl --url

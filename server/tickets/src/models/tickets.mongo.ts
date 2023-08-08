@@ -53,5 +53,5 @@ TicketSchema.statics.build = (attrs: TicketAttrs) => {
   return new Ticket(attrs);
 };
 
-const Ticket = model<TicketDoc, TicketModel>("User", TicketSchema);
+const Ticket = model<TicketDoc, TicketModel>("Ticket", TicketSchema);
 export { Ticket };

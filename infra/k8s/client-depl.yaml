@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: client
-          image: alibaba0010/client:1          
+          image: alibaba0010/client:1
           ports:
             - containerPort: 3000
 ---
@@ -28,5 +28,5 @@ spec:
   ports:
     - name: client
       protocol: TCP
-      port: 3001
-      targetPort: 3001
+      port: 3000
+      targetPort: 3000

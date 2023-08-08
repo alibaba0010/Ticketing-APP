@@ -3,6 +3,7 @@ export default ({ req }) => {
   if (typeof window === "undefined") {
     // We are on the server
 
+    console.log("In Build client Axios");
     return axios.create({
       baseURL:
         "http://ingress-nginx-controller.ingress-nginx.svc.cluster.local",

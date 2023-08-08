@@ -15,21 +15,21 @@ spec:
             backend:
               service:
                 name: auth-srv
-                port: 
+                port:
                   number: 3001
           - path: /api/v1/tickets/?(.*)
             pathType: Prefix
             backend:
-              service: 
+              service:
                 name: tickets-srv
-                port: 
+                port:
                   number: 3002
           - path: /?(.*)
             pathType: Prefix
             backend:
-              service: 
+              service:
                 name: client-srv
-                port: 
+                port:
                   number: 3000
           # port:
           #   - number: 3000
