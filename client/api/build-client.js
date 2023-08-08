@@ -6,6 +6,8 @@ export default ({ req }) => {
     return axios.create({
       baseURL:
         "http://ingress-nginx-controller.ingress-nginx.svc.cluster.local",
+      // "http://ingress-nginx-controller.ingress-nginx"
+
       // headers: req.headers,
       headers: {
         Host: "http://192.168.49.2:32208",
