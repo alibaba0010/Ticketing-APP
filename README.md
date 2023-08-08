@@ -17,5 +17,10 @@ Publishing npm registry-- public, private, organization
 Pay money or host an open source version of a registry which requires additional setup
 
 client url http://192.168.49.2:31379/
+auth-depl http://192.168.49.2:32208
 
 minikube service auth-depl --url
+kubectl get namespace
+kubectl get services -n ingress-nginx
+
+kubectl get pods -n ingress-inginx

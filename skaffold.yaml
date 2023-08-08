@@ -15,9 +15,9 @@ build:
       docker:
         dockerfile: Dockerfile
       sync:
-       manual:
-         - src: "server/auth/src/**/*.ts"
-           dest: .
+        manual:
+          - src: "server/auth/src/**/*.ts"
+            dest: .
     - image: alibaba0010/client
       context: client
       docker:
@@ -26,17 +26,17 @@ build:
         manual:
           - src: "**/*.js"
             dest: .
-    - image: alibaba0010/tickets
-      context: server/tickets
-      docker:
-        dockerfile: Dockerfile
-      # custom:
-      #   buildCommand: bash -c "docker build -f server/tickets/Dockerfile --build-arg APP_DIR=../../server -t alibaba0010/tickets:a6d8f41-dirty ."
-      # context: ./server/tickets
-      sync:
-        manual:
-          - src: "server/tickets/src/**/*.ts"
-            dest: .
+    # - image: alibaba0010/tickets
+    #   context: server/tickets
+    #   docker:
+    #     dockerfile: Dockerfile
+    #   # custom:
+    #   #   buildCommand: bash -c "docker build -f server/tickets/Dockerfile --build-arg APP_DIR=../../server -t alibaba0010/tickets:a6d8f41-dirty ."
+    #   # context: ./server/tickets
+    #   sync:
+    #     manual:
+    #       - src: "server/tickets/src/**/*.ts"
+    #         dest: .
     # - image: cygnetops/moderation-84 #3
     #   context: moderation
     #   docker:
@@ -61,6 +61,5 @@ build:
     #     manual:
     #       - src: "*.js"
     #         dest: .
-
 # custom:
-        # buildCommand: bash -c "docker build -f server/auth/Dockerfile --build-arg APP_DIR=../../server -t alibaba0010/auth:a6d8f41-dirty ."
+# buildCommand: bash -c "docker build -f server/auth/Dockerfile --build-arg APP_DIR=../../server -t alibaba0010/auth:a6d8f41-dirty ."
