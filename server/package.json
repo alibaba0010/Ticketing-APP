@@ -4,8 +4,8 @@
   "description": "ticketing-service",
   "main": "index.js",
   "scripts": {
-    "dev:auth": "ts-node-dev ./alias.ts auth/src/server.ts",
-    "dev:tickets": "ts-node-dev ./alias.ts tickets/src/server.ts",
+    "dev:auth": "ts-node-dev  auth/src/server.ts",
+    "dev:tickets": "ts-node-dev tickets/src/server.ts",
     "test": "jest --watchAll --no-cache",
     "test:ci": "jest"
   },

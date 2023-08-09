@@ -1,6 +1,10 @@
+import "module-alias/register";
 import express, { json } from "express";
 import "express-async-errors";
 import cookieSession from "cookie-session";
+import moduleAlias from "module-alias";
+
+moduleAlias.addAlias("@app/common", __dirname + "../../../common/src");
 
 import { errorHandler, NotFoundError } from "@app/common";
 import ticketRouter from "./routes/tickets.router";

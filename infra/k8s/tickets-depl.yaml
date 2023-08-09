@@ -15,7 +15,7 @@ spec:
       containers:
         - name: tickets
           image: alibaba0010/tickets:1
-          env: 
+          env:
             - name: MONGO_URL
               value: "mongodb://tickets-mongo-srv:27017/tickets"
             - name: JWT_SECRET
@@ -23,8 +23,8 @@ spec:
                 secretKeyRef:
                   name: jwt-secret
                   key: JWT_KEY
-          ports:
-            - containerPort: 3002
+#           ports:
+#             - containerPort: 3002
 ---
 apiVersion: v1
 kind: Service

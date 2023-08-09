@@ -4,7 +4,7 @@
   "description": "ticketing-service",
   "main": "index.js",
   "scripts": {
-    "dev:auth": "ts-node-dev ./alias.ts src/server.ts"
+    "dev:auth": "ts-node-dev src/server.ts"
   },
   "dependencies": {
     "@types/cookie-parser": "^1.4.3",
@@ -24,5 +24,11 @@
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.1.6",
     "util": "^0.12.5"
+  },
+  "devDependencies": {
+    "@types/module-alias": "^2.0.1"
+  },
+  "moduleNameMapper": {
+    "^@app/common(|/.*)$": "<rootDir>/common/src/$1"
   }
 }

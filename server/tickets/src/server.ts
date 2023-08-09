@@ -15,4 +15,3 @@ import connectDB from "./db";
   } catch (e) {}
   app.listen(3002, () => console.log("Listen to port 3002"));
 })();
-console.log("In tickets");
