@@ -27,8 +27,5 @@
   },
   "devDependencies": {
     "@types/module-alias": "^2.0.1"
-  },
-  "moduleNameMapper": {
-    "^@app/common(|/.*)$": "<rootDir>/common/src/$1"
   }
 }
