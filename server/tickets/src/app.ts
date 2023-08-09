@@ -4,9 +4,8 @@ import "express-async-errors";
 import cookieSession from "cookie-session";
 import moduleAlias from "module-alias";
 
-moduleAlias.addAlias("@app/common", __dirname + "../../../common/src");
 
-import { errorHandler, NotFoundError } from "@app/common";
+import { errorHandler, NotFoundError } from "@sgtickets/common";
 import ticketRouter from "./routes/tickets.router";
 
 const app = express();
@@ -23,7 +22,8 @@ app
   ) // 24 hours
   .use("/api/v1/tickets", ticketRouter)
   .use("*", async () => {
-    throw new NotFoundError("Route doesn't exist");
+    // throw new NotFoundError("Route doesn't exist");
+    throw new NotFoundError();
   })
   .use(errorHandler);
 

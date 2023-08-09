@@ -1,4 +1,4 @@
-import { authentication, validateRequest, validateTicket } from "@app/common";
+import { authentication, validateRequest, validateTicket } from "@sgtickets/common";
 import { Request, Response, Router } from "express";
 import {
   createTicket,

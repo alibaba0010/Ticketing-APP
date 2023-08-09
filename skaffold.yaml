@@ -10,7 +10,7 @@ build:
   # googleCloudBuild:
   #   projectId: # id on google cloud
   artifacts:
-    - image: alibaba0010/auth
+    - image: alibaba0010/auth:1
       context: server/auth
       docker:
         dockerfile: Dockerfile
@@ -18,7 +18,7 @@ build:
         manual:
           - src: "server/auth/src/**/*.ts"
             dest: .
-    - image: alibaba0010/client
+    - image: alibaba0010/client:1
       context: client
       docker:
         dockerfile: Dockerfile
@@ -26,17 +26,17 @@ build:
         manual:
           - src: "**/*.js"
             dest: .
-    # - image: alibaba0010/tickets
-    #   context: server/tickets
-    #   docker:
-    #     dockerfile: Dockerfile
-    #   # custom:
-    #   #   buildCommand: bash -c "docker build -f server/tickets/Dockerfile --build-arg APP_DIR=../../server -t alibaba0010/tickets:a6d8f41-dirty ."
-    #   # context: ./server/tickets
-    #   sync:
-    #     manual:
-    #       - src: "server/tickets/src/**/*.ts"
-    #         dest: .
+    - image: alibaba0010/tickets
+      context: server/tickets
+      docker:
+        dockerfile: Dockerfile
+      # custom:
+      #   buildCommand: bash -c "docker build -f server/tickets/Dockerfile --build-arg APP_DIR=../../server -t alibaba0010/tickets:a6d8f41-dirty ."
+      # context: ./server/tickets
+      sync:
+        manual:
+          - src: "server/tickets/src/**/*.ts"
+            dest: .
     # - image: cygnetops/moderation-84 #3
     #   context: moderation
     #   docker:
