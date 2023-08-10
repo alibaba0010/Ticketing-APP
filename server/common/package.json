@@ -1,16 +1,16 @@
 {
-  "name": "ticketing-api",
+  "name": "@alibabatickets/common",
   "version": "1.0.0",
   "description": "ticketing-service",
-  "main": "index.js",
+  "main": "./build/index.js",
+  "types": "./build/index.d.ts",
+  "files": [
+    "build/**/*"
+  ],
   "scripts": {
-    "dev:auth": "ts-node-dev  auth/src/server.ts",
-    "dev:tickets": "ts-node-dev tickets/src/server.ts",
     "clean": "del ./build/*",
     "build": "npm run clean && tsc",
-    "pub": "git add . && git commit -m \"Updates\" && npm version patch && npm run build && npm publish",
-    "test": "jest --watchAll --no-cache",
-    "test:ci": "jest"
+    "pub": "git add . && git commit -m \"Updates\" && npm version patch && npm run build && npm publish"
   },
   "jest": {
     "preset": "ts-jest",
