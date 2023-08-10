@@ -6,8 +6,10 @@ yarn-debug.log*
 yarn-errors.log*
 lerna-debug.log*
 .pnpm-debug.log*
-
+../common/build
 kubectl.sha256
+common/package-lock.json
+common/build
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 

@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 
-import { BadRequestError } from "@app/common";
+import { BadRequestError } from "@alibabatickets/common";
 import { User } from "../models/user.mongo";
 import { PasswordMgt } from "../services/hashPassword";
 

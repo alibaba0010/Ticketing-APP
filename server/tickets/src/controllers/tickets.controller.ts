@@ -1,6 +1,6 @@
 import { Response, Request } from "express";
 import { Ticket } from "../models/tickets.mongo";
-import { NotFoundError, UnAuthorizedError } from "@app/common";
+import { NotFoundError, UnAuthorizedError } from "@alibabatickets/common";
 
 export const createTicket = async (req: Request, res: Response) => {
   const { title, price } = req.body;

@@ -1,6 +1,6 @@
 {
   "name": "@alibabatickets/common",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "ticketing-service",
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
@@ -28,7 +28,6 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "del-cli": "^5.0.0",
     "typescript": "^5.1.6"
   },
   "config": {

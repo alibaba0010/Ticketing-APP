@@ -10,7 +10,7 @@ import {
   validateBodyLogIn,
   validateRequest,
   currentUser,
-} from "@app/common";
+} from "@alibabatickets/common";
 const userRouter = Router();
 
 // add validate Body
