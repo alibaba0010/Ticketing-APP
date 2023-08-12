@@ -1,4 +1,8 @@
-import { authentication, validateRequest, validateTicket } from "@sgtickets/common";
+import {
+  authentication,
+  validateRequest,
+  validateTicket,
+} from "@alibabatickets/common";
 import { Request, Response, Router } from "express";
 import {
   createTicket,
