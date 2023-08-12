@@ -10,7 +10,7 @@ build:
   # googleCloudBuild:
   #   projectId: # id on google cloud
   artifacts:
-    - image: alibaba0010/auth:1
+    - image: alibaba0010/auth
       context: server/auth
       docker:
         dockerfile: Dockerfile
@@ -18,7 +18,7 @@ build:
         manual:
           - src: "server/auth/src/**/*.ts"
             dest: .
-    - image: alibaba0010/client:1
+    - image: alibaba0010/client
       context: client
       docker:
         dockerfile: Dockerfile
