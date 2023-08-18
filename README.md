@@ -4,7 +4,7 @@ Build docker image and push to docker hub in client for client and server for ti
 
 change routes in sign in,up& out, index.js
 
-kubectl get namespace
+kubectl get namespacep
 
 to connect to a service on a differnet namespace we use http://NAMEOFSERVICE.NAMESPACE.svc.cluster.local/api/v1/users/currentuser
 
