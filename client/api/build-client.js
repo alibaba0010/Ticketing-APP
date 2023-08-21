@@ -1,18 +1,13 @@
 import axios from "axios";
 export default ({ req }) => {
   if (typeof window === "undefined") {
-    console.log("Req: ", req.headers);
     // We are on the server
-    console.log("in axios");
-    // return axios.create({
-    //   baseURL: "http://192.168.49.2:31396",
-    //   // "http://ingress-nginx-controller.ingress-nginx.svc.cluster.local",
+    return axios.create({
+      baseURL:
+        "http://ingress-nginx-controller.ingress-nginx.svc.cluster.local",
 
-    //   headers: req.headers,
-    //   // headers: {
-    //   //   Host: "http://192.168.49.2:32208",
-    //   // },
-    // });
+      headers: req.headers,
+    });
   } else {
     // We must be on the browser
     return axios.create({
