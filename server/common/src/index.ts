@@ -10,3 +10,9 @@ export * from "./errors/errorHandler";
 export * from "./middlewares/currentUser";
 export * from "./middlewares/validator";
 export * from "./middlewares/authentication";
+
+export * from "./event-handlers/base-listener";
+export * from "./event-handlers/base-publisher";
+export * from "./event-handlers/subjects";
+export * from "./event-handlers/events/ticket-created-event";
+export * from "./event-handlers/events/ticket-updated-event";
