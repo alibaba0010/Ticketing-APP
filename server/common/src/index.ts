@@ -5,6 +5,7 @@ export { default as NotFoundError } from "./errors/notFoundError";
 export { default as RequestValidationError } from "./errors/validationError";
 export { default as DatabaseConnectionError } from "./errors/dbConnectionError";
 
+
 export * from "./errors/errorHandler";
 
 export * from "./middlewares/currentUser";
