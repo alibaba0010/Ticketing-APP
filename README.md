@@ -24,5 +24,3 @@ kubectl get namespace
 kubectl get services -n ingress-nginx
 
 kubectl get pods -n ingress-inginx
-
-RUN npm pub
