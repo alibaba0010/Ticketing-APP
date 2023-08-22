@@ -12,7 +12,7 @@ export const createTicket = async (req: Request, res: Response) => {
   });
 
   await ticket.save();
-  res.status(201).send(ticket);
+  res.status(201).json(ticket);
 };
 
 // GET TICKET WITH ID
@@ -43,5 +43,5 @@ export const updateTicket = async (req: Request, res: Response) => {
   }
 
   await ticket.save();
-  res.status(200).send(ticket);
+  res.status(200).json(ticket);
 };
