@@ -1,6 +1,7 @@
 import { Response, Request } from "express";
 import { Ticket } from "../models/tickets.mongo";
 import { NotFoundError, UnAuthorizedError } from "@alibabatickets/common";
+import { TicketCreatedPublisher } from "../evemts-handler/publishers/ticket-created-publisher";
 
 export const createTicket = async (req: Request, res: Response) => {
   const { title, price } = req.body;
@@ -12,6 +13,13 @@ export const createTicket = async (req: Request, res: Response) => {
   });
 
   await ticket.save();
+  await new TicketCreatedPublisher(client).publish({
+    id: ticket.id,
+    title: ticket.title,
+    price: ticket.price,
+    userId: ticket.userId,
+    version: ticket.version,
+  })
   res.status(201).json(ticket);
 };
 
@@ -43,5 +51,6 @@ export const updateTicket = async (req: Request, res: Response) => {
   }
 
   await ticket.save();
+
   res.status(200).json(ticket);
 };
