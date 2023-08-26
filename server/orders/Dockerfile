@@ -12,4 +12,4 @@ COPY ./ ./
 
 CMD [ "npm", "run", "dev:orders" ]
 
-EXPOSE 3002
+EXPOSE 3003

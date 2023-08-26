@@ -37,6 +37,17 @@ build:
         manual:
           - src: "server/tickets/src/**/*.ts"
             dest: .
+    - image: alibaba0010/orders  #goggle-cloud gcr.io
+      context: server/orders
+      docker:
+        dockerfile: Dockerfile
+      # custom:
+      #   buildCommand: bash -c "docker build -f server/orders/Dockerfile --build-arg APP_DIR=../../server -t alibaba0010/orders:a6d8f41-dirty ."
+      # context: ./server/orders
+      sync:
+        manual:
+          - src: "server/orders/src/**/*.ts"
+            dest: .
     # - image: cygnetops/moderation-84 #3
     #   context: moderation
     #   docker:

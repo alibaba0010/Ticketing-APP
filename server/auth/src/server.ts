@@ -11,6 +11,6 @@ import connectDB from "./db";
   try {
     const uri = process.env.MONGO_URL;
     await connectDB(uri);
-    app.listen(3001, () => console.log("Listen to port 3001"));
+    app.listen(3001, () => console.log(`Listen to port 3001🚀`));
   } catch (e) {}
 })();

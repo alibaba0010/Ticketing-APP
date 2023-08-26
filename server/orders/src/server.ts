@@ -28,5 +28,5 @@ import connectDB from "./db";
     // await natsWrapper.connect(clusterId, clientId, url);
     await connectDB(uri);
   } catch (e) {}
-  app.listen(3002, () => console.log("Listen to port 3002"));
+  app.listen(3003, () => console.log(`Listen to port 3003🚀🚀🚀`));
 })();
