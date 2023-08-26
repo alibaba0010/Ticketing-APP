@@ -3,6 +3,7 @@ import { Ticket } from "../models/tickets.mongo";
 import { NotFoundError, UnAuthorizedError } from "@alibabatickets/common";
 import { TicketCreatedPublisher } from "../evemts-handler/publishers/ticket-created-publisher";
 import { natsWrapper } from "../nats-wrapper";
+import { TicketUpdatedPublisher } from "../evemts-handler/publishers/ticket-updated-publisher";
 
 export const createTicket = async (req: Request, res: Response) => {
   const { title, price } = req.body;
@@ -52,6 +53,13 @@ export const updateTicket = async (req: Request, res: Response) => {
   }
 
   await ticket.save();
+  new TicketUpdatedPublisher(natsWrapper.client).publish({
+    id: ticket.id,
+    title: ticket.title,
+    price: ticket.price,
+    userId: ticket.userId,
+    version: ticket.version,
+  });
 
   res.status(200).json(ticket);
 };

@@ -1,6 +1,7 @@
 import request from "supertest";
 import { Schema, model, Types } from "mongoose";
 
+jest.mock("../../nats-wrapper");
 import { app } from "../../app";
 import { Ticket } from "../../models/tickets.mongo";
 
@@ -117,7 +118,7 @@ it("returns the ticket if the ticket is found", async () => {
 it("returns a 404 if the provided id does not exist", async () => {
   const id = new Types.ObjectId().toHexString();
   await request(app)
-    .put(`/api/v1/tickets/${id}`)
+    .patch(`/api/v1/tickets/${id}`)
     .set("Cookie", global.login())
     .send({
       title: "aslkdfj",
@@ -129,7 +130,7 @@ it("returns a 404 if the provided id does not exist", async () => {
 it("returns a 401 if the user is not authenticated", async () => {
   const id = new Types.ObjectId().toHexString();
   await request(app)
-    .put(`/api/v1/tickets/${id}`)
+    .patch(`/api/v1/tickets/${id}`)
     .send({
       title: "aslkdfj",
       price: 20,
@@ -147,7 +148,7 @@ it("returns a 401 if the user does not own the ticket", async () => {
     });
 
   await request(app)
-    .put(`/api/v1/tickets/${response.body.id}`)
+    .patch(`/api/v1/tickets/${response.body.id}`)
     .set("Cookie", global.login())
     .send({
       title: "alskdjflskjdf",
@@ -226,7 +227,7 @@ it("publishes an event", async () => {
     });
 
   await request(app)
-    .put(`/api/v1/tickets/${response.body.id}`)
+    .patch(`/api/v1/tickets/${response.body.id}`)
     .set("Cookie", cookie)
     .send({
       title: "new title",
@@ -253,7 +254,7 @@ it("rejects updates if the ticket is reserved", async () => {
   await ticket!.save();
 
   await request(app)
-    .put(`/api/v1/tickets/${response.body.id}`)
+    .patch(`/api/v1/tickets/${response.body.id}`)
     .set("Cookie", cookie)
     .send({
       title: "new title",
