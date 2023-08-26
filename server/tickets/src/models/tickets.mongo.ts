@@ -6,7 +6,7 @@ interface TicketAttrs {
   userId: string;
 }
 
-interface TicketDoc extends Document {
+export interface TicketDoc extends Document {
   title: string;
   price: number;
   userId: string;

@@ -1,7 +1,7 @@
 import {
   authentication,
   validateRequest,
-  validateOrder,
+  validateOrder
 } from "@alibabatickets/common";
 import { Router } from "express";
 import {
