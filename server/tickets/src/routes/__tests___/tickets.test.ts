@@ -1,9 +1,9 @@
 import request from "supertest";
 import { Schema, model, Types } from "mongoose";
 
-jest.mock("../../nats-wrapper");
 import { app } from "../../app";
 import { Ticket } from "../../models/tickets.mongo";
+import { natsWrapper } from "tickets/src/nats-wrapper";
 
 // *******CREATING A TICKET*****
 it("has a route handler listening to /ap1/v1/tickets for post requests", async () => {
@@ -84,7 +84,22 @@ it("creates a ticket with valid inputs", async () => {
   expect(tickets[0].title).toEqual(title);
 });
 
-// *******GETTING A TICKET WITH ITS ID*****
+it("publishes an event", async () => {
+  const title = "asldkfj";
+
+  await request(app)
+    .post("/api/v1/tickets")
+    .set("Cookie", global.login())
+    .send({
+      title,
+      price: 20,
+    })
+    .expect(201);
+
+  expect(natsWrapper.client.publish).toHaveBeenCalled();
+});
+
+// *******UPDATING A TICKET WITH ITS ID*****
 it("returns a 404 if the ticket is not found", async () => {
   const id = new Types.ObjectId().toHexString();
 
@@ -235,7 +250,7 @@ it("publishes an event", async () => {
     })
     .expect(200);
 
-  // expect(natsWrapper.client.publish).toHaveBeenCalledTimes(2);
+  expect(natsWrapper.client.publish).toHaveBeenCalledTimes(2);
 });
 
 it("rejects updates if the ticket is reserved", async () => {

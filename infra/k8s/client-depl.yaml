@@ -14,9 +14,7 @@ spec:
     spec:
       containers:
         - name: client
-          image: alibaba0010/client:1
-          ports:
-            - containerPort: 3000
+          image: alibaba0010/client:1          
 ---
 apiVersion: v1
 kind: Service
