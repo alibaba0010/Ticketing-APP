@@ -1,6 +1,6 @@
 import { app } from "./app";
 import connectDB from "./db";
-// import { natsWrapper } from "./nats-wrapper";
+import { natsWrapper } from "./nats-wrapper";
 
 (async () => {
   if (!process.env.NATS_CLIENT_ID) {
@@ -25,7 +25,7 @@ import connectDB from "./db";
   const clientId = process.env.NATS_CLIENT_ID;
   const url = process.env.NATS_URL;
   try {
-    // await natsWrapper.connect(clusterId, clientId, url);
+    await natsWrapper.connect(clusterId, clientId, url);
     await connectDB(uri);
   } catch (e) {}
   app.listen(3003, () => console.log(`Listen to port 3003🚀🚀🚀`));

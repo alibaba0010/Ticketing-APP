@@ -13,7 +13,7 @@ import {
 const ticketRouter = Router();
 
 ticketRouter
-  .post("/", validateTicket, validateRequest, authentication, createTicket)
+  .post("/", authentication, validateTicket, validateRequest, createTicket)
   .get("/:id", authentication, getTicketWithId)
-  .patch("/:id", validateTicket, authentication, updateTicket);
+  .patch("/:id", authentication, validateTicket, updateTicket);
 export default ticketRouter;
