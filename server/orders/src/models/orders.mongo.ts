@@ -1,5 +1,6 @@
 import { Schema, model, Model, Document, Types } from "mongoose";
 import { TicketDoc } from "../../../tickets/src/models/tickets.mongo";
+import { OrderStatus } from "@alibabatickets/common";
 interface OrderAttrs {
   status: string;
   price: number;
