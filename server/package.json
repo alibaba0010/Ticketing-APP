@@ -6,6 +6,7 @@
   "scripts": {
     "dev:auth": "ts-node-dev  auth/src/server.ts",
     "dev:tickets": "ts-node-dev tickets/src/server.ts",
+    "dev:orders": "ts-node-dev orders/src/server.ts",
     "clean": "del ./build/*",
     "build": "npm run clean && tsc",
     "pub": "git add . && git commit -m \"Updates\" && npm version patch && npm run build && npm publish",

@@ -10,6 +10,6 @@ RUN npm install --omit=dev
 
 COPY ./ ./
 
-CMD [ "npm", "run", "dev:tickets" ]
+CMD [ "npm", "run", "dev:orders" ]
 
 EXPOSE 3002

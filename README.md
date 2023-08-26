@@ -24,3 +24,6 @@ kubectl get namespace
 kubectl get services -n ingress-nginx
 
 kubectl get pods -n ingress-inginx
+
+Build order image docker build -t alibaba0010/orders:1 .
+push image 
