@@ -6,7 +6,7 @@ interface TicketAttrs {
   userId: string;
 }
 
-export interface TicketDoc extends Document {
+interface TicketDoc extends Document {
   title: string;
   price: number;
   userId: string;
@@ -52,7 +52,6 @@ const TicketSchema = new Schema(
 TicketSchema.statics.build = (attrs: TicketAttrs) => {
   return new Ticket(attrs);
 };
-
 
 const Ticket = model<TicketDoc, TicketModel>("Ticket", TicketSchema);
 export { Ticket };

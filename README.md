@@ -27,3 +27,7 @@ kubectl get pods -n ingress-inginx
 
 Build order image docker build -t alibaba0010/orders:1 .
 push image 
+
+!!existingOrder
+
+  const EXPIRATION = 5 * 60; Orders controller

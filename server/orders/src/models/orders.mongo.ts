@@ -5,7 +5,6 @@ import { TicketDoc } from "./tickets-orders";
 export {OrderStatus}
 interface OrderAttrs {
   status: string;
-  price: number;
   userId: string;
   expiresAt: Date;
   ticket: TicketDoc;
