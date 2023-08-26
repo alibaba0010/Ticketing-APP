@@ -1,6 +1,8 @@
 import { Schema, model, Model, Document, Types } from "mongoose";
-import { TicketDoc } from "../../../tickets/src/models/tickets.mongo";
 import { OrderStatus } from "@alibabatickets/common";
+import { TicketDoc } from "./tickets-orders";
+
+export {OrderStatus}
 interface OrderAttrs {
   status: string;
   price: number;
@@ -34,7 +36,7 @@ const OrderSchema = new Schema(
       default: OrderStatus.Created,
     },
     expiresAt: {
-      type: Types,
+      type: Date,
     },
     ticket: {
       type: Types.ObjectId,
