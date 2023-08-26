@@ -1,5 +1,6 @@
 import { app } from "./app";
 import connectDB from "./db";
+import { natsWrapper } from "./nats-wrapper";
 
 (async () => {
   if (!process.env.JWT_SECRET) {
@@ -11,6 +12,7 @@ import connectDB from "./db";
   const uri = process.env.MONGO_URL;
 
   try {
+    await natsWrapper.connect("ticketing", "uuid", "http://nats-srv:4222" )
     await connectDB(uri);
   } catch (e) {}
   app.listen(3002, () => console.log("Listen to port 3002"));
