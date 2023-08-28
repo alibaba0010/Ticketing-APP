@@ -23,7 +23,6 @@ export default ({ url, method, body, onSuccess }) => {
             {err.response.data.error.map((err) => (
               <li key={err.message}>{err.message}</li>
             ))}
-            console.log("Err: ", err)
           </ul>
         </div>
       );
