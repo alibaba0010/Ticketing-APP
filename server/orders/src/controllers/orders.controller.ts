@@ -61,35 +61,54 @@ export const createOrder = async (req: Request, res: Response) => {
 // GET ORDER WITH ID
 export const getOrderWithId = async (req: Request, res: Response) => {
   const { id } = req.params;
-  const ticket = await Ticket.findById(id);
+  const order = await Order.findById(id).populate("ticket");
 
-  if (!ticket) {
-    throw new NotFoundError("Ticket not found");
+  if (!order) {
+    throw new NotFoundError("Order Not Found");
   }
-  res.status(200).json(ticket);
+  if (order.userId !== req.currentUser!.id) {
+    throw new UnAuthorizedError();
+  }
+  res.status(200).json(order);
 };
 
 // GET TICKET WITH ID
 export const getOrders = async (req: Request, res: Response) => {
-  const { id } = req.params;
-  const ticket = await Ticket.findById(id);
+  const orders = await Order.find({
+    userId: req.currentUser!.id,
+  }).populate("ticket");
 
-  if (!ticket) {
-    throw new NotFoundError("Ticket not found");
+  if (!orders) {
+    throw new NotFoundError("Order not found");
   }
-  res.status(200).json(ticket);
+  res.status(200).json(orders);
 };
 
 // UPDATE ORDER
 export const updateOrder = async (req: Request, res: Response) => {};
 
 // DELETE ORDER WITH ID
-export const deleteOrderWithId = async (req: Request, res: Response) => {
+export const cancelOrderWithId = async (req: Request, res: Response) => {
   const { id } = req.params;
-  const ticket = await Ticket.findById(id);
+  const order = await Order.findById(id).populate("ticket");
 
-  if (!ticket) {
-    throw new NotFoundError("Ticket not found");
+  if (!order) {
+    throw new NotFoundError("Order not FOund");
   }
-  res.status(200).json(ticket);
+  if (order.userId !== req.currentUser!.id) {
+    throw new UnAuthorizedError();
+  }
+  order.status = OrderStatus.Cancelled;
+  await order.save();
+
+  // publishing an event saying this was cancelled!
+  // new OrderCancelledPublisher(natsWrapper.client).publish({
+  //   id: order.id,
+  //   version: order.version,
+  //   ticket: {
+  //     id: order.ticket.id,
+  //   },
+  // });
+
+  res.status(204).json(order);
 };

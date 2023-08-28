@@ -1,14 +1,14 @@
 import {
   authentication,
   validateRequest,
-  validateOrder
+  validateOrder,
 } from "@alibabatickets/common";
 import { Router } from "express";
 import {
   createOrder,
   getOrderWithId,
   getOrders,
-  deleteOrderWithId,
+  cancelOrderWithId,
 } from "../controllers/orders.controller";
 
 const ticketRouter = Router();
@@ -18,5 +18,5 @@ ticketRouter
   .get("/", authentication, getOrders)
   .post("/", authentication, validateOrder, validateRequest, createOrder)
   // .patch("/:id",authentication, validateOrder,  updateTicket)
-  .delete("/:id", authentication, deleteOrderWithId);
+  .delete("/:id", authentication, cancelOrderWithId);
 export default ticketRouter;
