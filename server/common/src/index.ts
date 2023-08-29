@@ -20,3 +20,5 @@ export * from "./event-handlers/events/order-created-event";
 export * from "./event-handlers/events/order-cancelled-event";
 
 export * from "./event-handlers/types/order-status";
+
+export * from "./event-handlers/queue-groups";

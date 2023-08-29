@@ -48,7 +48,7 @@ export const createOrder = async (req: Request, res: Response) => {
     version: order.version,
     status: order.status,
     userId: order.userId,
-    expiresAt: order.expiresAt.toISOString(),
+    expiresAt: order.expiresAt.toISOString(), //in a utc time format
     ticket: {
       id: ticket.id,
       price: ticket.price,
