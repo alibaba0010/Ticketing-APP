@@ -1,6 +1,6 @@
 import { Model, Schema, model, Document } from "mongoose";
 import { Order, OrderStatus } from "./orders.mongo";
-// import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
+import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
 
 interface TicketAttrs {
   id: string;
@@ -27,7 +27,7 @@ const TicketSchema = new Schema(
   {
     title: {
       type: String,
-      required: true,
+      required: true,  
     },
     price: {
       type: Number,
@@ -45,8 +45,8 @@ const TicketSchema = new Schema(
   }
 );
 
-// TicketSchema.set('versionKey', 'version');
-// TicketSchema.plugin(updateIfCurrentPlugin);
+TicketSchema.set('versionKey', 'version');
+TicketSchema.plugin(updateIfCurrentPlugin);
 
 TicketSchema.statics.findByEvent = (event: { id: string; version: number }) => {
   return Ticket.findOne({

@@ -1,6 +1,7 @@
 import { Schema, model, Model, Document, Types } from "mongoose";
 import { OrderStatus } from "@alibabatickets/common";
 import { TicketDoc } from "./tickets-orders";
+import { updateIfCurrentPlugin } from "mongoose-update-if-current";
 
 export {OrderStatus}
 interface OrderAttrs {
@@ -53,8 +54,8 @@ const OrderSchema = new Schema(
   }
 );
 
-// OrderSchema.set('versionKey', 'version');
-// OrderSchema.plugin(updateIfCurrentPlugin);
+OrderSchema.set('versionKey', 'version'); 
+OrderSchema.plugin(updateIfCurrentPlugin);
 
 OrderSchema.statics.build = (attrs: OrderAttrs) => {
   return new Order(attrs);
