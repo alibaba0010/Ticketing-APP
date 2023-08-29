@@ -3,13 +3,13 @@ import {
   BadRequestError,
   NotFoundError,
   OrderStatus,
-  UnAuthorizedError,
+  UnAuthorizedError
 } from "@alibabatickets/common";
-import { TicketCreatedPublisher } from "../evemts-handler/publishers/ticket-created-publisher";
 import { natsWrapper } from "../nats-wrapper";
-import { TicketUpdatedPublisher } from "../evemts-handler/publishers/ticket-updated-publisher";
 import { Order } from "../models/orders.mongo";
 import { Ticket } from "../models/tickets-orders";
+import { OrderCreatedPublisher } from "../evemts-handler/publishers/order-created-publisher";
+import { OrderCancelledPublisher } from "../evemts-handler/publishers/order-cancelled-publisher";
 
 // CREATE ORDER
 export const createOrder = async (req: Request, res: Response) => {
@@ -42,18 +42,18 @@ export const createOrder = async (req: Request, res: Response) => {
   });
   await order.save();
 
-  // // Publish an event saying that an order was created
-  // new OrderCreatedPublisher(natsWrapper.client).publish({
-  //   id: order.id,
-  //   version: order.version,
-  //   status: order.status,
-  //   userId: order.userId,
-  //   expiresAt: order.expiresAt.toISOString(),
-  //   ticket: {
-  //     id: ticket.id,
-  //     price: ticket.price,
-  //   },
-  // });
+  // Publish an event saying that an order was created
+  new OrderCreatedPublisher(natsWrapper.client).publish({
+    id: order.id,
+    version: order.version,
+    status: order.status,
+    userId: order.userId,
+    expiresAt: order.expiresAt.toISOString(),
+    ticket: {
+      id: ticket.id,
+      price: ticket.price,
+    },
+  });
 
   res.status(201).json(order);
 };
@@ -102,13 +102,13 @@ export const cancelOrderWithId = async (req: Request, res: Response) => {
   await order.save();
 
   // publishing an event saying this was cancelled!
-  // new OrderCancelledPublisher(natsWrapper.client).publish({
-  //   id: order.id,
-  //   version: order.version,
-  //   ticket: {
-  //     id: order.ticket.id,
-  //   },
-  // });
+  new OrderCancelledPublisher(natsWrapper.client).publish({
+    id: order.id,
+    version: order.version,
+    ticket: {
+      id: order.ticket.id,
+    },
+  });
 
   res.status(204).json(order);
 };
