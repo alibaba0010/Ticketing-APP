@@ -1,9 +1,9 @@
 import { Message } from 'node-nats-streaming';
-import mongoose from 'mongoose';
-import { OrderCreatedEvent, OrderStatus } from '@sgtickets/common';
+import { Types } from 'mongoose';
+import { OrderCreatedEvent, OrderStatus } from '@alibabatickets/common';
 import { OrderCreatedListener } from '../order-created-listener';
 import { natsWrapper } from '../../../nats-wrapper';
-import { Ticket } from '../../../models/ticket';
+import { Ticket } from '../../../models/tickets.mongo';
 
 const setup = async () => {
   // Create an instance of the listener
@@ -19,7 +19,7 @@ const setup = async () => {
 
   // Create the fake data event
   const data: OrderCreatedEvent['data'] = {
-    id: mongoose.Types.ObjectId().toHexString(),
+    id: new Types.ObjectId().toHexString(),
     version: 0,
     status: OrderStatus.Created,
     userId: 'alskdfj',
