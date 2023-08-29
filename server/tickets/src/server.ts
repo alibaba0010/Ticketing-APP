@@ -26,7 +26,17 @@ import { natsWrapper } from "./nats-wrapper";
   const url = process.env.NATS_URL;
   try {
     await natsWrapper.connect(clusterId, clientId, url);
+
+    natsWrapper.client.on('close', () => {
+      console.log('NATS connection closed!');
+      process.exit();
+    });
+    process.on('SIGINT', () => natsWrapper.client.close());
+    process.on('SIGTERM', () => natsWrapper.client.close());
+
+    // new OrderCreatedListener(natsWrapper.client).listen();
+    // new OrderCancelledListener(natsWrapper.client).listen();
     await connectDB(uri);
   } catch (e) {}
-  app.listen(3002, () => console.log(`Listen to port 3002 🚀🚀`));
+  app.listen(3002, () => console.log(`Listen to port 3002  🚀🚀`));
 })();
