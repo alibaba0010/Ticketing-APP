@@ -19,8 +19,6 @@ beforeAll(async () => {
   mongo = await MongoMemoryServer.create({
     instance: {
       dbName: "test-db", // Your desired database name
-      storageEngine: "wiredTiger", // Optional: Specify the storage engine
-      launchTimeout: 10000,
     },
   }); // Assign the MongoMemoryServer instance to the global mongo variable
   const mongoUri = mongo.getUri(); // Get the URI from the MongoMemoryServer instance

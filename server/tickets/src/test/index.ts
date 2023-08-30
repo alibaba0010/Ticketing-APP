@@ -17,17 +17,8 @@ beforeAll(async () => {
   process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
   mongo = await MongoMemoryServer.create();
 
-  // mongo = await MongoMemoryServer.create({
-  // instance: {
-  //   dbName: "test-db", // Your desired database name
-  //   storageEngine: "wiredTiger", // Optional: Specify the storage engine
-  //   // launchTimeout: 50000,
-  // },
-  // }); // Assign the MongoMemoryServer instance to the global mongo variable
   await connect(mongo.getUri(), { dbName: "test-db" });
 
-  // const mongoUri = mongo.getUri(); // Get the URI from the MongoMemoryServer instance
-  // await connect(mongoUri);
 });
 
 beforeEach(async () => {
