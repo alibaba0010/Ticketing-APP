@@ -1,11 +1,11 @@
-import { Ticket } from '../tickets.mongo';
+import { Ticket } from "../tickets.mongo";
 
-it('implements optimistic concurrency control', async () => {
+it("implements optimistic concurrency control", async () => {
   // Create an instance of a ticket
   const ticket = Ticket.build({
-    title: 'concert',
+    title: "concert",
     price: 5,
-    userId: '123',
+    userId: "123",
   });
 
   // Save the ticket to the database
@@ -26,17 +26,17 @@ it('implements optimistic concurrency control', async () => {
   try {
     await secondInstance!.save();
   } catch (err) {
-    return done();
+    return err;
   }
 
-  throw new Error('Should not reach this point');
+  throw new Error("Should not reach this point");
 });
 
-it('increments the version number on multiple saves', async () => {
+it("increments the version number on multiple saves", async () => {
   const ticket = Ticket.build({
-    title: 'concert',
+    title: "concert",
     price: 20,
-    userId: '123',
+    userId: "123",
   });
 
   await ticket.save();
@@ -46,7 +46,3 @@ it('increments the version number on multiple saves', async () => {
   await ticket.save();
   expect(ticket.version).toEqual(2);
 });
-function done() {
-  throw new Error('Function not implemented.');
-}
-

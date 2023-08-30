@@ -1,5 +1,7 @@
 import { app } from "./app";
 import connectDB from "./db";
+import { OrderCancelledListener } from "./evemts-handler/listeners/order-cancelled-listener";
+import { OrderCreatedListener } from "./evemts-handler/listeners/order-created-listener";
 import { natsWrapper } from "./nats-wrapper";
 
 (async () => {
@@ -34,8 +36,8 @@ import { natsWrapper } from "./nats-wrapper";
     process.on('SIGINT', () => natsWrapper.client.close());
     process.on('SIGTERM', () => natsWrapper.client.close());
 
-    // new OrderCreatedListener(natsWrapper.client).listen();
-    // new OrderCancelledListener(natsWrapper.client).listen();
+    new OrderCreatedListener(natsWrapper.client).listen();
+    new OrderCancelledListener(natsWrapper.client).listen();
     await connectDB(uri);
   } catch (e) {}
   app.listen(3002, () => console.log(`Listen to port 3002  🚀🚀`));
