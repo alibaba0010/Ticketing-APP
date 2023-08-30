@@ -23,18 +23,20 @@ import { natsWrapper } from "./nats-wrapper";
     throw new Error("MONGO_URL must be included");
   }
   const uri = process.env.MONGO_URL;
+  console.log("uri: ", uri);
+
   const clusterId = process.env.NATS_CLUSTER_ID;
   const clientId = process.env.NATS_CLIENT_ID;
   const url = process.env.NATS_URL;
   try {
     await natsWrapper.connect(clusterId, clientId, url);
 
-    natsWrapper.client.on('close', () => {
-      console.log('NATS connection closed!');
+    natsWrapper.client.on("close", () => {
+      console.log("NATS connection closed!");
       process.exit();
     });
-    process.on('SIGINT', () => natsWrapper.client.close());
-    process.on('SIGTERM', () => natsWrapper.client.close());
+    process.on("SIGINT", () => natsWrapper.client.close());
+    process.on("SIGTERM", () => natsWrapper.client.close());
 
     new OrderCreatedListener(natsWrapper.client).listen();
     new OrderCancelledListener(natsWrapper.client).listen();

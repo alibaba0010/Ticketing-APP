@@ -13,8 +13,8 @@ spec:
         app: nats
     spec:
       containers:
-        - name: nats 
-          image: nats-streaming:0.17.0 #check docker hub image version 
+        - name: nats
+          image: nats-streaming:0.25.5-alpine3.18 #check docker hub image version
           args:
             [
               "-p",
