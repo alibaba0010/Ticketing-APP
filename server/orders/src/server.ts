@@ -39,7 +39,6 @@ import { natsWrapper } from "./nats-wrapper";
     new TicketUpdatedListener(natsWrapper.client).listen();
     // new ExpirationCompleteListener(natsWrapper.client).listen();
     // new PaymentCreatedListener(natsWrapper.client).listen();
-    console.log("uri: ", uri)
     await connectDB(uri);
   } catch (e) {}
   app.listen(3003, () => console.log(`Listen to port 3003🚀🚀🚀`));
