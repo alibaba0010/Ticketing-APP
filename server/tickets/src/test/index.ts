@@ -1,6 +1,6 @@
 import { MongoMemoryServer } from "mongodb-memory-server";
 import jwt from "jsonwebtoken";
-import { Types, connect, connection, disconnect } from "mongoose";
+import { Types, connect, connection } from "mongoose";
 jest.mock("../nats-wrapper");
 
 declare global {
