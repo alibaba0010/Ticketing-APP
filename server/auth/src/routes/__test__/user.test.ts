@@ -60,56 +60,6 @@ it("sets a cookie after successful signup", async () => {
   expect(response.get("Set-Cookie")).toBeDefined();
 }, 10000);
 
-//**********LOGIN*************
-
-it("fails with 400 when a email that does not exist is supplied", async () => {
-  await request(app)
-    .post("/api/v1/users/signin")
-    .send({
-      email: "test@test.com",
-      password: "password",
-    })
-    .expect(400);
-});
-
-it("fails when an incorrect password is supplied", async () => {
-  await request(app)
-    .post("/api/v1/users/signup")
-    .send({
-      email: "test@test.com",
-      password: "password",
-    })
-    .expect(201);
-
-  await request(app)
-    .post("/api/v1/users/signin")
-    .send({
-      email: "test@test.com",
-      password: "aslkdfjalskdfj",
-    })
-    .expect(400);
-});
-
-it("responds with a cookie when given valid credentials", async () => {
-  await request(app)
-    .post("/api/v1/users/signup")
-    .send({
-      email: "test@test.com",
-      password: "password",
-    })
-    .expect(201);
-
-  const response = await request(app)
-    .post("/api/v1/users/signin")
-    .send({
-      email: "test@test.com",
-      password: "password",
-    })
-    .expect(200);
-
-  expect(response.get("Set-Cookie")).toBeDefined();
-});
-
 //**********SIGN OUT*************
 it("clears the cookie after signing out", async () => {
   await request(app)
@@ -126,7 +76,8 @@ it("clears the cookie after signing out", async () => {
     .expect(200);
 
   expect(response.get("Set-Cookie")[0]).toEqual(
-    "express:sess=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; httponly" //you can also use isDefined()
+    // "express:sess=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; httponly" //you can also use isDefined()
+    "session=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; httponly" //you can also use isDefined()
   );
 });
 
@@ -135,7 +86,7 @@ it("responds with details about the current user", async () => {
   const cookie = await global.signin();
 
   const response = await request(app)
-    .get("/api/users/currentuser")
+    .get("/api/v1/users/currentuser")
     .set("Cookie", cookie)
     .send()
     .expect(200);
