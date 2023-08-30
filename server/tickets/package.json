@@ -4,7 +4,22 @@
   "description": "ticketing-service",
   "main": "index.js",
   "scripts": {
-    "dev:tickets": "ts-node-dev src/server.ts"
+    "dev:tickets": "ts-node-dev src/server.ts",
+    "test": "jest --watchAll --no-cache --detectOpenHandles",
+    "test:ci": "jest"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "testTimeout": 15000 ,
+    "setupFilesAfterEnv": [
+      "./src/test/index.ts"
+    ]
+  },
+  "config": {
+    "mongodbMemoryServer": {
+      "debug": "1"
+    }
   },
   "dependencies": {
     "@alibabatickets/common": "^1.0.7",

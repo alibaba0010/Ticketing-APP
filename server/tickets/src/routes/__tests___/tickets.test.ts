@@ -3,7 +3,7 @@ import { Schema, model, Types } from "mongoose";
 
 import { app } from "../../app";
 import { Ticket } from "../../models/tickets.mongo";
-import { natsWrapper } from "tickets/src/nats-wrapper";
+import { natsWrapper } from "../../nats-wrapper";
 
 // *******CREATING A TICKET*****
 it("has a route handler listening to /ap1/v1/tickets for post requests", async () => {
