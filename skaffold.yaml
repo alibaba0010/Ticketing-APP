@@ -48,6 +48,14 @@ build:
         manual:
           - src: "server/orders/src/**/*.ts"
             dest: .
+    - image: alibaba0010/expiration
+      context: server/expiration
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "server/expiration/src/**/*.ts"
+            dest: .
     # - image: cygnetops/moderation-84 #3
     #   context: moderation
     #   docker:
@@ -56,21 +64,6 @@ build:
     #     manual:
     #       - src: "*.js"
     #         dest: .
-    # - image: cygnetops/posts-95 #4
-    #   context: posts
-    #   docker:
-    #     dockerfile: Dockerfile
-    #   sync:
-    #     manual:
-    #       - src: "*.js"
-    #         dest: .
-    # - image: cygnetops/query-84 #5
-    #   context: query
-    #   docker:
-    #     dockerfile: Dockerfile
-    #   sync:
-    #     manual:
-    #       - src: "*.js"
-    #         dest: .
+    
 # custom:
 # buildCommand: bash -c "docker build -f server/auth/Dockerfile --build-arg APP_DIR=../../server -t alibaba0010/auth:a6d8f41-dirty ."

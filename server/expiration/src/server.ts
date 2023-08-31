@@ -1,7 +1,5 @@
-// import { app } from "./app";
-// import connectDB from "./db";
 // import { OrderCancelledListener } from "./evemts-handler/listeners/order-cancelled-listener";
-import { OrderCreatedListener } from "./evemts-handler/listeners/order-created-listener";
+import { OrderCreatedListener } from "./events-handler/listene rs/order-created-listener";
 import { natsWrapper } from "./nats-wrapper";
 const start = async () => {
   console.log("Starting...");
@@ -14,13 +12,11 @@ const start = async () => {
   if (!process.env.NATS_CLUSTER_ID) {
     throw new Error("NATS_CLUSTER_ID must be defined");
   }
-
+  const clusterId = process.env.NATS_CLUSTER_ID;
+  const clientId = process.env.NATS_CLIENT_ID;
+  const url = process.env.NATS_URL;
   try {
-    await natsWrapper.connect(
-      process.env.NATS_CLUSTER_ID,
-      process.env.NATS_CLIENT_ID,
-      process.env.NATS_URL
-    );
+    await natsWrapper.connect(clusterId, clientId, url);
     natsWrapper.client.on("close", () => {
       console.log("NATS connection closed!");
       process.exit();

@@ -1,11 +1,11 @@
 import {
   Subjects,
   Publisher,
-  ExpirationCompleteEvent,
-} from '@sgtickets/common';
+  ExpirationCompletedEvent,
+} from '@alibabatickets/common';
 
 export class ExpirationCompletePublisher extends Publisher<
-  ExpirationCompleteEvent
+  ExpirationCompletedEvent
 > {
   subject: Subjects.ExpirationComplete = Subjects.ExpirationComplete;
 }

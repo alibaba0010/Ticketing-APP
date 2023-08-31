@@ -4,14 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev:tickets": "ts-node-dev src/server.ts",
+    "dev:expiration": "ts-node-dev src/server.ts",
     "test": "jest --watchAll --no-cache --detectOpenHandles",
     "test:ci": "jest"
   },
   "jest": {
     "preset": "ts-jest",
     "testEnvironment": "node",
-    "testTimeout": 15000 ,
+    "testTimeout": 15000,
     "setupFilesAfterEnv": [
       "./src/test/index.ts"
     ]
@@ -21,7 +21,6 @@
       "debug": "1"
     }
   },
-  
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -32,10 +31,5 @@
     "node-nats-streaming": "^0.2.6",
     "ts-node-dev": "^1.0.0-pre.44",
     "typescript": "^3.8.3"
-  },
-  "devDependencies": {
-    "@types/jest": "^25.2.1",
-    "jest": "^25.2.7",
-    "ts-jest": "^25.3.1"
   }
 }
