@@ -17,7 +17,7 @@ app
       maxAge: 24 * 60 * 60 * 1000,
     })
   ) // 24 hours
-  .use("/api/v1/orders", paymentRouter)
+  .use("/api/v1/payments", paymentRouter)
   .use("*", async () => {
     throw new NotFoundError("Route doesn't exist");
   })

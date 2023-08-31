@@ -6,8 +6,12 @@ import {
 } from "@alibabatickets/common";
 import { natsWrapper } from "../nats-wrapper";
 import { Request, Response } from "express";
+import { stripe } from "../stripe";
+import { Order } from "../models/orders-payments";
+import { Payment } from "../models/payment.mongo";
 import { PaymentCreatedPublisher } from "../events/publishers/payment-created-publisher";
 
+// Payment fuctionality
 export const ticketPayment = async (req: Request, res: Response) => {
   const { token, orderId } = req.body;
 
@@ -20,7 +24,7 @@ export const ticketPayment = async (req: Request, res: Response) => {
     throw new UnAuthorizedError();
   }
   if (order.status === OrderStatus.Cancelled) {
-    throw new BadRequestError("Cannot pay for an cancelled order");
+    throw new BadRequestError("Cannot pay for an expired order");
   }
 
   const charge = await stripe.charges.create({
