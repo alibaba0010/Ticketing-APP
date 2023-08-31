@@ -1,9 +1,10 @@
+import { natsWrapper } from "./nats-wrapper";
 import { app } from "./app";
 import connectDB from "./db";
 import { TicketCreatedListener } from "./evemts-handler/listeners/ticket-created-listener";
 import { TicketUpdatedListener } from "./evemts-handler/listeners/ticket-updated-listener";
-import { ExpirationCompletedListener } from "./evemts-handler/listeners/expiration-complete-listener";
-import { natsWrapper } from "./nats-wrapper";
+import { ExpirationCompletedListener } from "./evemts-handler/listeners/expiration-completed-listener";
+import { PaymentCreatedListener } from "./evemts-handler/listeners/payment-created-listener";
 
 (async () => {
   if (!process.env.NATS_CLIENT_ID) {
@@ -39,7 +40,7 @@ import { natsWrapper } from "./nats-wrapper";
     new TicketCreatedListener(natsWrapper.client).listen();
     new TicketUpdatedListener(natsWrapper.client).listen();
     new ExpirationCompletedListener(natsWrapper.client).listen();
-    // new PaymentCreatedListener(natsWrapper.client).listen();
+    new PaymentCreatedListener(natsWrapper.client).listen();
     await connectDB(uri);
   } catch (e) {}
   app.listen(3003, () => console.log(`Listen to port 3003🚀🚀🚀`));
