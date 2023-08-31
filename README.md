@@ -1,4 +1,5 @@
 kubectl create secret generic jwt-secret --from-literal=JWT_KEY=<secret_key>
+kubectl create secret generic stripe-secret --from-literal=STRIPE_KEY=sk_test_51NlAseIBBPhIYhH7WN59oFlMrQRHWpY1OQpjWC2HReRKOjXK0dnlKlVPB5G6dCEtVbDZLXm8e4IaDpldBwt4D5rR00mPDEMRTk
 
 Build docker image and push to docker hub in client for client and server for tickets
 
