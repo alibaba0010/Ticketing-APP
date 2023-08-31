@@ -11,13 +11,13 @@
   "jest": {
     "preset": "ts-jest",
     "testEnvironment": "node",
-    "testTimeout": 15000 ,
+    "testTimeout": 15000,
     "setupFilesAfterEnv": [
       "./src/test/index.ts"
     ]
   },
   "dependencies": {
-    "@alibabatickets/common": "^1.0.7",
+    "@alibabatickets/common": "^1.0.8",
     "@types/cookie-parser": "^1.4.3",
     "@types/cookie-session": "^2.0.44",
     "@types/express": "^4.17.17",
@@ -36,5 +36,4 @@
     "typescript": "^5.1.6",
     "util": "^0.12.5"
   }
-
 }

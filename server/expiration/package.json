@@ -25,7 +25,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@alibabatickets/common": "^1.0.7",
+    "@alibabatickets/common": "^1.0.8",
     "@types/bull": "^3.12.2",
     "bull": "^3.13.0",
     "node-nats-streaming": "^0.2.6",

@@ -31,7 +31,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@alibabatickets/common": "^1.0.7",
+    "@alibabatickets/common": "^1.0.8",
     "@types/bull": "^4.10.0",
     "@types/cookie-parser": "^1.4.3",
     "@types/cookie-session": "^2.0.44",

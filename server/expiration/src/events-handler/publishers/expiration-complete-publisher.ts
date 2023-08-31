@@ -4,7 +4,7 @@ import {
   ExpirationCompletedEvent,
 } from '@alibabatickets/common';
 
-export class ExpirationCompletePublisher extends Publisher<
+export class ExpirationCompletedPublisher extends Publisher<
   ExpirationCompletedEvent
 > {
   subject: Subjects.ExpirationComplete = Subjects.ExpirationComplete;
