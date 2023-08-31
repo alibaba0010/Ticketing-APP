@@ -3,14 +3,14 @@ import {
   Subjects,
   Listener,
   OrderStatus,
-} from "@sgtickets/common";
+  queueGroupNamePayments,
+} from "@alibabatickets/common";
 import { Message } from "node-nats-streaming";
-import { queueGroupName } from "./queue-group-name";
 import { Order } from "../../models/orders-payments";
 
 export class OrderCancelledListener extends Listener<OrderCancelledEvent> {
   subject: Subjects.OrderCancelled = Subjects.OrderCancelled;
-  queueGroupName = queueGroupName;
+  queueGroupName = queueGroupNamePayments;
 
   async onMessage(data: OrderCancelledEvent["data"], msg: Message) {
     const order = await Order.findOne({

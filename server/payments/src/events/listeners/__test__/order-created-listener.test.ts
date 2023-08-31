@@ -1,15 +1,15 @@
-import mongoose from "mongoose";
 import { Message } from "node-nats-streaming";
-import { OrderCreatedEvent, OrderStatus } from "@sgtickets/common";
+import { OrderCreatedEvent, OrderStatus } from "@alibabatickets/common";
 import { natsWrapper } from "../../../nats-wrapper";
 import { OrderCreatedListener } from "../order-created-listener";
 import { Order } from "../../../models/orders-payments";
+import { Types } from "mongoose";
 
 const setup = async () => {
   const listener = new OrderCreatedListener(natsWrapper.client);
 
   const data: OrderCreatedEvent["data"] = {
-    id: mongoose.Types.ObjectId().toHexString(),
+    id: new Types.ObjectId().toHexString(),
     version: 0,
     expiresAt: "alskdjf",
     userId: "alskdjf",

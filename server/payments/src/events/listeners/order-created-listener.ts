@@ -1,11 +1,10 @@
 import { Message } from "node-nats-streaming";
-import { Listener, OrderCreatedEvent, Subjects } from "@sgtickets/common";
-import { queueGroupName } from "./queue-group-name";
+import { Listener, OrderCreatedEvent, Subjects, queueGroupNamePayments } from "@alibabatickets/common";
 import { Order } from "../../models/orders-payments";
 
 export class OrderCreatedListener extends Listener<OrderCreatedEvent> {
   subject: Subjects.OrderCreated = Subjects.OrderCreated;
-  queueGroupName = queueGroupName;
+  queueGroupName = queueGroupNamePayments;
 
   async onMessage(data: OrderCreatedEvent["data"], msg: Message) {
     const order = Order.build({
