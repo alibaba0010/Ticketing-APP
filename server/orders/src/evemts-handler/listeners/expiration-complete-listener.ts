@@ -11,7 +11,7 @@ import { Order } from "../../models/orders.mongo";
 
 import { OrderCancelledPublisher } from "../publishers/order-cancelled-publisher";
 
-export class ExpirationCompleteListener extends Listener<
+export class ExpirationCompletedListener extends Listener<
   ExpirationCompletedEvent
 > {
   queueGroupName = queueGroupNameOrders;

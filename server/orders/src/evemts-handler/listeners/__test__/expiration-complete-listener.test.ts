@@ -1,13 +1,13 @@
 import { Message } from "node-nats-streaming";
 import { OrderStatus, ExpirationCompletedEvent } from "@alibabatickets/common";
-import { ExpirationCompleteListener } from "../expiration-complete-listener";
+import { ExpirationCompletedListener } from "../expiration-complete-listener";
 import { natsWrapper } from "../../../nats-wrapper";
 import { Order } from "../../../models/orders.mongo";
 import { Ticket } from "../../../models/tickets-orders";
 import { Types } from "mongoose";
 
 const setup = async () => {
-  const listener = new ExpirationCompleteListener(natsWrapper.client);
+  const listener = new ExpirationCompletedListener(natsWrapper.client);
 
   const ticket = Ticket.build({
     id: new Types.ObjectId().toHexString(),
@@ -52,7 +52,7 @@ it("emit an OrderCancelled event", async () => {
   expect(natsWrapper.client.publish).toHaveBeenCalled();
 
   const eventData = JSON.parse(
-    (natsWrapper.client.publish as jest.Mock).mock.calls[0][1]
+    (natsWrapper.client.publish as jest.Mock).mock.calls[0][1]   //[1] to get access to id  
   );
   expect(eventData.id).toEqual(order.id);
 });

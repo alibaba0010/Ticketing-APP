@@ -25,7 +25,7 @@ kubectl get services -n ingress-nginx
 
 kubectl get pods -n ingress-inginx
 
-Build order image docker build -t alibaba0010/orders:1 .
+Build expiration image docker build -t alibaba0010/expiration:1 .
 push image 
 
 !!existingOrder
@@ -33,4 +33,4 @@ push image
   const EXPIRATION = 5 * 60; Orders controller
 
 Dealing with expiration service-- We can also use message broker(event bus)
-Event-bus implementations that can do it
+Event-bus implementations that can do it 

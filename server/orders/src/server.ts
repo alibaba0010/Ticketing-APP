@@ -2,6 +2,7 @@ import { app } from "./app";
 import connectDB from "./db";
 import { TicketCreatedListener } from "./evemts-handler/listeners/ticket-created-listener";
 import { TicketUpdatedListener } from "./evemts-handler/listeners/ticket-updated-listener";
+import { ExpirationCompletedListener } from "./evemts-handler/listeners/expiration-complete-listener";
 import { natsWrapper } from "./nats-wrapper";
 
 (async () => {
@@ -28,16 +29,16 @@ import { natsWrapper } from "./nats-wrapper";
   const url = process.env.NATS_URL;
   try {
     await natsWrapper.connect(clusterId, clientId, url);
-    natsWrapper.client.on('close', () => {
-      console.log('NATS connection closed!');
+    natsWrapper.client.on("close", () => {
+      console.log("NATS connection closed!");
       process.exit();
     });
-    process.on('SIGINT', () => natsWrapper.client.close());
-    process.on('SIGTERM', () => natsWrapper.client.close());
+    process.on("SIGINT", () => natsWrapper.client.close());
+    process.on("SIGTERM", () => natsWrapper.client.close());
 
     new TicketCreatedListener(natsWrapper.client).listen();
     new TicketUpdatedListener(natsWrapper.client).listen();
-    // new ExpirationCompleteListener(natsWrapper.client).listen();
+    new ExpirationCompletedListener(natsWrapper.client).listen();
     // new PaymentCreatedListener(natsWrapper.client).listen();
     await connectDB(uri);
   } catch (e) {}
