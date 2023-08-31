@@ -15,6 +15,7 @@ export * from "./event-handlers/base-listener";
 export * from "./event-handlers/base-publisher";
 export * from "./event-handlers/subjects";
 export * from "./event-handlers/events/ticket-created-event";
+export * from "./event-handlers/events/payment-created-event";
 export * from "./event-handlers/events/ticket-updated-event";
 export * from "./event-handlers/events/order-created-event";
 export * from "./event-handlers/events/order-cancelled-event";
