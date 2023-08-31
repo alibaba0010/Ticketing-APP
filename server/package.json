@@ -8,6 +8,7 @@
     "dev:tickets": "ts-node-dev tickets/src/server.ts",
     "dev:orders": "ts-node-dev orders/src/server.ts",
     "dev:expiration": "ts-node-dev expiration/src/server.ts",
+    "dev:payments": "ts-node-dev payments/src/server.ts",
     "clean": "del ./build/*",
     "build": "npm run clean && tsc",
     "pub": "git add . && git commit -m \"Updates\" && npm version patch && npm run build && npm publish",
@@ -21,7 +22,8 @@
     "setupFilesAfterEnv": [
       "./auth/src/test/index.ts",
       "./tickets/src/test/index.ts",
-      "./orders/src/test/index.ts"
+      "./orders/src/test/index.ts",
+      "./payments/src/test/index.ts"
     ],
     "moduleNameMapper": {
       "^@app/common(|/.*)$": "<rootDir>/common/src/$1"
@@ -33,7 +35,6 @@
   "dependencies": {
     "@alibabatickets/common": "^1.0.8",
     "@types/bull": "^4.10.0",
-    "@types/cookie-parser": "^1.4.3",
     "@types/cookie-session": "^2.0.44",
     "@types/express": "^4.17.17",
     "@types/jsonwebtoken": "^9.0.2",
@@ -48,8 +49,7 @@
     "mongoose-update-if-current": "^1.4.0",
     "node-nats-streaming": "^0.3.2",
     "ts-node-dev": "^2.0.0",
-    "typescript": "^5.1.6",
-    "util": "^0.12.5"
+    "typescript": "^5.1.6"
   },
   "devDependencies": {
     "@types/jest": "^29.5.3",
