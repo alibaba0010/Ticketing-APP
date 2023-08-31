@@ -2,7 +2,6 @@ import express, { json } from "express";
 import "express-async-errors";
 import cookieSession from "cookie-session";
 
-
 import { errorHandler, NotFoundError } from "@alibabatickets/common";
 import paymentRouter from "./routes/payments.router";
 
@@ -18,7 +17,7 @@ app
       maxAge: 24 * 60 * 60 * 1000,
     })
   ) // 24 hours
-  .use("/api/v1/orders", orderRouter)
+  .use("/api/v1/orders", paymentRouter)
   .use("*", async () => {
     throw new NotFoundError("Route doesn't exist");
   })

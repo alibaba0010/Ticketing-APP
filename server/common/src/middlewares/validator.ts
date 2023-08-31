@@ -23,6 +23,12 @@ export const validateTicket = [
     .isFloat({ gt: 0 })
     .withMessage("Price must be greater than zero"),
 ];
+
+export const validatePayment = [
+  body("token").not().isEmpty(),
+  body("orderId").not().isEmpty(),
+];
+
 export const validateOrder = [
   body("ticketId")
     .not()

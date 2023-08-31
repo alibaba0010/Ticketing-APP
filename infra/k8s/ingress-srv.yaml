@@ -31,6 +31,13 @@ spec:
                 name: orders-srv
                 port:
                   number: 3003
+          - path: /api/v1/payments/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: payments-srv
+                port:
+                  number: 3004
           - path: /?(.*)
             pathType: Prefix
             backend:
@@ -38,19 +45,3 @@ spec:
                 name: client-srv
                 port:
                   number: 3000
-          # port:
-          #   - number: 3000
-          # - path: /posts/?(.*)/comments #?(.*) RegExp for :id
-          #   pathType: Prefix
-          #   backend:
-          #     service:
-          #       name: comments-srv
-          #       port:
-          #         number: 4001
-          # - path: /?(.*) # regexp useful when react-router was used and should be the last path to be added cus it's relative path
-          #   pathType: Prefix
-          #   backend:
-          #     service:
-          #       name: client-srv
-          #       port:
-          #         number: 3000
