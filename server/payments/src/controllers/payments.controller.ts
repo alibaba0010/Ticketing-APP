@@ -43,5 +43,5 @@ export const ticketPayment = async (req: Request, res: Response) => {
     stripeId: payment.stripeId,
   });
 
-  res.status(201).send({ id: payment.id });
+  res.status(201).json({ id: payment.id });
 };

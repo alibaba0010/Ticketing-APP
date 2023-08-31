@@ -6,6 +6,7 @@ import { stripe } from "../../stripe";
 import { Payment } from "../../models/payment.mongo";
 import { Types } from "mongoose";
 
+
 it("returns a 404 when purchasing an order that does not exist", async () => {
   await request(app)
     .post("/api/v1/payments")
