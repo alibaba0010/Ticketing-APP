@@ -3,23 +3,23 @@ import {
   Subjects,
   Listener,
   OrderStatus,
-} from '@sgtickets/common';
-import { Message } from 'node-nats-streaming';
-import { queueGroupName } from './queue-group-name';
-import { Order } from '../../models/order';
+} from "@sgtickets/common";
+import { Message } from "node-nats-streaming";
+import { queueGroupName } from "./queue-group-name";
+import { Order } from "../../models/orders-payments";
 
 export class OrderCancelledListener extends Listener<OrderCancelledEvent> {
   subject: Subjects.OrderCancelled = Subjects.OrderCancelled;
   queueGroupName = queueGroupName;
 
-  async onMessage(data: OrderCancelledEvent['data'], msg: Message) {
+  async onMessage(data: OrderCancelledEvent["data"], msg: Message) {
     const order = await Order.findOne({
       _id: data.id,
       version: data.version - 1,
     });
 
     if (!order) {
-      throw new Error('Order not found');
+      throw new Error("Order not found");
     }
 
     order.set({ status: OrderStatus.Cancelled });

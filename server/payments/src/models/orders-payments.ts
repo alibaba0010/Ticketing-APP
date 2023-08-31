@@ -1,6 +1,6 @@
-import mongoose from 'mongoose';
-import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
-import { OrderStatus } from '@sgtickets/common';
+import { updateIfCurrentPlugin } from "mongoose-update-if-current";
+import { OrderStatus } from "@alibabatickets/common";
+import { Model, Document, Schema, model } from "mongoose";
 
 interface OrderAttrs {
   id: string;
@@ -10,18 +10,18 @@ interface OrderAttrs {
   status: OrderStatus;
 }
 
-interface OrderDoc extends mongoose.Document {
+interface OrderDoc extends Document {
   version: number;
   userId: string;
   price: number;
   status: OrderStatus;
 }
 
-interface OrderModel extends mongoose.Model<OrderDoc> {
+interface OrderModel extends Model<OrderDoc> {
   build(attrs: OrderAttrs): OrderDoc;
 }
 
-const orderSchema = new mongoose.Schema(
+const OrderSchema = new Schema(
   {
     userId: {
       type: String,
@@ -46,10 +46,10 @@ const orderSchema = new mongoose.Schema(
   }
 );
 
-orderSchema.set('versionKey', 'version');
-orderSchema.plugin(updateIfCurrentPlugin);
+OrderSchema.set("versionKey", "version");
+OrderSchema.plugin(updateIfCurrentPlugin);
 
-orderSchema.statics.build = (attrs: OrderAttrs) => {
+OrderSchema.statics.build = (attrs: OrderAttrs) => {
   return new Order({
     _id: attrs.id,
     version: attrs.version,
@@ -59,6 +59,6 @@ orderSchema.statics.build = (attrs: OrderAttrs) => {
   });
 };
 
-const Order = mongoose.model<OrderDoc, OrderModel>('Order', orderSchema);
+const Order = model<OrderDoc, OrderModel>("Order", OrderSchema);
 
 export { Order };

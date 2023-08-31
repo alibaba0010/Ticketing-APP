@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: payments
-          image: stephengrider/payments
+          image: alibaba0010/payments:1
           env:
             - name: NATS_CLIENT_ID
               valueFrom:
@@ -47,5 +47,5 @@ spec:
   ports:
     - name: payments
       protocol: TCP
-      port: 3000
+      port: 3004
       targetPort: 3004

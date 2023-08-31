@@ -56,14 +56,15 @@ build:
         manual:
           - src: "server/expiration/src/**/*.ts"
             dest: .
-    # - image: cygnetops/moderation-84 #3
-    #   context: moderation
-    #   docker:
-    #     dockerfile: Dockerfile
-    #   sync:
-    #     manual:
-    #       - src: "*.js"
-    #         dest: .
+    - image: alibaba0010/payments
+      context: server/payments
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "server/payments/src/**/*.ts"
+            dest: .
+   
     
 # custom:
 # buildCommand: bash -c "docker build -f server/auth/Dockerfile --build-arg APP_DIR=../../server -t alibaba0010/auth:a6d8f41-dirty ."

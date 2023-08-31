@@ -1,19 +1,15 @@
-
-import { stripe } from '../stripe';
-import { Order } from '../models/order';
-import { Payment } from '../models/payment';
-import { PaymentCreatedPublisher } from '../events/publishers/payment-created-publisher';
-import { natsWrapper } from '../nats-wrapper';
-
+import { stripe } from "../stripe";
+import { Order } from "../models/orders-payments";
+import { Payment } from "../models/payment.mongo";
+import { PaymentCreatedPublisher } from "../events/publishers/payment-created-publisher";
+import { natsWrapper } from "../nats-wrapper";
 
 router.post(
-  '/api/payments',
+  "/api/payments",
   requireAuth,
-  [body('token').not().isEmpty(), body('orderId').not().isEmpty()],
+  [body("token").not().isEmpty(), body("orderId").not().isEmpty()],
   validateRequest,
-  async (req: Request, res: Response) => {
- 
-  }
+  async (req: Request, res: Response) => {}
 );
 
 import {

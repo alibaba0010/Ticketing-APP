@@ -1,20 +1,20 @@
-import mongoose from 'mongoose';
+import { Model, Document, model, Schema } from "mongoose";
 
 interface PaymentAttrs {
   orderId: string;
   stripeId: string;
 }
 
-interface PaymentDoc extends mongoose.Document {
+interface PaymentDoc extends Document {
   orderId: string;
   stripeId: string;
 }
 
-interface PaymentModel extends mongoose.Model<PaymentDoc> {
+interface PaymentModel extends Model<PaymentDoc> {
   build(attrs: PaymentAttrs): PaymentDoc;
 }
 
-const paymentSchema = new mongoose.Schema(
+const paymentSchema = new Schema(
   {
     orderId: {
       required: true,
@@ -39,9 +39,6 @@ paymentSchema.statics.build = (attrs: PaymentAttrs) => {
   return new Payment(attrs);
 };
 
-const Payment = mongoose.model<PaymentDoc, PaymentModel>(
-  'Payment',
-  paymentSchema
-);
+const Payment = model<PaymentDoc, PaymentModel>("Payment", paymentSchema);
 
 export { Payment };

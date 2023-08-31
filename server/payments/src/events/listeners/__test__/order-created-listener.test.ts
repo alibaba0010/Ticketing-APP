@@ -1,21 +1,21 @@
-import mongoose from 'mongoose';
-import { Message } from 'node-nats-streaming';
-import { OrderCreatedEvent, OrderStatus } from '@sgtickets/common';
-import { natsWrapper } from '../../../nats-wrapper';
-import { OrderCreatedListener } from '../order-created-listener';
-import { Order } from '../../../models/order';
+import mongoose from "mongoose";
+import { Message } from "node-nats-streaming";
+import { OrderCreatedEvent, OrderStatus } from "@sgtickets/common";
+import { natsWrapper } from "../../../nats-wrapper";
+import { OrderCreatedListener } from "../order-created-listener";
+import { Order } from "../../../models/orders-payments";
 
 const setup = async () => {
   const listener = new OrderCreatedListener(natsWrapper.client);
 
-  const data: OrderCreatedEvent['data'] = {
+  const data: OrderCreatedEvent["data"] = {
     id: mongoose.Types.ObjectId().toHexString(),
     version: 0,
-    expiresAt: 'alskdjf',
-    userId: 'alskdjf',
+    expiresAt: "alskdjf",
+    userId: "alskdjf",
     status: OrderStatus.Created,
     ticket: {
-      id: 'alskdfj',
+      id: "alskdfj",
       price: 10,
     },
   };
@@ -28,7 +28,7 @@ const setup = async () => {
   return { listener, data, msg };
 };
 
-it('replicates the order info', async () => {
+it("replicates the order info", async () => {
   const { listener, data, msg } = await setup();
 
   await listener.onMessage(data, msg);
@@ -38,7 +38,7 @@ it('replicates the order info', async () => {
   expect(order!.price).toEqual(data.ticket.price);
 });
 
-it('acks the message', async () => {
+it("acks the message", async () => {
   const { listener, data, msg } = await setup();
 
   await listener.onMessage(data, msg);
