@@ -1,6 +1,6 @@
 {
   "name": "@alibabatickets/common",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "ticketing-service",
   "main": "./build/index.js",
   "types": "./build/index.d.ts",

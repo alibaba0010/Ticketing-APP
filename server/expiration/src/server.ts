@@ -1,4 +1,3 @@
-// import { OrderCancelledListener } from "./evemts-handler/listeners/order-cancelled-listener";
 import { OrderCreatedListener } from "./events-handler/listeners/order-created-listener";
 import { natsWrapper } from "./nats-wrapper";
 const start = async () => {
