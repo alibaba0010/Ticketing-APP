@@ -1,15 +1,15 @@
-import Router from 'next/router';
-import useRequest from '../../hooks/use-request';
+import Router from "next/router";
+import useRequest from "../../hooks/use-request";
 
 const TicketShow = ({ ticket }) => {
   const { doRequest, errors } = useRequest({
-    url: '/api/orders',
-    method: 'post',
+    url: "/api/v1/orders",
+    method: "post",
     body: {
       ticketId: ticket.id,
     },
     onSuccess: (order) =>
-      Router.push('/orders/[orderId]', `/orders/${order.id}`),
+      Router.push("/orders/[orderId]", `/orders/${order.id}`),
   });
 
   return (
@@ -26,7 +26,8 @@ const TicketShow = ({ ticket }) => {
 
 TicketShow.getInitialProps = async (context, client) => {
   const { ticketId } = context.query;
-  const { data } = await client.get(`/api/tickets/${ticketId}`);
+  const { data } = await client.get(`/api/v1/tickets/${ticketId}`); //id
+  console.log("Ticket Id: ", ticketId)
 
   return { ticket: data };
 };

@@ -8,12 +8,14 @@ import {
   createTicket,
   getTicketWithId,
   updateTicket,
+  getTickets,
 } from "../controllers/tickets.controller";
 
 const ticketRouter = Router();
 
 ticketRouter
   .post("/", authentication, validateTicket, validateRequest, createTicket)
-  .get("/:id", authentication, getTicketWithId)
+  .get("/", getTickets)
+  .get("/:id", getTicketWithId)
   .patch("/:id", authentication, validateTicket, updateTicket);
 export default ticketRouter;

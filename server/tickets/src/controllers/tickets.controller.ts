@@ -63,3 +63,9 @@ export const updateTicket = async (req: Request, res: Response) => {
 
   res.status(200).json(ticket);
 };
+
+// GET ALL TICKETS
+export const getTickets = async (req: Request, res: Response) => {
+  const tickets = await Ticket.find({ orderId: undefined });
+  res.json(tickets);
+};
