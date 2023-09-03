@@ -10,4 +10,4 @@ jobs:
       - uses: actions/checkout@v3
         with:
           node-version: '16'
-      - run: cd server/auth && npm install && npm run build && npm run test
+      - run: cd server/auth && npm install && npm run build && npm run test:ci
