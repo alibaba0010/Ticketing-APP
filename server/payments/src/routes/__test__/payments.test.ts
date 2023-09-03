@@ -10,7 +10,7 @@ import { Types } from "mongoose";
 it("returns a 404 when purchasing an order that does not exist", async () => {
   await request(app)
     .post("/api/v1/payments")
-    .set("Cookie", global.signin())
+    .set("Cookie", global.login())
     .send({
       token: "asldkfj",
       orderId: new Types.ObjectId().toHexString(),
@@ -30,7 +30,7 @@ it("returns a 401 when purchasing an order that doesnt belong to the user", asyn
 
   await request(app)
     .post("/api/v1/payments")
-    .set("Cookie", global.signin())
+    .set("Cookie", global.login())
     .send({
       token: "asldkfj",
       orderId: order.id,
@@ -51,7 +51,7 @@ it("returns a 400 when purchasing a cancelled order", async () => {
 
   await request(app)
     .post("/api/v1/payments")
-    .set("Cookie", global.signin(userId))
+    .set("Cookie", global.login(userId))
     .send({
       orderId: order.id,
       token: "asdlkfj",
@@ -73,7 +73,7 @@ it("returns a 201 with valid inputs", async () => {
 
   await request(app)
     .post("/api/v1/payments")
-    .set("Cookie", global.signin(userId))
+    .set("Cookie", global.login(userId))
     .send({
       token: "tok_visa",
       orderId: order.id,
