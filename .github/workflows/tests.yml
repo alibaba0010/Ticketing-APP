@@ -4,10 +4,12 @@ on:
   pull_request:
 
 jobs:
-  build:
+  Jest:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-        with:
-          node-version: '16'
-      - run: cd server/auth && npm install && npm run test
+      - name: Run Tests
+        run: |
+          cd server/auth 
+          npm install 
+          npm test
