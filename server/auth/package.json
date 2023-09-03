@@ -21,6 +21,7 @@
       "debug": "1"
     }
   },
+  "license": "ISC",
   "dependencies": {
     "@alibabatickets/common": "^1.0.8",
     "@types/cookie-session": "^2.0.44",
