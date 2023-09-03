@@ -1,5 +1,6 @@
 import request from "supertest";
 import { app } from "../../app";
+import { it, expect } from "@jest/globals";
 
 // *******SIGNUP*****
 it("returns a 201 on successful signup", async () => {
