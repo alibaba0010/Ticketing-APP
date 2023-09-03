@@ -12,7 +12,6 @@
     "preset": "ts-jest",
     "testEnvironment": "node",
     "testTimeout": 15000,
-    "typeRoots": ["node_modules/@types"],
     "setupFilesAfterEnv": [
       "./src/test/index.ts"
     ]

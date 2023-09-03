@@ -2,16 +2,15 @@ import { MongoMemoryServer } from "mongodb-memory-server";
 import request from "supertest";
 import { app } from "../app";
 import { connect, connection } from "mongoose";
-import '@types/jest';
 declare global {
   namespace NodeJS {
     interface Global {
-      signin(): Promise<string[]>; 
+      signin(): Promise<string[]>;
     }
   }
 }
 
-let mongo: MongoMemoryServer;
+var mongo: MongoMemoryServer;
 beforeAll(async () => {
   process.env.JWT_SECRET = "asdfasdf";
   process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
@@ -29,7 +28,6 @@ beforeEach(async () => {
 });
 
 afterAll(async () => {
-
   await mongo.stop();
   await connection.close();
 });
