@@ -2,13 +2,17 @@ import { MongoMemoryServer } from "mongodb-memory-server";
 import jwt from "jsonwebtoken";
 import { Types, connect, connection } from "mongoose";
 jest.mock("../nats-wrapper");
+import { beforeAll, afterAll, beforeEach, jest } from "@jest/globals";
 
+// declare global {
+//   namespace NodeJS {
+//     interface Global {
+//       login(): string[];
+//     }
+//   }
+// }
 declare global {
-  namespace NodeJS {
-    interface Global {
-      login(): string[];
-    }
-  }
+  function login(): string[];
 }
 
 let mongo: MongoMemoryServer;

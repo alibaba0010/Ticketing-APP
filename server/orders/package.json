@@ -16,6 +16,11 @@
       "./src/test/index.ts"
     ]
   },
+  "config": {
+    "mongodbMemoryServer": {
+      "debug": "1"
+    }
+  },
   "dependencies": {
     "@alibabatickets/common": "^1.0.8",
     "@types/cookie-session": "^2.0.44",

@@ -4,6 +4,7 @@ import { Order, OrderStatus } from "../../models/orders.mongo";
 import { Ticket } from "../../models/tickets-orders";
 import { natsWrapper } from "../../nats-wrapper";
 import { Types } from "mongoose";
+import { it, expect } from "@jest/globals";
 
 it("returns an error if the ticket does not exist", async () => {
   const ticketId = new Types.ObjectId();

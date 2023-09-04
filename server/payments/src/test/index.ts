@@ -1,15 +1,18 @@
 import { MongoMemoryServer } from "mongodb-memory-server";
 import { Types, connect, connection } from "mongoose";
 import jwt from "jsonwebtoken";
+import { beforeAll, afterAll, beforeEach, jest } from "@jest/globals";
 
+// declare global {
+//   namespace NodeJS {
+//     interface Global {
+//       login(id?: string): string[];
+//     }
+//   }
+// }
 declare global {
-  namespace NodeJS {
-    interface Global {
-      login(id?: string): string[];
-    }
-  }
+  function login(id?: string): string[];
 }
-
 jest.mock("../nats-wrapper");
 
 process.env.STRIPE_KEY = "sk_test_51NlAseIBBPhIYhH7WN59oFlMrQRHWpY1OQpjWC2HReRKOjXK0dnlKlVPB5G6dCEtVbDZLXm8e4IaDpldBwt4D5rR00mPDEMRTk";
@@ -38,7 +41,7 @@ afterAll(async () => {
   await connection.close();
 });
 
-global.l = (id?: string) => {
+global.login = (id?: string) => {
   // Build a JWT payload.  { id, email }
   const payload = {
     id: id || new Types.ObjectId().toHexString(),

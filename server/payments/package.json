@@ -14,7 +14,11 @@
     "setupFilesAfterEnv": [
       "./src/test/index.ts"
     ]
-    
+  },
+  "config": {
+    "mongodbMemoryServer": {
+      "debug": "1"
+    }
   },
   "keywords": [],
   "author": "",

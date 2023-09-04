@@ -2,6 +2,7 @@ import request from "supertest";
 import { app } from "../../app";
 import { Ticket } from "../../models/tickets-orders";
 import { Types } from "mongoose";
+import { it, expect } from "@jest/globals";
 
 /*********** GET ORDERS FOR A PARTICULAR USER */
 const buildTicket = async () => {

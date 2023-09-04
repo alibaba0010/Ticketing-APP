@@ -1,13 +1,13 @@
-name: tests-auth
+name: tests-orders
 
 on:
   pull_request:
     paths:
-      - "server/auth/**"
+      - "server/orders/**"
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - run: cd server/auth && npm install && npm run test:ci
+      - run: cd server/orders && npm install && npm run test:ci
