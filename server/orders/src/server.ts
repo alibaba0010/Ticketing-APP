@@ -7,6 +7,7 @@ import { ExpirationCompletedListener } from "./evemts-handler/listeners/expirati
 import { PaymentCreatedListener } from "./evemts-handler/listeners/payment-created-listener";
 
 (async () => {
+  
   if (!process.env.NATS_CLIENT_ID) {
     throw new Error("NATS_CLIENT_ID must be defined");
   }
