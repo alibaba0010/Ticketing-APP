@@ -35,7 +35,7 @@ afterAll(async () => {
   await connection.close();
 });
 
-global.signin = async () => {
+global.signin = async (): Promise<string[]> => {
   const email = "test@test.com";
   const password = "password";
 
