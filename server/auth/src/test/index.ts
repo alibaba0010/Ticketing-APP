@@ -4,14 +4,6 @@ import { app } from "../app";
 import { connect, connection } from "mongoose";
 import { beforeAll, afterAll, beforeEach } from "@jest/globals";
 
-// declare global {
-//   namespace NodeJS {
-//     interface Global {
-//       signin(): Promise<string[]>; //aditional property
-//     }
-//   }
-// }
-// global.d.ts
 declare global {
   function signin(): Promise<string[]>;
 }

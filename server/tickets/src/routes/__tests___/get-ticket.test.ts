@@ -1,6 +1,7 @@
 import { app } from "../../app";
 import { Types } from "mongoose";
 import request from "supertest";
+import { it, expect } from "@jest/globals";
 
 // *******GETTING A TICKET WITH ITS ID*****
 it("returns a 404 if the ticket is not found", async () => {

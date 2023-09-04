@@ -1,5 +1,6 @@
 import request from "supertest";
 import { Schema, model, Types } from "mongoose";
+import { it, expect } from "@jest/globals";
 
 import { app } from "../../app";
 import { Ticket } from "../../models/tickets.mongo";

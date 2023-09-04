@@ -3,6 +3,7 @@ import { Types } from "mongoose";
 import request from "supertest";
 import { natsWrapper } from "../../nats-wrapper";
 import { Ticket } from "../../models/tickets.mongo";
+import { it, expect } from "@jest/globals";
 
 // *******UPDATING A TICKET WITH ITS ID*****
 
