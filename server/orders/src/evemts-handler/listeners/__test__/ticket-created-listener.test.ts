@@ -4,6 +4,7 @@ import { TicketCreatedEvent } from "@alibabatickets/common";
 import { TicketCreatedListener } from "../ticket-created-listener";
 import { natsWrapper } from "../../../nats-wrapper";
 import { Ticket } from "../../../models/tickets-orders";
+import { jest, expect, it } from "@jest/globals";
 
 const setup = async () => {
   // create an instance of the listener

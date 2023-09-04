@@ -4,6 +4,7 @@ import { TicketUpdatedListener } from "../ticket-updated-listener";
 import { natsWrapper } from "../../../nats-wrapper";
 import { Ticket } from "../../../models/tickets-orders";
 import { Types } from "mongoose";
+import { jest, expect, it } from "@jest/globals";
 
 const setup = async () => {
   // Create a listener

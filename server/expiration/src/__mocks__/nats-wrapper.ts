@@ -1,4 +1,6 @@
+
 export const natsWrapper = {
+  import {  jest } from "@jest/globals";
   client: {
     publish: jest
       .fn()

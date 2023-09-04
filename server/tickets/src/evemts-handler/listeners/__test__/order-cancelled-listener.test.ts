@@ -4,6 +4,7 @@ import { OrderCancelledEvent } from '@alibabatickets/common';
 import { natsWrapper } from '../../../nats-wrapper';
 import { OrderCancelledListener } from '../order-cancelled-listener';
 import { Ticket } from '../../../models/tickets.mongo';
+import { jest, expect, it } from "@jest/globals";
 
 const setup = async () => {
   const listener = new OrderCancelledListener(natsWrapper.client);

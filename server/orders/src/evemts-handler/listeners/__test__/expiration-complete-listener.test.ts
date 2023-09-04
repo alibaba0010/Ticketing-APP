@@ -5,6 +5,7 @@ import { natsWrapper } from "../../../nats-wrapper";
 import { Order } from "../../../models/orders.mongo";
 import { Ticket } from "../../../models/tickets-orders";
 import { Types } from "mongoose";
+import { jest, expect, it } from "@jest/globals";
 
 const setup = async () => {
   const listener = new ExpirationCompletedListener(natsWrapper.client);
@@ -52,7 +53,7 @@ it("emit an OrderCancelled event", async () => {
   expect(natsWrapper.client.publish).toHaveBeenCalled();
 
   const eventData = JSON.parse(
-    (natsWrapper.client.publish as jest.Mock).mock.calls[0][1] //[1] to get access to id
+    (natsWrapper.client.publish as jest.Mock).mock.calls[0][1] as string //[1] to get access to id
   );
   expect(eventData.id).toEqual(order.id);
 });

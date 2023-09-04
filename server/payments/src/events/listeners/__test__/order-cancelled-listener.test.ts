@@ -4,6 +4,7 @@ import { OrderCancelledListener } from "../order-cancelled-listener";
 import { natsWrapper } from "../../../nats-wrapper";
 import { Order } from "../../../models/orders-payments";
 import { Types } from "mongoose";
+import { jest, expect, it } from "@jest/globals";
 
 const setup = async () => {
   const listener = new OrderCancelledListener(natsWrapper.client);
