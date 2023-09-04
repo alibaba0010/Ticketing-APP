@@ -4,14 +4,17 @@ import { app } from "../app";
 import { connect, connection } from "mongoose";
 import { beforeAll, afterAll, beforeEach } from "@jest/globals";
 
+// declare global {
+//   namespace NodeJS {
+//     interface Global {
+//       signin(): Promise<string[]>; //aditional property
+//     }
+//   }
+// }
+// global.d.ts
 declare global {
-  namespace NodeJS {
-    interface Global {
-      signin(): Promise<string[]>; //aditional property
-    }
-  }
+  function signin(): Promise<string[]>;
 }
-
 let mongo: MongoMemoryServer;
 beforeAll(async () => {
   process.env.JWT_SECRET = "asdfasdf";
@@ -30,7 +33,6 @@ beforeEach(async () => {
 });
 
 afterAll(async () => {
-
   await mongo.stop();
   await connection.close();
 });
