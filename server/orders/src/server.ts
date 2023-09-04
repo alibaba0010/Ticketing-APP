@@ -26,6 +26,7 @@ import { PaymentCreatedListener } from "./evemts-handler/listeners/payment-creat
   if (!process.env.MONGO_URL) {
     throw new Error("MONGO_URL must be included");
   }
+  
   const uri = process.env.MONGO_URL;
   const clusterId = process.env.NATS_CLUSTER_ID;
   const clientId = process.env.NATS_CLIENT_ID;
