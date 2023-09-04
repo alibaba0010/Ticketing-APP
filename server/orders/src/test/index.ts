@@ -25,7 +25,6 @@ beforeAll(async () => {
       dbName: "test-db", // Your desired database name
     },
   }); // Assign the MongoMemoryServer instance to the global mongo variable
-  console.log("mongo......", mongo);
 
   const mongoUri = mongo.getUri(); // Get the URI from the MongoMemoryServer instance
   await connect(mongoUri);
@@ -41,7 +40,6 @@ beforeEach(async () => {
 });
 
 afterAll(async () => {
-  console.log("MONGO!!!!!!......", mongo);
 
   await mongo.stop();
   await connection.close();

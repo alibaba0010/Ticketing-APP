@@ -14,8 +14,6 @@ export default () => {
     },
     onSuccess: () => Router.push("/"),
   });
-  // console.log(response.data)
-  //try catch console.log(err.response.data)
   // change errors to error
   const onSubmit = async (event) => {
     event.preventDefault();

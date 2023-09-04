@@ -15,14 +15,12 @@ declare global {
 }
 jest.mock("../nats-wrapper");
 
-process.env.STRIPE_KEY = "sk_test_51NlAseIBBPhIYhH7WN59oFlMrQRHWpY1OQpjWC2HReRKOjXK0dnlKlVPB5G6dCEtVbDZLXm8e4IaDpldBwt4D5rR00mPDEMRTk";
 
 let mongo: MongoMemoryServer;
 beforeAll(async () => {
   process.env.JWT_SECRET = "asdfasdf";
   process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
   mongo = await MongoMemoryServer.create();
-  console.log("mongo.....: ", mongo);
 
   await connect(mongo.getUri(), { dbName: "test-db" });
 });
