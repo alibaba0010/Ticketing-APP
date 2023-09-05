@@ -36,7 +36,10 @@
     "jsonwebtoken": "^9.0.1",
     "module-alias": "^2.2.3",
     "mongoose": "^7.3.4",
+    "mongoose-update-if-current": "^1.4.0",
+    "node-nats-streaming": "^0.3.2",
     "ts-node-dev": "^2.0.0",
-    "typescript": "^5.1.6"
+    "typescript": "^5.1.6",
+    "util": "^0.12.5"
   }
 }
