@@ -7,6 +7,7 @@ import { ExpirationCompletedListener } from "./evemts-handler/listeners/expirati
 import { PaymentCreatedListener } from "./evemts-handler/listeners/payment-created-listener";
 
 (async () => {
+  
   if (!process.env.NATS_CLIENT_ID) {
     throw new Error("NATS_CLIENT_ID must be defined");
   }
@@ -18,12 +19,14 @@ import { PaymentCreatedListener } from "./evemts-handler/listeners/payment-creat
   }
 
   if (!process.env.JWT_SECRET) {
+    
     throw new Error("JWT_SECRET_KEY must be defined");
   }
 
   if (!process.env.MONGO_URL) {
     throw new Error("MONGO_URL must be included");
   }
+  
   const uri = process.env.MONGO_URL;
   const clusterId = process.env.NATS_CLUSTER_ID;
   const clientId = process.env.NATS_CLIENT_ID;
