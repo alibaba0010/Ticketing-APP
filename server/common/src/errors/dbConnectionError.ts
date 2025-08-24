@@ -13,3 +13,4 @@ export class DatabaseConnectionError extends CustomError {
   }
 }
 export { DatabaseConnectionError as default };
+5;

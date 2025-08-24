@@ -15,7 +15,6 @@ declare global {
 }
 jest.mock("../nats-wrapper");
 
-
 let mongo: MongoMemoryServer;
 beforeAll(async () => {
   process.env.JWT_SECRET = "asdfasdf";
@@ -27,7 +26,7 @@ beforeAll(async () => {
 
 beforeEach(async () => {
   jest.clearAllMocks();
-  const collections = await connection.db.collections();
+  const collections = await connection.db!.collections();
 
   for (let collection of collections) {
     await collection.deleteMany({});

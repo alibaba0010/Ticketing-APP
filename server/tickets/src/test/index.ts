@@ -19,7 +19,7 @@ beforeAll(async () => {
 
 beforeEach(async () => {
   jest.clearAllMocks();
-  const collections = await connection.db.collections();
+  const collections = await connection.db!.collections();
 
   for (let collection of collections) {
     await collection.deleteMany({});
@@ -27,7 +27,6 @@ beforeEach(async () => {
 });
 
 afterAll(async () => {
-
   await mongo.stop();
   await connection.close();
 });

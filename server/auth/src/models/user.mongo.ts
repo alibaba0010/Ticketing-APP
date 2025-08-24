@@ -34,11 +34,11 @@ const UserSchema = new Schema(
   },
   {
     toJSON: {
-      transform(doc, ret) {
-        ret.id = ret._id;
-        delete ret._id;
-        delete ret.password;
-        delete ret.__v;
+      transform(doc, ret: any) {
+        (ret as any).id = ret._id;
+        delete (ret as any)._id;
+        delete (ret as any).password;
+        delete (ret as any).__v;
       },
     },
   }
