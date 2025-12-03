@@ -39,15 +39,16 @@ const TicketSchema = new Schema(
   },
   {
     toJSON: {
-      transform(doc, ret) {
+      transform(doc, ret: any) {
         ret.id = ret._id;
         delete ret._id;
+        delete ret.__v;
       },
     },
   }
 );
 
-TicketSchema.set('versionKey', 'version');
+TicketSchema.set("versionKey", "version");
 TicketSchema.plugin(updateIfCurrentPlugin);
 
 TicketSchema.statics.build = (attrs: TicketAttrs) => {

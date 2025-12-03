@@ -4,7 +4,8 @@
   "description": "ticketing-service",
   "main": "index.js",
   "scripts": {
-    "dev:auth": "ts-node-dev src/server.ts",
+    "run:auth": "ts-node-dev src/server.ts",
+    "dev:auth": "ts-node-dev --watch src src/server.ts",
     "test": "jest --watchAll --no-cache --detectOpenHandles",
     "test:ci": "jest"
   },
