@@ -22,7 +22,8 @@ app
   .use("/api/v1/users", userRouter)
   .use("*", async () => {
     throw new NotFoundError("Route doesn't exist");
-  })
-  .use(errorHandler);
+  });
+// app.use(errorHandler);
+app.use(errorHandler);
 
 export { app };

@@ -43,8 +43,8 @@ const UserSchema = new Schema(
     },
   }
 );
-UserSchema.pre("save", async function (next) {
-  if (!this.isModified("password")) next(); //{}
+UserSchema.pre("save", async function () {
+  if (!this.isModified("password")) return;
   const hashed = await PasswordMgt.hashPassword(this.get("password"));
   this.set("password", hashed);
 });

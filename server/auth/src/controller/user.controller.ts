@@ -1,4 +1,11 @@
 import { NextFunction, Request, Response } from "express";
+// Augment Express Request to include `session` and `currentUser` used by our app
+declare module "express-serve-static-core" {
+  interface Request {
+    session?: { jwt?: string } | null;
+    currentUser?: any;
+  }
+}
 import jwt from "jsonwebtoken";
 
 import { BadRequestError } from "@alibabatickets/common";
@@ -28,7 +35,7 @@ export const signUp = async (
     // Generate JWT
     const userToken = jwt.sign(
       {
-        id: user.id,
+        id: user._id,
         email: user.email,
       },
       process.env.JWT_SECRET!
@@ -67,7 +74,7 @@ export const signIn = async (
     // Generate JWT
     const userToken = jwt.sign(
       {
-        id: existingUser.id,
+        id: existingUser._id,
         email: existingUser.email,
       },
       process.env.JWT_SECRET!
