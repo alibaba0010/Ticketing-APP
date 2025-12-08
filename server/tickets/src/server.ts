@@ -3,6 +3,8 @@ import connectDB from "./db";
 import { OrderCancelledListener } from "./evemts-handler/listeners/order-cancelled-listener";
 import { OrderCreatedListener } from "./evemts-handler/listeners/order-created-listener";
 import { natsWrapper } from "./nats-wrapper";
+import dotenv from "dotenv";
+dotenv.config();
 
 (async () => {
   if (!process.env.NATS_CLIENT_ID) {

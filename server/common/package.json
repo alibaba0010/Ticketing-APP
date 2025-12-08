@@ -33,7 +33,7 @@
     "express-validator": "^7.3.1",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^9.0.0",
-    "node-nats-streaming": "^0.3.2"
+    "nats": "^2.29.3"
   },
   "keywords": [],
   "author": "",

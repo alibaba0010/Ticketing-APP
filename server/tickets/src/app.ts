@@ -2,8 +2,8 @@
 import express, { json } from "express";
 import "express-async-errors";
 import cookieSession from "cookie-session";
+import cors from "cors";
 // import moduleAlias from "module-alias";
-
 
 import { errorHandler, NotFoundError } from "@alibabatickets/common";
 import ticketRouter from "./routes/tickets.router";
@@ -13,6 +13,12 @@ const app = express();
 app
   .set("trust proxy", true)
   .use(json())
+  .use(
+    cors({
+      origin: "http://localhost:3000",
+      credentials: true,
+    })
+  )
   .use(
     cookieSession({
       signed: false,
