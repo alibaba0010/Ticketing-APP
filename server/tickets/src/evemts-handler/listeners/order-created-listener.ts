@@ -29,7 +29,7 @@ export class OrderCreatedListener extends Listener<OrderCreatedEvent> {
     await ticket.save();
     await new TicketUpdatedPublisher(this.client).publish({
       // instead of using natsWrapper.client cos of test mocking
-      id: ticket.id,
+      id: ticket._id.toString(),
       price: ticket.price,
       title: ticket.title,
       userId: ticket.userId,

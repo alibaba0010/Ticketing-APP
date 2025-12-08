@@ -1,18 +1,29 @@
-import pkg from "mongoose";
-const { connect, connection, set } = pkg;
+import mongoose from "mongoose";
 
-const connectDB = (uri: string) => {
+const { connection, set, connect } = mongoose;
+console.clear();
+const sanitizeUri = (uri: string) => {
+  if (!uri) return uri;
+  let s = uri.trim();
+  // remove surrounding single/double quotes
+  s = s.replace(/^['"]+|['"]+$/g, "");
+  // remove trailing semicolon if present
+  s = s.replace(/;$/, "");
+  return s;
+};
+
+const connectDB = async (uri: string) => {
+  // const sanitized = sanitizeUri(uri);
   try {
-    console.log(
-      "Connecting to MongoDB........................................................."
-    );
     connection.once("open", () => console.log("MongoDB connected"));
+    connection.on("error", (err) =>
+      console.error("MongoDB connection error:", err)
+    );
     set("strictQuery", false);
-    // return connect("mongodb://auth-mongo-srv:27017/auth");
-    return connect(uri);
+    await connect(uri);
   } catch (e) {
-    console.log(e);
-    process.exit(1);
+    console.error("Failed to connect to MongoDB:", e);
+    throw e;
   }
 };
 

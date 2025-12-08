@@ -20,6 +20,7 @@ export abstract class Listener<T extends Event> {
   subscriptionOptions() {
     return this.client
       .subscriptionOptions()
+
       .setDeliverAllAvailable()
       .setManualAckMode(true)
       .setAckWait(this.ackWait)
@@ -35,7 +36,9 @@ export abstract class Listener<T extends Event> {
 
     subscription.on("message", (msg: Message) => {
       console.log(
-        `Message received: ${this.subject} with ${this.queueGroupName}`
+        `Message received: ${this.subject} with ${
+          this.queueGroupName
+        } with sequence #${msg.getSequence()}`
       );
 
       const parsedData = this.parseMessage(msg);

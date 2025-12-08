@@ -37,3 +37,8 @@ Dealing with expiration service-- We can also use message broker(event bus)
 Event-bus implementations that can do it
 
 token = "tok_visa"
+http://localhost:8222/streaming
+kubectl port-forward <pod_name> 4222:4222(8222:8222)
+
+channels, clients(id), queue groups (name)
+clusters

@@ -13,11 +13,11 @@ class NatsWrapper {
     this._client = connect(clusterId, clientId, { url });
 
     return new Promise<void>((resolve, reject) => {
-      this.client!.on("connect", () => {
+      this.client.on("connect", () => {
         console.log("Connected to Jet Stream");
         resolve();
       });
-      this.client!.on("error", (err) => reject(err));
+      this.client.on("error", (err) => reject(err));
     });
   }
 }

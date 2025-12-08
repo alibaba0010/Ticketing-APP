@@ -58,6 +58,7 @@ export const signIn = async (
   next: NextFunction
 ) => {
   const { email, password } = req.body;
+  console.log(`Email ${email} with password ${password}`);
 
   const existingUser = await User.findOne({ email });
   try {

@@ -11,7 +11,10 @@ dotenv.config();
   }
   try {
     const uri = process.env.MONGO_URL;
-    await connectDB(uri);
-    app.listen(3001, () => console.log(`Listen to port 3001🚀`));
-  } catch (e) {}
+    await connectDB(uri!);
+    app.listen(3001, () => console.log(`Listening on port 3001 🚀`));
+  } catch (e) {
+    console.error("Error starting server:", e);
+    process.exit(1);
+  }
 })();
