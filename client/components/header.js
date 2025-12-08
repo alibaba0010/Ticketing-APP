@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Profile from "./profile";
 
 export default ({ currentUser }) => {
   const links = [
@@ -25,8 +26,9 @@ export default ({ currentUser }) => {
         GitTix
       </Link>
 
-      <div className="d-flex justify-content-end">
-        <ul className="nav d-flex align-items-center">{links}</ul>
+      <div className="d-flex justify-content-end align-items-center">
+        <Profile currentUser={currentUser} />
+        <ul className="nav d-flex align-items-center ms-3">{links}</ul>
       </div>
     </nav>
   );

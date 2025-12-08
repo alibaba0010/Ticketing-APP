@@ -5,12 +5,23 @@ import "express-async-errors";
 // moduleAlias.addAlias("@app/common", __dirname + "../../../common/src");
 
 import cookieSession from "cookie-session";
-import { errorHandler, NotFoundError } from "@alibabatickets/common";
+import cors from "cors";
+import {
+  errorHandler,
+  NotFoundError,
+  currentUser,
+} from "@alibabatickets/common";
 import userRouter from "./routes/user.router";
 
 const app = express();
 app
   .set("trust proxy", true)
+  .use(
+    cors({
+      origin: "http://localhost:3000",
+      credentials: true,
+    })
+  )
   .use(json())
   .use(
     cookieSession({
@@ -19,9 +30,12 @@ app
       maxAge: 24 * 60 * 60 * 1000,
     })
   ) // 24 hours
+
   .use("/api/v1/users", userRouter)
-  .use("*", async () => {
-    throw new NotFoundError("Route doesn't exist");
+  .use("*", (req, res) => {
+    throw new NotFoundError(
+      `Route doesn't exist: ${req.method} ${req.originalUrl}`
+    );
   });
 // app.use(errorHandler);
 app.use(errorHandler);
