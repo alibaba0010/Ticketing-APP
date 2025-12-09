@@ -12,8 +12,8 @@ it("implements optimistic concurrency control", async () => {
   await ticket.save();
 
   // fetch the ticket twice
-  const firstInstance = await Ticket.findById(ticket.id);
-  const secondInstance = await Ticket.findById(ticket.id);
+  const firstInstance = await Ticket.findById(ticket._id.toString());
+  const secondInstance = await Ticket.findById(ticket._id.toString());
 
   // make two separate changes to the tickets we fetched
   firstInstance!.set({ price: 10 });

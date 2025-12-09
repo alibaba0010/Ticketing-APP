@@ -8,6 +8,7 @@ import { natsWrapper } from "../../nats-wrapper";
 
 // *******CREATING A TICKET*****
 it("has a route handler listening to /ap1/v1/tickets for post requests", async () => {
+  // route not exist (404) error
   const response = await request(app).post("/ap1/v1/v1/tickets").send({});
 
   expect(response.status).toEqual(404);
@@ -99,7 +100,3 @@ it("publishes an event", async () => {
 
   expect(natsWrapper.client.publish).toHaveBeenCalled();
 });
-
-
-
-

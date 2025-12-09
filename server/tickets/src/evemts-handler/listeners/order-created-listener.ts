@@ -1,4 +1,3 @@
-import { Message } from "node-nats-streaming";
 import {
   Listener,
   OrderCreatedEvent,
@@ -8,12 +7,13 @@ import {
 } from "@alibabatickets/common";
 import { Ticket } from "../../models/tickets.mongo";
 import { TicketUpdatedPublisher } from "../publishers/ticket-updated-publisher";
+import { JsMsg } from "nats";
 
 export class OrderCreatedListener extends Listener<OrderCreatedEvent> {
   subject: Subjects.OrderCreated = Subjects.OrderCreated;
   queueGroupName = queueGroupNameTickets;
 
-  async onMessage(data: OrderCreatedEvent["data"], msg: Message) {
+  async onMessage(data: OrderCreatedEvent["data"], msg: JsMsg) {
     // Find the ticket that the order is reserving
     const ticket = await Ticket.findById(data.ticket.id);
 

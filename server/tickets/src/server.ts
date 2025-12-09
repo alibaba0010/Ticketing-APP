@@ -29,19 +29,20 @@ dotenv.config();
   const clusterId = process.env.NATS_CLUSTER_ID;
   const clientId = process.env.NATS_CLIENT_ID;
   const url = process.env.NATS_URL;
+  const PORT = process.env.PORT || 3002;
   try {
     await natsWrapper.connect(clusterId, clientId, url);
 
-    natsWrapper.client.on("close", () => {
+    natsWrapper.onClose(() => {
       console.log("NATS connection closed!");
       process.exit();
     });
-    process.on("SIGINT", () => natsWrapper.client.close());
-    process.on("SIGTERM", () => natsWrapper.client.close());
+    process.on("SIGINT", () => natsWrapper.close());
+    process.on("SIGTERM", () => natsWrapper.close());
 
-    new OrderCreatedListener(natsWrapper.client).listen();
-    new OrderCancelledListener(natsWrapper.client).listen();
+    new OrderCreatedListener(natsWrapper.client);
+    new OrderCancelledListener(natsWrapper.client);
     await connectDB(uri);
   } catch (e) {}
-  app.listen(3002, () => console.log(`Listen to port 3002  🚀🚀`));
+  app.listen(PORT, () => console.log(`Listen to port 3002  🚀🚀`));
 })();

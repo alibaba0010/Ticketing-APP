@@ -9,6 +9,24 @@ declare global {
 }
 
 let mongo: MongoMemoryServer;
+
+process.env.MONGOMS_DEBUG = "0";
+process.env.MONGOMS_QUIET = "1";
+process.env.MONGOMS_VERBOSITY = "0";
+
+const originalStdoutWrite = process.stdout.write;
+const originalStderrWrite = process.stderr.write;
+
+process.stdout.write = (chunk: any, ...args: any[]) => {
+  if (typeof chunk === "string" && chunk.includes("MongoMS")) return true;
+  return originalStdoutWrite.call(process.stdout, chunk, ...args);
+};
+
+process.stderr.write = (chunk: any, ...args: any[]) => {
+  if (typeof chunk === "string" && chunk.includes("MongoMS")) return true;
+  return originalStderrWrite.call(process.stderr, chunk, ...args);
+};
+
 beforeAll(async () => {
   process.env.JWT_SECRET = "asdfasdf";
   process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
@@ -29,6 +47,9 @@ beforeEach(async () => {
 afterAll(async () => {
   await mongo.stop();
   await connection.close();
+  // Restore stdout/stderr
+  process.stdout.write = originalStdoutWrite;
+  process.stderr.write = originalStderrWrite;
 });
 
 global.login = () => {
@@ -40,6 +61,7 @@ global.login = () => {
 
   // Create the JWT!
   const token = jwt.sign(payload, process.env.JWT_KEY!);
+  console.log("Token.........................: ", token);
 
   // Build session Object. { jwt: MY_JWT }
   const session = { jwt: token };

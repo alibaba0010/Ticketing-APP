@@ -5,15 +5,15 @@ import {
   Subjects,
   queueGroupNameTickets,
 } from "@alibabatickets/common";
-import { Message } from "node-nats-streaming";
 import { Ticket } from "../../models/tickets.mongo";
+import { JsMsg } from "nats";
 import { TicketUpdatedPublisher } from "../publishers/ticket-updated-publisher";
 
 export class OrderCancelledListener extends Listener<OrderCancelledEvent> {
   subject: Subjects.OrderCancelled = Subjects.OrderCancelled;
   queueGroupName = queueGroupNameTickets;
 
-  async onMessage(data: OrderCancelledEvent["data"], msg: Message) {
+  async onMessage(data: OrderCancelledEvent["data"], msg: JsMsg) {
     const ticket = await Ticket.findById(data.ticket.id);
 
     if (!ticket) {

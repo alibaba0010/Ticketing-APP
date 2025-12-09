@@ -1,32 +1,42 @@
-import { Stan } from "node-nats-streaming";
-import nats, { connect } from "nats";
+import { connect, NatsConnection, JetStreamClient } from "nats";
 console.clear();
-
 class NatsWrapper {
-  private _client?: Stan;
-  get client() {
+  private _nc?: NatsConnection;
+  private _js?: JetStreamClient;
+  // Expose a thin, compatible client API used across the repo/tests
+  private _client?: any;
+
+  get client(): JetStreamClient {
     if (!this._client) {
       throw new Error("Cannot access NATS client before connecting");
     }
     return this._client;
   }
-  connect(clusterId: string, clientId: string, url: string) {
-    console.log(
-      `Connecting to NATS... clusterId: ${clusterId} , clientId: ${clientId} , url: ${url}`
-    );
-    // this._client = connect(clusterId, clientId, { url });
-    const nc = connect({ servers: [url] });
-    const js = nc.jetstream();
 
-    console.log("Successfully connected to NATS JetStream via nats-srv!");
+  async connect(_clusterId: string, clientId: string, url: string) {
+    console.log(`Connecting to NATS... clientId: ${clientId} , url: ${url}`); // "http://localhost:4222"
+    // const NATS_URL = "http://localhost:4222";
+    try {
+      this._nc = await connect({ servers: [url], name: clientId });
+    } catch (error) {
+      console.log(error);
+    }
 
-    return new Promise<void>((resolve, reject) => {
-      this.client.on("connect", () => {
-        console.log("Connected to Jet Stream");
-        resolve();
-      });
-      this.client.on("error", (err) => reject(err));
-    });
+    this._js = this._nc!.jetstream();
+
+    this._client = this._js;
+    console.log("Successfully connected to NATS server");
+  }
+
+  // Close the underlying NATS connection
+  close() {
+    this._nc?.close();
+  }
+
+  // Register a callback for connection close
+  onClose(cb: () => void) {
+    this._nc?.closed().then(() => cb());
   }
 }
+
 export const natsWrapper = new NatsWrapper();
