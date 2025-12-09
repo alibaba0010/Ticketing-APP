@@ -1,4 +1,4 @@
-import { NatsConnection, StringCodec } from "nats";
+import { JetStreamClient, StringCodec } from "nats";
 import { Subjects } from "./subjects";
 
 interface Event {
@@ -8,20 +8,22 @@ interface Event {
 
 export abstract class Publisher<T extends Event> {
   abstract subject: T["subject"];
-  protected client: NatsConnection;
-  protected sc = StringCodec();
+  protected client: JetStreamClient;
 
-  constructor(client: NatsConnection) {
+  constructor(client: JetStreamClient) {
     this.client = client;
   }
 
   async publish(data: T["data"]): Promise<void> {
-    const payload = this.sc.encode(JSON.stringify(data));
+    const sc = StringCodec();
     try {
-      this.client.publish(this.subject, payload);
+      await this.client.publish(
+        this.subject,
+        sc.encode(JSON.stringify(data)) as any
+      );
       console.log("Event published to subject", this.subject);
     } catch (err) {
-      console.error("Publish error:", err);
+      console.error("Failed to publish event", err);
       throw err;
     }
   }
