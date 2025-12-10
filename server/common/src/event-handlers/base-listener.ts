@@ -1,4 +1,4 @@
-import { JetStreamClient, JsMsg, StringCodec } from "nats";
+import { JetStreamClient, JsMsg, StringCodec, consumerOpts } from "nats";
 import { Subjects } from "./subjects";
 
 interface Event {
@@ -20,22 +20,24 @@ export abstract class Listener<T extends Event> {
   listen() {
     (async () => {
       try {
-        const subscription = await this.client.subscribe(this.subject, {
-          durable: this.queueGroupName,
-          // Request manual acknowledgement from subscribers so handlers control ack
-          manualAck: true,
-          // ack wait in milliseconds
-          ack_wait: this.ackWait,
-          // options are intentionally loose here for compatibility
-        } as any);
+        const options = consumerOpts();
+        options.durable(this.queueGroupName); // durable consumer
+        options.queue(this.queueGroupName); // queue group (work-sharing)
+        options.manualAck(); // manual ack handling
+        options.ackExplicit(); // require explicit ack
+        options.ackWait(this.ackWait); // redelivery timeout
+        options.deliverAll(); // deliver all available messages
+        options.deliverTo(`inbox.${this.subject}.${this.queueGroupName}`);
+
+        const subscription = await this.client.subscribe(this.subject, options);
 
         for await (const msg of subscription) {
           console.log(
-            `Message received: ${this.subject} in ${this.queueGroupName}`
+            `Message received: ${this.subject} in ${this.queueGroupName} with sequence ${msg.seq}`
           );
 
-          const parsedData = this.parseMessage(msg as JsMsg);
-          this.onMessage(parsedData, msg as JsMsg);
+          const parsedData = this.parseMessage(msg);
+          this.onMessage(parsedData, msg);
         }
       } catch (err) {
         console.error("Error handling JetStream subscription:", err);
