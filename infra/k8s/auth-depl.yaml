@@ -15,6 +15,13 @@ spec:
       containers:
         - name: auth
           image: alibaba0010/auth:1
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "500m"
           env:
             - name: MONGO_URL
               value: "mongodb://auth-mongo-srv:27017/auth"
@@ -23,7 +30,7 @@ spec:
                 secretKeyRef:
                   name: jwt-secret
                   key: JWT_KEY
-       
+
 ---
 apiVersion: v1
 kind: Service

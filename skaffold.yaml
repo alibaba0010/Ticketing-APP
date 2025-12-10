@@ -1,71 +1,60 @@
-apiVersion: skaffold/v2alpha3
+apiVersion: skaffold/v4beta13
 kind: Config
-deploy:
-  kubectl:
-    manifests:
-      - ./infra/k8s/*
-      - ./infra/k8s-dev/*
 build:
-  local:
-    push: false
-  # googleCloudBuild:
-  #   projectId: # id on google cloud
   artifacts:
     - image: alibaba0010/auth
       context: server/auth
-      docker:
-        dockerfile: Dockerfile
       sync:
         manual:
-          - src: "server/auth/src/**/*.ts"
+          - src: server/auth/src/**/*.ts
             dest: .
-    - image: alibaba0010/client
-      context: client
       docker:
         dockerfile: Dockerfile
+    - image: alibaba0010/client
+      context: client
       sync:
         manual:
           - src: "**/*.js"
             dest: .
+      docker:
+        dockerfile: Dockerfile
     - image: alibaba0010/tickets
       context: server/tickets
-      docker:
-        dockerfile: Dockerfile
-      # custom:
-      #   buildCommand: bash -c "docker build -f server/tickets/Dockerfile --build-arg APP_DIR=../../server -t alibaba0010/tickets:a6d8f41-dirty ."
-      # context: ./server/tickets
       sync:
         manual:
-          - src: "server/tickets/src/**/*.ts"
+          - src: server/tickets/src/**/*.ts
             dest: .
-    - image: alibaba0010/orders  #goggle-cloud gcr.io
+      docker:
+        dockerfile: Dockerfile
+    - image: alibaba0010/orders
       context: server/orders
-      docker:
-        dockerfile: Dockerfile
-      # custom:
-      #   buildCommand: bash -c "docker build -f server/orders/Dockerfile --build-arg APP_DIR=../../server -t alibaba0010/orders:a6d8f41-dirty ."
-      # context: ./server/orders
       sync:
         manual:
-          - src: "server/orders/src/**/*.ts"
+          - src: server/orders/src/**/*.ts
             dest: .
+      docker:
+        dockerfile: Dockerfile
     - image: alibaba0010/expiration
       context: server/expiration
-      docker:
-        dockerfile: Dockerfile
       sync:
         manual:
-          - src: "server/expiration/src/**/*.ts"
+          - src: server/expiration/src/**/*.ts
             dest: .
+      docker:
+        dockerfile: Dockerfile
     - image: alibaba0010/payments
       context: server/payments
-      docker:
-        dockerfile: Dockerfile
       sync:
         manual:
-          - src: "server/payments/src/**/*.ts"
+          - src: server/payments/src/**/*.ts
             dest: .
-   
-    
-# custom:
-# buildCommand: bash -c "docker build -f server/auth/Dockerfile --build-arg APP_DIR=../../server -t alibaba0010/auth:a6d8f41-dirty ."
+      docker:
+        dockerfile: Dockerfile
+  local:
+    push: false
+manifests:
+  rawYaml:
+    - ./infra/k8s/*
+    - ./infra/k8s-dev/*
+deploy:
+  kubectl: {}

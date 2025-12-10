@@ -15,6 +15,13 @@ spec:
       containers:
         - name: expiration
           image: alibaba0010/expiration:1
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "500m"
           env:
             - name: NATS_CLIENT_ID
               valueFrom:
