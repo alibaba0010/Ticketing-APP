@@ -1,4 +1,4 @@
-import { JetStreamClient, StringCodec } from "nats";
+import { JetStreamClient, StringCodec, PubAck } from "nats";
 import { Subjects } from "./subjects";
 
 interface Event {
@@ -17,6 +17,15 @@ export abstract class Publisher<T extends Event> {
   async publish(data: T["data"]): Promise<void> {
     const sc = StringCodec();
     try {
+      // const pubAck: PubAck = await this.client.publish(
+      //   this.subject,
+      //   sc.encode(JSON.stringify(data)) as any
+      // );
+      // const sequence = await pubAck.seq;
+      // console.log(
+      //   `Event published to subject ${this.subject} with sequence ${sequence}`
+      // );
+
       await this.client.publish(
         this.subject,
         sc.encode(JSON.stringify(data)) as any

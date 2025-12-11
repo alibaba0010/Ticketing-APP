@@ -58,7 +58,9 @@ global.login = () => {
     id: new Types.ObjectId().toHexString(),
     email: "test@test.com",
   };
-
+  if (!process.env.JWT_KEY) {
+    throw new Error("JWT_KEY must be defined");
+  }
   // Create the JWT!
   const token = jwt.sign(payload, process.env.JWT_KEY!);
   console.log("Token.........................: ", token);

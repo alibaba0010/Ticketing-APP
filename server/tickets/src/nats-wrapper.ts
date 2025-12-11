@@ -2,7 +2,6 @@ import { connect, NatsConnection, JetStreamClient } from "nats";
 console.clear();
 class NatsWrapper {
   private _nc?: NatsConnection;
-  private _js?: JetStreamClient;
   // Expose a thin, compatible client API used across the repo/tests
   private _client?: any;
 
@@ -22,9 +21,8 @@ class NatsWrapper {
       console.log(error);
     }
 
-    this._js = this._nc!.jetstream();
+    this._client = this._nc!.jetstreamManager();
 
-    this._client = this._js;
     console.log("Successfully connected to NATS server");
   }
 

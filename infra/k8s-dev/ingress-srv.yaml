@@ -24,20 +24,20 @@ spec:
                 name: tickets-srv
                 port:
                   number: 3002
-          - path: /api/v1/orders/?(.*)
-            pathType: Prefix
-            backend:
-              service:
-                name: orders-srv
-                port:
-                  number: 3003
-          - path: /api/v1/payments/?(.*)
-            pathType: Prefix
-            backend:
-              service:
-                name: payments-srv
-                port:
-                  number: 3004
+          # - path: /api/v1/orders/?(.*)
+          #   pathType: Prefix
+          #   backend:
+          #     service:
+          #       name: orders-srv
+          #       port:
+          #         number: 3003
+          # - path: /api/v1/payments/?(.*)
+          #   pathType: Prefix
+          #   backend:
+          #     service:
+          #       name: payments-srv
+          #       port:
+          #         number: 3004
           - path: /?(.*)
             pathType: Prefix
             backend:
