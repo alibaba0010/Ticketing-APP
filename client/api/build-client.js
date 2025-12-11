@@ -4,15 +4,15 @@ export default ({ req }) => {
     // We are on the server
     return axios.create({
       baseURL:
-        // "http://ingress-nginx-controller.ingress-nginx.svc.cluster.local",
-        "http://localhost:3001",
+        "http://ingress-nginx-controller.ingress-nginx.svc.cluster.local",
+      // "http://localhost:3001",
 
       headers: req.headers,
     });
   } else {
     // We must be on the browser
     return axios.create({
-      baseUrL: "/",
+      baseURL: "/",
     });
   }
 };

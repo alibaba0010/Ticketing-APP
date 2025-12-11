@@ -1,4 +1,4 @@
-FROM node:18-alpine
+FROM node:25-alpine
 
 # ARG APP_DIR
 WORKDIR /usr/src/app

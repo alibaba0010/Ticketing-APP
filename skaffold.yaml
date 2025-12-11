@@ -26,30 +26,30 @@ build:
             dest: .
       docker:
         dockerfile: Dockerfile
-    - image: alibaba0010/orders
-      context: server/orders
-      sync:
-        manual:
-          - src: server/orders/src/**/*.ts
-            dest: .
-      docker:
-        dockerfile: Dockerfile
-    - image: alibaba0010/expiration
-      context: server/expiration
-      sync:
-        manual:
-          - src: server/expiration/src/**/*.ts
-            dest: .
-      docker:
-        dockerfile: Dockerfile
-    - image: alibaba0010/payments
-      context: server/payments
-      sync:
-        manual:
-          - src: server/payments/src/**/*.ts
-            dest: .
-      docker:
-        dockerfile: Dockerfile
+    # - image: alibaba0010/orders
+    #   context: server/orders
+    #   sync:
+    #     manual:
+    #       - src: server/orders/src/**/*.ts
+    #         dest: .
+    #   docker:
+    #     dockerfile: Dockerfile
+    # - image: alibaba0010/expiration
+    #   context: server/expiration
+    #   sync:
+    #     manual:
+    #       - src: server/expiration/src/**/*.ts
+    #         dest: .
+    #   docker:
+    #     dockerfile: Dockerfile
+    # - image: alibaba0010/payments
+    #   context: server/payments
+    #   sync:
+    #     manual:
+    #       - src: server/payments/src/**/*.ts
+    #         dest: .
+    #   docker:
+    #     dockerfile: Dockerfile
   local:
     push: false
 manifests:
