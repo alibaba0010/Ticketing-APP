@@ -6,9 +6,11 @@ export const authentication = (
   res: Response,
   next: NextFunction
 ) => {
+  console.log("In Authentication current user: ", req.currentUser);
+  console.log("In Authentication req body: ", req.body);
   if (!req.currentUser) {
     throw new UnAuthorizedError();
   }
 
   next();
-}; 
+};
