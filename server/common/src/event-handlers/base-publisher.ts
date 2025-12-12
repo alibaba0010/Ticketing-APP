@@ -5,7 +5,7 @@ interface Event {
   subject: Subjects;
   data: any;
 }
-
+console.log("In base publisher");
 export abstract class Publisher<T extends Event> {
   abstract subject: T["subject"];
   protected client: JetStreamClient;
@@ -15,6 +15,7 @@ export abstract class Publisher<T extends Event> {
   }
 
   async publish(data: T["data"]): Promise<void> {
+    console.log("In base publisher with data: ", data);
     const sc = StringCodec();
     try {
       // const pubAck: PubAck = await this.client.publish(
@@ -25,7 +26,8 @@ export abstract class Publisher<T extends Event> {
       // console.log(
       //   `Event published to subject ${this.subject} with sequence ${sequence}`
       // );
-
+      console.log("Publishing event to subject", this.subject);
+      console.log("Event data", data);
       await this.client.publish(
         this.subject,
         sc.encode(JSON.stringify(data)) as any
