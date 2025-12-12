@@ -3,7 +3,6 @@ import buildClient from "../api/build-client";
 import Header from "../components/header.js";
 
 const AppComponent = ({ Component, pageProps, currentUser }) => {
-  console.log("In App component.....");
   return (
     <div>
       <Header currentUser={currentUser} />

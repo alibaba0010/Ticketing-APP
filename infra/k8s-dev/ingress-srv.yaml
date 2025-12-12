@@ -2,22 +2,24 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: ingress-srv
-  annotations:
-    kubernetes.io/ingress.class: nginx
-    nginx.ingress.kubernetes.io/use-regex: "true"
+  # annotations:
+  #   nginx.ingress.kubernetes.io/use-regex: "true"
 spec:
+  ingressClassName: traefik
   rules:
     - host: ticketing.com
       http:
         paths:
-          - path: /api/v1/users/?(.*)
+          - path: /api/v1/users
+            # - path: /api/v1/users/?(.*)
             pathType: Prefix
             backend:
               service:
                 name: auth-srv
                 port:
                   number: 3001
-          - path: /api/v1/tickets/?(.*)
+          - path: /api/v1/tickets
+            # - path: /api/v1/tickets/?(.*)
             pathType: Prefix
             backend:
               service:
@@ -38,7 +40,8 @@ spec:
           #       name: payments-srv
           #       port:
           #         number: 3004
-          - path: /?(.*)
+          - path: /
+            # - path: /?(.*)
             pathType: Prefix
             backend:
               service:

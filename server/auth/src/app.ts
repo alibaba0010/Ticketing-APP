@@ -36,8 +36,7 @@ app
     throw new NotFoundError(
       `Route doesn't exist: ${req.method} ${req.originalUrl}`
     );
-  });
-// app.use(errorHandler);
-app.use(errorHandler);
+  })
+  .use(errorHandler);
 
 export { app };

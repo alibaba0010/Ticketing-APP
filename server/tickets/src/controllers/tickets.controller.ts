@@ -13,7 +13,6 @@ export const createTicket = async (req: Request, res: Response) => {
     price,
     userId: req.currentUser!.id,
   });
-
   await ticket.save();
   await new TicketCreatedPublisher(natsWrapper.client).publish({
     id: ticket._id.toString(),
@@ -22,6 +21,7 @@ export const createTicket = async (req: Request, res: Response) => {
     userId: ticket.userId,
     version: ticket.version,
   });
+  console.log("Ticket created............................................: ", ticket);
   res.status(201).json(ticket);
 };
 

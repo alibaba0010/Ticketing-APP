@@ -1,5 +1,6 @@
 import {
   authentication,
+  currentUser,
   validateRequest,
   validateTicket,
 } from "@alibabatickets/common";
@@ -14,7 +15,14 @@ import {
 const ticketRouter = Router();
 
 ticketRouter
-  .post("/", authentication, validateTicket, validateRequest, createTicket)
+  .post(
+    "/",
+    currentUser,
+    authentication,
+    validateTicket,
+    validateRequest,
+    createTicket
+  )
   .get("/", getTickets)
   .get("/:id", getTicketWithId)
   .patch("/:id", authentication, validateTicket, updateTicket);

@@ -81,7 +81,6 @@ const LandingPage = ({ currentUser, tickets, fetchError }) => {
 
 // server fetch data SSR-- server side rendering process --- fetching from server
 LandingPage.getInitialProps = async (context, client, currentUser) => {
-  console.log("In get initil props......");
   try {
     const { data } = await client.get("/api/v1/tickets");
     return {

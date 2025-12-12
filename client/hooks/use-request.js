@@ -10,7 +10,6 @@ export default ({ url, method, body, onSuccess }) => {
       const response = await axios[method](url, { ...body, ...props });
 
       if (onSuccess) {
-         console.log("data: ", response.data); 
         onSuccess(response.data);
       }
 
