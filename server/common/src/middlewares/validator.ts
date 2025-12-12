@@ -41,10 +41,14 @@ export const validateRequest = (
   res: Response,
   next: NextFunction
 ) => {
+  console.log("In validate request: ", req.body);
   const error = validationResult(req);
+  console.log("Error in validate request: ", error);
   //if there's error
   if (!error.isEmpty()) {
+    console.log("Error not empty");
     throw new RequestValidationError(error.array());
   }
+  console.log("No error");
   next();
 };
