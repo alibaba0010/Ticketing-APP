@@ -41,8 +41,12 @@ it("increments the version number on multiple saves", async () => {
 
   await ticket.save();
   expect(ticket.version).toEqual(0);
+
+  ticket.set({ price: 10 });
   await ticket.save();
   expect(ticket.version).toEqual(1);
+
+  ticket.set({ price: 15 });
   await ticket.save();
   expect(ticket.version).toEqual(2);
 });
