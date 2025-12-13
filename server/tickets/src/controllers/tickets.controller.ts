@@ -16,18 +16,14 @@ export const createTicket = async (req: Request, res: Response) => {
     });
     await ticket.save();
 
-      await new TicketCreatedPublisher(
-        natsWrapper.client
-      ).publish({
-        id: ticket._id.toString(),
-        title: ticket.title,
-        price: ticket.price,
-        userId: ticket.userId,
-        version: ticket.version,
-      });
-  
-    
-  
+    await new TicketCreatedPublisher(natsWrapper.client).publish({
+      id: ticket._id.toString(),
+      title: ticket.title,
+      price: ticket.price,
+      userId: ticket.userId,
+      version: ticket.version,
+    });
+
     res.status(201).json(ticket);
   } catch (err) {
     console.error("Create Ticket Error:", err);
