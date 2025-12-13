@@ -1,8 +1,9 @@
 import { app } from "./app";
 import connectDB from "./db";
-import { OrderCancelledListener } from "./evemts-handler/listeners/order-cancelled-listener";
-import { OrderCreatedListener } from "./evemts-handler/listeners/order-created-listener";
+import { OrderCancelledListener } from "./events-handler/listeners/order-cancelled-listener";
+import { OrderCreatedListener } from "./events-handler/listeners/order-created-listener";
 import { natsWrapper } from "./nats-wrapper";
+import { Subjects } from "@alibabatickets/common";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -32,6 +33,10 @@ dotenv.config();
   const PORT = process.env.PORT || 3002;
   try {
     await natsWrapper.connect(clusterId, clientId, url);
+    await natsWrapper.createStream("tickets", [
+      Subjects.TicketCreated,
+      Subjects.TicketUpdated,
+    ]);
 
     natsWrapper.onClose(() => {
       console.log("NATS connection closed!");
@@ -40,9 +45,13 @@ dotenv.config();
     process.on("SIGINT", () => natsWrapper.close());
     process.on("SIGTERM", () => natsWrapper.close());
 
+
     new OrderCreatedListener(natsWrapper.client);
     new OrderCancelledListener(natsWrapper.client);
     await connectDB(uri);
-  } catch (e) {}
+  } catch (e) {
+    console.error("Error starting server:", e);
+    process.exit(1); // Exit so K8s can restart the pod
+  }
   app.listen(PORT, () => console.log(`Listen to port 3002  🚀🚀`));
 })();

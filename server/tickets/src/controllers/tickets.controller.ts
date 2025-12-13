@@ -1,28 +1,38 @@
 import { Response, Request } from "express";
 import { Ticket } from "../models/tickets.mongo";
 import { NotFoundError, UnAuthorizedError } from "@alibabatickets/common";
-import { TicketCreatedPublisher } from "../evemts-handler/publishers/ticket-created-publisher";
+import { TicketCreatedPublisher } from "../events-handler/publishers/ticket-created-publisher";
 import { natsWrapper } from "../nats-wrapper";
-import { TicketUpdatedPublisher } from "../evemts-handler/publishers/ticket-updated-publisher";
+import { TicketUpdatedPublisher } from "../events-handler/publishers/ticket-updated-publisher";
 
 export const createTicket = async (req: Request, res: Response) => {
   const { title, price } = req.body;
 
-  const ticket = Ticket.build({
-    title,
-    price,
-    userId: req.currentUser!.id,
-  });
-  await ticket.save();
-  await new TicketCreatedPublisher(natsWrapper.client).publish({
-    id: ticket._id.toString(),
-    title: ticket.title,
-    price: ticket.price,
-    userId: ticket.userId,
-    version: ticket.version,
-  });
-  console.log("Ticket created............................................: ", ticket);
-  res.status(201).json(ticket);
+  try {
+    const ticket = Ticket.build({
+      title,
+      price,
+      userId: req.currentUser!.id,
+    });
+    await ticket.save();
+
+      await new TicketCreatedPublisher(
+        natsWrapper.client
+      ).publish({
+        id: ticket._id.toString(),
+        title: ticket.title,
+        price: ticket.price,
+        userId: ticket.userId,
+        version: ticket.version,
+      });
+  
+    
+  
+    res.status(201).json(ticket);
+  } catch (err) {
+    console.error("Create Ticket Error:", err);
+    throw err;
+  }
 };
 
 // GET TICKET WITH ID

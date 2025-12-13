@@ -25,5 +25,5 @@ ticketRouter
   )
   .get("/", getTickets)
   .get("/:id", getTicketWithId)
-  .patch("/:id", authentication, validateTicket, updateTicket);
+  .patch("/:id", currentUser, authentication, validateTicket, updateTicket);
 export default ticketRouter;
