@@ -51,11 +51,15 @@ it("emit an OrderCancelled event", async () => {
   await listener.onMessage(data, msg);
 
   expect(natsWrapper.client.publish).toHaveBeenCalled();
-
-  const eventData = JSON.parse(
-    (natsWrapper.client.publish as jest.Mock).mock.calls[0][1] as string //[1] to get access to id
+  const rawData = (natsWrapper.client.publish as jest.Mock).mock.calls[0][1];
+  const decoder = new TextDecoder();
+  const orderCancelledData = JSON.parse(
+    typeof rawData === "string"
+      ? rawData
+      : decoder.decode(rawData as Uint8Array)
   );
-  expect(eventData.id).toEqual(order.id);
+
+  expect(orderCancelledData.id).toEqual(order.id);
 });
 
 it("ack the message", async () => {

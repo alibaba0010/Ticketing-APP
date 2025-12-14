@@ -7,7 +7,6 @@ import { beforeAll, afterAll, beforeEach, jest } from "@jest/globals";
 declare global {
   function login(): string[];
 }
-
 let mongo: MongoMemoryServer;
 
 const originalStdoutWrite = process.stdout.write;
@@ -58,7 +57,7 @@ global.login = () => {
   };
 
   // Create the JWT!
-  const token = jwt.sign(payload, process.env.JWT_KEY!);
+  const token = jwt.sign(payload, process.env.JWT_SECRET!);
 
   // Build session Object. { jwt: MY_JWT }
   const session = { jwt: token };
@@ -68,7 +67,6 @@ global.login = () => {
 
   // Take JSON and encode it as base64
   const base64 = Buffer.from(sessionJSON).toString("base64");
-  console.log("base64: ", base64);
   // return a string thats the cookie with the encoded data
   return [`session=${base64}`];
 };
