@@ -21,17 +21,21 @@ dotenv.config();
   if (!process.env.MONGO_URL) {
     throw new Error("MONGO_URL must be included");
   }
+  if (!process.env.NATS_CLUSTER_ID) {
+    throw new Error("NATS_CLUSTER_ID must be included");
+  }
   const uri = process.env.MONGO_URL;
 
   const clientId = process.env.NATS_CLIENT_ID;
   const url = process.env.NATS_URL;
   const PORT = process.env.PORT || 3002;
+  const streamName = process.env.STREAM_NAME || "ticketing";
   try {
     await natsWrapper.connect(clientId, url);
-    await natsWrapper.createStream("tickets", [
-      Subjects.TicketCreated,
-      Subjects.TicketUpdated,
-    ]);
+    await natsWrapper.createStream(
+      streamName,
+      Object.values(Subjects) as string[]
+    );
 
     natsWrapper.onClose(() => {
       console.log("NATS connection closed!");
@@ -40,8 +44,8 @@ dotenv.config();
     process.on("SIGINT", () => natsWrapper.close());
     process.on("SIGTERM", () => natsWrapper.close());
 
-    new OrderCreatedListener(natsWrapper.client);
-    new OrderCancelledListener(natsWrapper.client);
+    new OrderCreatedListener(natsWrapper.client).listen();
+    new OrderCancelledListener(natsWrapper.client).listen();
     await connectDB(uri);
   } catch (e) {
     console.error("Error starting server:", e);

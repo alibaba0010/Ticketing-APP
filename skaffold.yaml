@@ -26,14 +26,14 @@ build:
             dest: .
       docker:
         dockerfile: Dockerfile
-    # - image: alibaba0010/orders
-    #   context: server/orders
-    #   sync:
-    #     manual:
-    #       - src: server/orders/src/**/*.ts
-    #         dest: .
-    #   docker:
-    #     dockerfile: Dockerfile
+    - image: alibaba0010/orders
+      context: server/orders
+      sync:
+        manual:
+          - src: server/orders/src/**/*.ts
+            dest: .
+      docker:
+        dockerfile: Dockerfile
     # - image: alibaba0010/expiration
     #   context: server/expiration
     #   sync:

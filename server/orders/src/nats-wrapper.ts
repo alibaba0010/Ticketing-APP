@@ -44,7 +44,13 @@ class NatsWrapper {
 
     try {
       await jsm.streams.info(streamName);
-      console.log(`Stream '${streamName}' already exists`);
+      console.log(`Stream '${streamName}' already exists. Updating...`);
+      await jsm.streams.update(streamName, {
+        subjects: subjects,
+      });
+      console.log(
+        `Updated stream '${streamName}' with subjects: ${subjects.join(", ")}`
+      );
     } catch (err) {
       console.log(`Stream '${streamName}' not found. Creating...`);
       await jsm.streams.add({

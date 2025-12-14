@@ -6,6 +6,8 @@ import { TicketUpdatedListener } from "./evemts-handler/listeners/ticket-updated
 import { ExpirationCompletedListener } from "./evemts-handler/listeners/expiration-completed-listener";
 import { PaymentCreatedListener } from "./evemts-handler/listeners/payment-created-listener";
 import { Subjects } from "@alibabatickets/common";
+import dotenv from "dotenv";
+dotenv.config();
 
 (async () => {
   if (!process.env.NATS_CLIENT_ID) {
@@ -32,20 +34,13 @@ import { Subjects } from "@alibabatickets/common";
   const clientId = process.env.NATS_CLIENT_ID;
   const url = process.env.NATS_URL;
   const PORT = process.env.PORT || 3003;
+  const streamName = process.env.STREAM_NAME || "ticketing";
   try {
     await natsWrapper.connect(clientId, url);
-    await natsWrapper.createStream("tickets", [
-      Subjects.TicketCreated,
-      Subjects.TicketUpdated,
-    ]);
-    await natsWrapper.createStream("orders", [
-      Subjects.OrderCreated,
-      Subjects.OrderCancelled,
-    ]);
-    await natsWrapper.createStream("payments", [Subjects.PaymentCreated]);
-    await natsWrapper.createStream("expirations", [
-      Subjects.ExpirationComplete,
-    ]);
+    await natsWrapper.createStream(
+      streamName,
+      Object.values(Subjects) as string[]
+    );
     natsWrapper.onClose(() => {
       console.log("NATS connection closed!");
       process.exit();
