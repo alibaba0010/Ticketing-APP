@@ -1,10 +1,10 @@
-import { Message } from "node-nats-streaming";
+import { JsMsg } from "nats";
 import {
   Subjects,
   Listener,
   TicketUpdatedEvent,
   queueGroupNameOrders,
-  NotFoundError
+  NotFoundError,
 } from "@alibabatickets/common";
 import { Ticket } from "../../models/tickets-orders";
 
@@ -12,7 +12,7 @@ export class TicketUpdatedListener extends Listener<TicketUpdatedEvent> {
   subject: Subjects.TicketUpdated = Subjects.TicketUpdated;
   queueGroupName = queueGroupNameOrders;
 
-  async onMessage(data: TicketUpdatedEvent["data"], msg: Message) {
+  async onMessage(data: TicketUpdatedEvent["data"], msg: JsMsg) {
     const ticket = await Ticket.findByEvent(data);
 
     if (!ticket) {

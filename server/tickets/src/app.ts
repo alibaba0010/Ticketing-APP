@@ -25,7 +25,7 @@ app
     })
   ) // 24 hours
   .use("/api/v1/tickets", ticketRouter)
-  .use("*", async () => {
+  .use((req, res) => {
     throw new NotFoundError("Route doesn't exist");
   })
   .use(errorHandler);

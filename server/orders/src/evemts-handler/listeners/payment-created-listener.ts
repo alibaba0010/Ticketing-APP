@@ -5,14 +5,15 @@ import {
   OrderStatus,
   queueGroupNameOrders,
 } from "@alibabatickets/common";
-import { Message } from "node-nats-streaming";
+import { JsMsg } from "nats";
+
 import { Order } from "../../models/orders.mongo";
 
 export class PaymentCreatedListener extends Listener<PaymentCreatedEvent> {
   subject: Subjects.PaymentCreated = Subjects.PaymentCreated;
   queueGroupName = queueGroupNameOrders;
 
-  async onMessage(data: PaymentCreatedEvent["data"], msg: Message) {
+  async onMessage(data: PaymentCreatedEvent["data"], msg: JsMsg) {
     const order = await Order.findById(data.orderId);
 
     if (!order) {

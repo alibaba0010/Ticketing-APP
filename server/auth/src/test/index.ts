@@ -10,6 +10,19 @@ declare global {
 
 let mongo: MongoMemoryServer;
 
+const originalStdoutWrite = process.stdout.write;
+const originalStderrWrite = process.stderr.write;
+
+process.stdout.write = (chunk: any, ...args: any[]) => {
+  if (typeof chunk === "string" && chunk.includes("MongoMS")) return true;
+  return originalStdoutWrite.call(process.stdout, chunk, ...args);
+};
+
+process.stderr.write = (chunk: any, ...args: any[]) => {
+  if (typeof chunk === "string" && chunk.includes("MongoMS")) return true;
+  return originalStderrWrite.call(process.stderr, chunk, ...args);
+};
+
 beforeAll(async () => {
   process.env.JWT_SECRET = "asdfasdf";
   process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";

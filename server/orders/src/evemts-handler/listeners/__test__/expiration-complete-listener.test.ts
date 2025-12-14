@@ -1,4 +1,4 @@
-import { Message } from "node-nats-streaming";
+import { JsMsg } from "nats";
 import { OrderStatus, ExpirationCompletedEvent } from "@alibabatickets/common";
 import { ExpirationCompletedListener } from "../expiration-completed-listener";
 import { natsWrapper } from "../../../nats-wrapper";
@@ -29,7 +29,7 @@ const setup = async () => {
   };
 
   // @ts-ignore
-  const msg: Message = {
+  const msg: JsMsg = {
     ack: jest.fn(),
   };
 

@@ -10,10 +10,6 @@ declare global {
 
 let mongo: MongoMemoryServer;
 
-process.env.MONGOMS_DEBUG = "0";
-process.env.MONGOMS_QUIET = "1";
-process.env.MONGOMS_VERBOSITY = "0";
-
 const originalStdoutWrite = process.stdout.write;
 const originalStderrWrite = process.stderr.write;
 

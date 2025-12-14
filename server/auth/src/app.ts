@@ -1,8 +1,5 @@
 // import "module-alias/register";
 import express, { json } from "express";
-import "express-async-errors";
-// import moduleAlias from "module-alias";
-// moduleAlias.addAlias("@app/common", __dirname + "../../../common/src");
 
 import cookieSession from "cookie-session";
 import cors from "cors";
@@ -32,7 +29,7 @@ app
   ) // 24 hours
 
   .use("/api/v1/users", userRouter)
-  .use("*", (req, res) => {
+  .use((req, res) => {
     throw new NotFoundError(
       `Route doesn't exist: ${req.method} ${req.originalUrl}`
     );

@@ -1,4 +1,4 @@
-import { Message } from "node-nats-streaming";
+import { JsMsg } from "nats";
 import { TicketUpdatedEvent } from "@alibabatickets/common";
 import { TicketUpdatedListener } from "../ticket-updated-listener";
 import { natsWrapper } from "../../../nats-wrapper";
@@ -29,7 +29,7 @@ const setup = async () => {
 
   // Create a fake msg object
   // @ts-ignore
-  const msg: Message = {
+  const msg: JsMsg = {
     ack: jest.fn(),
   };
 

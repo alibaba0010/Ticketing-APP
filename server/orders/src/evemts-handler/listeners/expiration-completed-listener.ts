@@ -6,22 +6,22 @@ import {
   queueGroupNameOrders,
   NotFoundError,
 } from "@alibabatickets/common";
-import { Message } from "node-nats-streaming";
+
+import { JsMsg } from "nats";
+
 import { Order } from "../../models/orders.mongo";
 
 import { OrderCancelledPublisher } from "../publishers/order-cancelled-publisher";
 
-export class ExpirationCompletedListener extends Listener<
-  ExpirationCompletedEvent
-> {
+export class ExpirationCompletedListener extends Listener<ExpirationCompletedEvent> {
   queueGroupName = queueGroupNameOrders;
   subject: Subjects.ExpirationComplete = Subjects.ExpirationComplete;
 
-  async onMessage(data: ExpirationCompletedEvent["data"], msg: Message) {
+  async onMessage(data: ExpirationCompletedEvent["data"], msg: JsMsg) {
     const order = await Order.findById(data.orderId).populate("ticket");
 
     if (!order) {
-      throw new  NotFoundError("Order not found");
+      throw new NotFoundError("Order not found");
     }
     if (order.status === OrderStatus.Completed) {
       return msg.ack();
