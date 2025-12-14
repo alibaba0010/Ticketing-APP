@@ -26,7 +26,7 @@ const setup = async () => {
     userId: "alskdfj",
     expiresAt: "alskdjf",
     ticket: {
-      id: ticket._id.toString(),
+      id: ticket.id,
       price: ticket.price,
     },
   };
@@ -44,7 +44,7 @@ it("sets the userId of the ticket", async () => {
 
   await listener.onMessage(data, msg);
 
-  const updatedTicket = await Ticket.findById(ticket._id.toString());
+  const updatedTicket = await Ticket.findById(ticket.id);
 
   expect(updatedTicket!.orderId).toEqual(data.id);
 });

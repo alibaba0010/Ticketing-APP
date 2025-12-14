@@ -22,7 +22,7 @@ const setup = async () => {
     id: orderId,
     version: 0,
     ticket: {
-      id: ticket._id.toString(),
+      id: ticket.id,
     },
   };
 
@@ -39,7 +39,7 @@ it("updates the ticket, publishes an event, and acks the message", async () => {
 
   await listener.onMessage(data, msg);
 
-  const updatedTicket = await Ticket.findById(ticket._id.toString());
+  const updatedTicket = await Ticket.findById(ticket.id);
   expect(updatedTicket!.orderId).not.toBeDefined();
   expect(msg.ack).toHaveBeenCalled();
   expect(natsWrapper.client.publish).toHaveBeenCalled();

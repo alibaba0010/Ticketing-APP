@@ -14,10 +14,6 @@ dotenv.config();
   if (!process.env.NATS_URL) {
     throw new Error("NATS_URL must be defined");
   }
-  if (!process.env.NATS_CLUSTER_ID) {
-    throw new Error("NATS_CLUSTER_ID must be defined");
-  }
-
   if (!process.env.JWT_SECRET) {
     throw new Error("JWT_SECRET_KEY must be defined");
   }
@@ -27,12 +23,11 @@ dotenv.config();
   }
   const uri = process.env.MONGO_URL;
 
-  const clusterId = process.env.NATS_CLUSTER_ID;
   const clientId = process.env.NATS_CLIENT_ID;
   const url = process.env.NATS_URL;
   const PORT = process.env.PORT || 3002;
   try {
-    await natsWrapper.connect(clusterId, clientId, url);
+    await natsWrapper.connect(clientId, url);
     await natsWrapper.createStream("tickets", [
       Subjects.TicketCreated,
       Subjects.TicketUpdated,
@@ -44,7 +39,6 @@ dotenv.config();
     });
     process.on("SIGINT", () => natsWrapper.close());
     process.on("SIGTERM", () => natsWrapper.close());
-
 
     new OrderCreatedListener(natsWrapper.client);
     new OrderCancelledListener(natsWrapper.client);

@@ -1,9 +1,7 @@
 // import "module-alias/register";
 import express, { json } from "express";
-import "express-async-errors";
 import cookieSession from "cookie-session";
 import cors from "cors";
-// import moduleAlias from "module-alias";
 
 import { errorHandler, NotFoundError } from "@alibabatickets/common";
 import ticketRouter from "./routes/tickets.router";

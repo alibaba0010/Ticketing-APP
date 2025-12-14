@@ -17,7 +17,7 @@ export const createTicket = async (req: Request, res: Response) => {
     await ticket.save();
 
     await new TicketCreatedPublisher(natsWrapper.client).publish({
-      id: ticket._id.toString(),
+      id: ticket.id,
       title: ticket.title,
       price: ticket.price,
       userId: ticket.userId,
@@ -60,7 +60,7 @@ export const updateTicket = async (req: Request, res: Response) => {
 
   await ticket.save();
   new TicketUpdatedPublisher(natsWrapper.client).publish({
-    id: ticket._id.toString(),
+    id: ticket.id,
     title: ticket.title,
     price: ticket.price,
     userId: ticket.userId,

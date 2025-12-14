@@ -17,6 +17,7 @@ interface UserModel extends Model<UserDoc> {
 // An interface that describes the properties
 // that a User Document has
 interface UserDoc extends Document {
+  id: string;
   email: string;
   password: string;
   //   Add extra properties that a userdoc can display from mongo

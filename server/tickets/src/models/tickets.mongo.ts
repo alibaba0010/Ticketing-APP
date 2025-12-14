@@ -7,6 +7,7 @@ interface TicketAttrs {
 }
 
 interface TicketDoc extends Document {
+  id: string;
   title: string;
   price: number;
   userId: string;

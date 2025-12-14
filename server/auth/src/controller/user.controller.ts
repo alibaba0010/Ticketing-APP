@@ -35,7 +35,7 @@ export const signUp = async (
     // Generate JWT
     const userToken = jwt.sign(
       {
-        id: user._id,
+        id: user.id,
         email: user.email,
       },
       process.env.JWT_SECRET!
@@ -74,7 +74,7 @@ export const signIn = async (
     // Generate JWT
     const userToken = jwt.sign(
       {
-        id: existingUser._id,
+        id: existingUser.id,
         email: existingUser.email,
       },
       process.env.JWT_SECRET!

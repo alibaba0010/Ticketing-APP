@@ -1,4 +1,9 @@
-import { connect, NatsConnection, JetStreamClient, JetStreamManager } from "nats";
+import {
+  connect,
+  NatsConnection,
+  JetStreamClient,
+  JetStreamManager,
+} from "nats";
 
 console.clear();
 class NatsWrapper {
@@ -12,7 +17,7 @@ class NatsWrapper {
     return this._client;
   }
 
-  async connect(_clusterId: string, clientId: string, url: string) {
+  async connect(clientId: string, url: string) {
     console.log(`Connecting to NATS... clientId: ${clientId} , url: ${url}`);
     try {
       this._nc = await connect({ servers: [url], name: clientId });
@@ -43,10 +48,13 @@ class NatsWrapper {
 
   async createStream(streamName: string, subjects: string[]) {
     const jsm = await this.jetstreamManager();
-    
+
     // DEBUG: List all streams
     const streams = await jsm.streams.list().next();
-    console.log("Existing streams:", streams.map(s => s.config.name));
+    console.log(
+      "Existing streams:",
+      streams.map((s) => s.config.name)
+    );
 
     try {
       await jsm.streams.info(streamName);
@@ -57,7 +65,9 @@ class NatsWrapper {
         name: streamName,
         subjects: subjects,
       });
-      console.log(`Created stream '${streamName}' with subjects: ${subjects.join(", ")}`);
+      console.log(
+        `Created stream '${streamName}' with subjects: ${subjects.join(", ")}`
+      );
     }
   }
 }
