@@ -22,27 +22,37 @@ export default () => {
   };
 
   return (
-    <form onSubmit={onSubmit}>
-      <h1>Sign In</h1>
-      <div className="form-group">
-        <label>Email Address</label>
-        <input
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="form-control"
-        />
+    <div className="row justify-content-center mt-5">
+      <div className="col-md-5">
+        <div className="card shadow-sm border-0">
+          <div className="card-body p-4">
+            <h1 className="text-center mb-4 fw-bold text-dark">Sign In</h1>
+            <form onSubmit={onSubmit}>
+              <div className="form-group mb-3">
+                <label className="form-label text-muted">Email Address</label>
+                <input
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="form-control"
+                  placeholder="name@example.com"
+                />
+              </div>
+              <div className="form-group mb-4">
+                <label className="form-label text-muted">Password</label>
+                <input
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  type="password"
+                  className="form-control"
+                  placeholder="••••••"
+                />
+              </div>
+              {error}
+              <button className="btn btn-primary w-100 py-2">Sign In</button>
+            </form>
+          </div>
+        </div>
       </div>
-      <div className="form-group">
-        <label>Password</label>
-        <input
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          type="password"
-          className="form-control"
-        />
-      </div>
-      {error}
-      <button className="btn btn-primary">Sign In</button>
-    </form>
+    </div>
   );
 };

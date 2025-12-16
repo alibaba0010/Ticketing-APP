@@ -13,7 +13,7 @@ export default ({ currentUser }) => {
     .map(({ label, href }) => {
       return (
         <li key={href} className="nav-item">
-          <Link href={href} className="nav-link">
+          <Link href={href} className="nav-link px-3">
             {label}
           </Link>
         </li>
@@ -21,14 +21,15 @@ export default ({ currentUser }) => {
     });
 
   return (
-    <nav className="navbar navbar-light bg-light">
-      <Link href="/" className="navbar-brand">
-        GitTix
-      </Link>
-
-      <div className="d-flex justify-content-end align-items-center">
-        <Profile currentUser={currentUser} />
-        <ul className="nav d-flex align-items-center ms-3">{links}</ul>
+    <nav className="navbar navbar-expand-lg">
+      <div className="container">
+        <Link href="/" className="navbar-brand">
+          GitTix
+        </Link>
+        <div className="d-flex justify-content-end align-items-center">
+          <Profile currentUser={currentUser} />
+          <ul className="nav d-flex align-items-center ms-3">{links}</ul>
+        </div>
       </div>
     </nav>
   );
