@@ -53,6 +53,9 @@ dotenv.config();
     new ExpirationCompletedListener(natsWrapper.client).listen();
     new PaymentCreatedListener(natsWrapper.client).listen();
     await connectDB(uri);
-  } catch (e) {}
-  app.listen(PORT, () => console.log(`Listen to port 3003🚀🚀🚀`));
+  } catch (e) {
+    console.error(e);
+    process.exit(1);
+  }
+  app.listen(PORT, () => console.log(`Listening to port ${PORT} 🚀🚀🚀`));
 })();

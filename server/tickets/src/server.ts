@@ -51,5 +51,5 @@ dotenv.config();
     console.error("Error starting server:", e);
     process.exit(1); // Exit so K8s can restart the pod
   }
-  app.listen(PORT, () => console.log(`Listen to port 3002  🚀🚀`));
+  app.listen(PORT, () => console.log(`Listening to port ${PORT}  🚀🚀`));
 })();
