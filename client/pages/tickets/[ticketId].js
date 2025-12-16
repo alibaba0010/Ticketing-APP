@@ -6,11 +6,17 @@ const TicketShow = ({ ticket, currentUser }) => {
     url: "/api/v1/orders",
     method: "post",
     body: {
-      ticketId: ticket.id,
+      ticketId: ticket?.id,
     },
     onSuccess: (order) =>
       Router.push("/orders/[orderId]", `/orders/${order.id}`),
   });
+
+  // If ticket is null (redirecting), don't render anything
+  if (!ticket) {
+    Router.push("/");
+    return null;
+  }
 
   return (
     <div className="row justify-content-center mt-5">
@@ -51,10 +57,19 @@ const TicketShow = ({ ticket, currentUser }) => {
 
 TicketShow.getInitialProps = async (context, client) => {
   const { ticketId } = context.query;
-  const { data } = await client.get(`/api/v1/tickets/${ticketId}`); //id
-  console.log("Ticket Id: ", ticketId);
-
-  return { ticket: data };
+  try {
+    const { data } = await client.get(`/api/v1/tickets/${ticketId}`);
+    return { ticket: data };
+  } catch (err) {
+    // If ticket not found or error, redirect to home
+    if (context.res) {
+      context.res.writeHead(302, { Location: "/" });
+      context.res.end();
+    } else {
+      Router.push("/");
+    }
+    return { ticket: null };
+  }
 };
 
 export default TicketShow;

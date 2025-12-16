@@ -3,11 +3,34 @@ import "../styles/globals.css";
 import buildClient from "../api/build-client";
 import Header from "../components/header.js";
 import Head from "next/head";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import axios from "axios";
 
-const AppComponent = ({ Component, pageProps, currentUser }) => {
+const AppComponent = ({ Component, pageProps, currentUser: initialUser }) => {
   const router = useRouter();
+  const [currentUser, setCurrentUser] = useState(initialUser);
+
+  // Sync state with prop if it changes (e.g. navigation)
+  useEffect(() => {
+    setCurrentUser(initialUser);
+  }, [initialUser]);
+
+  useEffect(() => {
+    // Client-side check to verify session
+    const fetchUser = async () => {
+      try {
+        const { data } = await axios.get("/api/v1/users/currentuser");
+        setCurrentUser(data.currentUser);
+      } catch (err) {
+        setCurrentUser(null);
+      }
+    };
+
+    // Check if we are mounted and this is not a wasted call
+    // (though getInitialProps runs on navigation, this handles direct entry or refresh edge cases)
+    fetchUser();
+  }, []);
 
   useEffect(() => {
     // Define public paths that don't require authentication
@@ -17,6 +40,8 @@ const AppComponent = ({ Component, pageProps, currentUser }) => {
       router.pathname.startsWith("/tickets/");
 
     // If user is not signed in and trying to access a protected route, redirect to home
+    // We wait for checking to be 'done' effectively by existence of currentUser or completion of effect
+    // But since we default to initialUser (SSR source of truth), this is safe.
     if (!currentUser && !isPublicPath) {
       router.push("/");
     }
