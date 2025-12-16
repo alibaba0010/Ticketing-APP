@@ -1,4 +1,3 @@
-import { updateIfCurrentPlugin } from "mongoose-update-if-current";
 import { OrderStatus } from "@alibabatickets/common";
 import { Model, Document, Schema, model } from "mongoose";
 
@@ -11,6 +10,7 @@ interface OrderAttrs {
 }
 
 interface OrderDoc extends Document {
+  id: string;
   version: number;
   userId: string;
   price: number;
@@ -38,7 +38,7 @@ const OrderSchema = new Schema(
   },
   {
     toJSON: {
-      transform(doc, ret) {
+      transform(doc, ret: any) {
         ret.id = ret._id;
         delete ret._id;
       },
@@ -47,7 +47,7 @@ const OrderSchema = new Schema(
 );
 
 OrderSchema.set("versionKey", "version");
-OrderSchema.plugin(updateIfCurrentPlugin);
+OrderSchema.set("optimisticConcurrency", true);
 
 OrderSchema.statics.build = (attrs: OrderAttrs) => {
   return new Order({

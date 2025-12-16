@@ -1,8 +1,8 @@
 import { jest } from "@jest/globals";
 export const natsWrapper = {
   client: {
-    publish: jest.fn().mockImplementation((subject, data, callback) => {
-      callback;
+    publish: jest.fn((subject: string, data: string, callback: () => void) => {
+      callback();
     }),
   },
 };

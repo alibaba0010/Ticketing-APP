@@ -27,9 +27,9 @@ beforeAll(async () => {
 
   mongo = await MongoMemoryServer.create({
     instance: {
-      dbName: "test-db", // Your desired database name
+      dbName: "test-db",
     },
-  }); // Assign the MongoMemoryServer instance to the global mongo variable
+  });
 
   const mongoUri = mongo.getUri(); // Get the URI from the MongoMemoryServer instance
   await connect(mongoUri);

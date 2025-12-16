@@ -3,6 +3,8 @@ import connectDB from "./db";
 import { OrderCancelledListener } from "./events/listeners/order-cancelled-listener";
 import { OrderCreatedListener } from "./events/listeners/order-created-listener";
 import { natsWrapper } from "./nats-wrapper";
+import { Subjects } from "@alibabatickets/common";
+
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -32,14 +34,20 @@ dotenv.config();
   const clientId = process.env.NATS_CLIENT_ID;
   const url = process.env.NATS_URL;
   const PORT = process.env.PORT || 3004;
+  const streamName = process.env.STREAM_NAME || "ticketing";
+
   try {
-    await natsWrapper.connect(clusterId, clientId, url);
-    natsWrapper.client.on("close", () => {
+    await natsWrapper.connect(clientId, url);
+    await natsWrapper.createStream(
+      streamName,
+      Object.values(Subjects) as string[]
+    );
+    natsWrapper.onClose(() => {
       console.log("NATS connection closed!");
       process.exit();
     });
-    process.on("SIGINT", () => natsWrapper.client.close());
-    process.on("SIGTERM", () => natsWrapper.client.close());
+    process.on("SIGINT", () => natsWrapper.close());
+    process.on("SIGTERM", () => natsWrapper.close());
 
     new OrderCreatedListener(natsWrapper.client).listen();
     new OrderCancelledListener(natsWrapper.client).listen();

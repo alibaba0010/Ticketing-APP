@@ -3,19 +3,26 @@ import { Types, connect, connection } from "mongoose";
 import jwt from "jsonwebtoken";
 import { beforeAll, afterAll, beforeEach, jest } from "@jest/globals";
 
-// declare global {
-//   namespace NodeJS {
-//     interface Global {
-//       login(id?: string): string[];
-//     }
-//   }
-// }
 declare global {
   function login(id?: string): string[];
 }
 jest.mock("../nats-wrapper");
+jest.mock("../stripe");
 
 let mongo: MongoMemoryServer;
+const originalStdoutWrite = process.stdout.write;
+const originalStderrWrite = process.stderr.write;
+
+process.stdout.write = (chunk: any, ...args: any[]) => {
+  if (typeof chunk === "string" && chunk.includes("MongoMS")) return true;
+  return originalStdoutWrite.call(process.stdout, chunk, ...args);
+};
+
+process.stderr.write = (chunk: any, ...args: any[]) => {
+  if (typeof chunk === "string" && chunk.includes("MongoMS")) return true;
+  return originalStderrWrite.call(process.stderr, chunk, ...args);
+};
+
 beforeAll(async () => {
   process.env.JWT_SECRET = "asdfasdf";
   process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
@@ -46,7 +53,7 @@ global.login = (id?: string) => {
   };
 
   // Create the JWT!
-  const token = jwt.sign(payload, process.env.JWT_KEY!);
+  const token = jwt.sign(payload, process.env.JWT_SECRET!);
 
   // Build session Object. { jwt: MY_JWT }
   const session = { jwt: token };
@@ -58,5 +65,5 @@ global.login = (id?: string) => {
   const base64 = Buffer.from(sessionJSON).toString("base64");
 
   // return a string thats the cookie with the encoded data
-  return [`express:sess=${base64}`];
+  return [`session=${base64}`];
 };

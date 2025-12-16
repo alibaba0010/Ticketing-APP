@@ -6,6 +6,7 @@ interface PaymentAttrs {
 }
 
 interface PaymentDoc extends Document {
+  id: string;
   orderId: string;
   stripeId: string;
 }
@@ -27,7 +28,7 @@ const paymentSchema = new Schema(
   },
   {
     toJSON: {
-      transform(doc, ret) {
+      transform(doc, ret: any) {
         ret.id = ret._id;
         delete ret._id;
       },

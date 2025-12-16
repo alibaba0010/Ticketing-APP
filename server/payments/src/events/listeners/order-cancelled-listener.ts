@@ -6,14 +6,14 @@ import {
   queueGroupNamePayments,
   NotFoundError,
 } from "@alibabatickets/common";
-import { Message } from "node-nats-streaming";
+import { JsMsg } from "nats";
 import { Order } from "../../models/orders-payments";
 
 export class OrderCancelledListener extends Listener<OrderCancelledEvent> {
   subject: Subjects.OrderCancelled = Subjects.OrderCancelled;
   queueGroupName = queueGroupNamePayments;
 
-  async onMessage(data: OrderCancelledEvent["data"], msg: Message) {
+  async onMessage(data: OrderCancelledEvent["data"], msg: JsMsg) {
     const order = await Order.findOne({
       _id: data.id,
       version: data.version - 1,

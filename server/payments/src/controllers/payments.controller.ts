@@ -32,16 +32,22 @@ export const ticketPayment = async (req: Request, res: Response) => {
     amount: order.price * 100,
     source: token,
   });
+
   const payment = Payment.build({
     orderId,
     stripeId: charge.id,
   });
   await payment.save();
-  new PaymentCreatedPublisher(natsWrapper.client).publish({
-    id: payment.id,
-    orderId: payment.orderId,
-    stripeId: payment.stripeId,
-  });
+  try {
+    new PaymentCreatedPublisher(natsWrapper.client).publish({
+      id: payment.id,
+      orderId: payment.orderId,
+      stripeId: payment.stripeId,
+    });
+  } catch (error) {
+    console.log("Error publishing payment created event: ", error);
+  }
+  console.log("Event published");
 
   res.status(201).json({ id: payment.id });
 };
