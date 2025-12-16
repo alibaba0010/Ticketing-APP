@@ -21,7 +21,12 @@ export abstract class Listener<T extends Event> {
     (async () => {
       try {
         const options = consumerOpts();
-        options.durable(this.queueGroupName); // durable consumer
+        const durableName = `${this.queueGroupName}-${this.subject
+          .split(":")
+          .join("-")
+          .split(".")
+          .join("-")}`;
+        options.durable(durableName); // durable consumer
         options.queue(this.queueGroupName); // queue group (work-sharing)
         options.manualAck(); // manual ack handling
         options.ackExplicit(); // require explicit ack
