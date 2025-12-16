@@ -1,4 +1,4 @@
-import Queue from "bull";
+import { Queue, Worker } from "bullmq";
 import { ExpirationCompletedPublisher } from "../events-handler/publishers/expiration-complete-publisher";
 import { natsWrapper } from "../nats-wrapper";
 
@@ -7,15 +7,23 @@ interface Payload {
 }
 
 const expirationQueue = new Queue<Payload>("order:expiration", {
-  redis: {
+  connection: {
     host: process.env.REDIS_HOST,
   },
 });
 
-expirationQueue.process(async (job) => {
-  new ExpirationCompletedPublisher(natsWrapper.client).publish({
-    orderId: job.data.orderId,
-  });
-});
+const expirationWorker = new Worker<Payload>(
+  "order:expiration",
+  async (job) => {
+    new ExpirationCompletedPublisher(natsWrapper.client).publish({
+      orderId: job.data.orderId,
+    });
+  },
+  {
+    connection: {
+      host: process.env.REDIS_HOST,
+    },
+  }
+);
 
 export { expirationQueue };
