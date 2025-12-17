@@ -13,9 +13,11 @@ dotenv.config();
   if (!process.env.NATS_CLIENT_ID) {
     throw new Error("NATS_CLIENT_ID must be defined");
   }
+
   if (!process.env.NATS_URL) {
     throw new Error("NATS_URL must be defined");
   }
+
   if (!process.env.NATS_CLUSTER_ID) {
     throw new Error("NATS_CLUSTER_ID must be defined");
   }
@@ -27,6 +29,7 @@ dotenv.config();
   if (!process.env.MONGO_URL) {
     throw new Error("MONGO_URL must be included");
   }
+
   if (!process.env.PORT) {
     throw new Error("PORT must be included");
   }
@@ -35,6 +38,7 @@ dotenv.config();
   const url = process.env.NATS_URL;
   const PORT = process.env.PORT || 3003;
   const streamName = process.env.STREAM_NAME || "ticketing";
+
   try {
     await natsWrapper.connect(clientId, url);
     await natsWrapper.createStream(
