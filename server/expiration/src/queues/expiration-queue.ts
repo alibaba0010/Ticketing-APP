@@ -6,14 +6,14 @@ interface Payload {
   orderId: string;
 }
 
-const expirationQueue = new Queue<Payload>("order:expiration", {
+const expirationQueue = new Queue<Payload>("order-expiration", {
   connection: {
     host: process.env.REDIS_HOST,
   },
 });
 
 const expirationWorker = new Worker<Payload>(
-  "order:expiration",
+  "order-expiration",
   async (job) => {
     new ExpirationCompletedPublisher(natsWrapper.client).publish({
       orderId: job.data.orderId,
