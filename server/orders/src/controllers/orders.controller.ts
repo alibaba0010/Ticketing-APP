@@ -72,7 +72,7 @@ export const getOrderWithId = async (req: Request, res: Response) => {
   res.status(200).json(order);
 };
 
-// GET TICKET WITH ID
+// GET ORDERS WITH TICKETS FOR A USER
 export const getOrders = async (req: Request, res: Response) => {
   const orders = await Order.find({
     userId: req.currentUser!.id,
