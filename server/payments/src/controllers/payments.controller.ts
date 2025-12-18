@@ -14,6 +14,8 @@ import { PaymentCreatedPublisher } from "../events/publishers/payment-created-pu
 // Payment fuctionality
 export const ticketPayment = async (req: Request, res: Response) => {
   const { token, orderId } = req.body;
+  console.log("Token: ", token);
+  console.log("Order ID: ", orderId);
 
   const order = await Order.findById(orderId);
 

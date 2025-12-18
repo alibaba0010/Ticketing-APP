@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: expiration-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: expiration
+  template:
+    metadata:
+      labels:
+        app: expiration
+    spec:
+      initContainers:
+        - name: wait-for-nats
+          image: alpine:3.23
+          command:
+            - sh
+            - -c
+            - |
+              apk add --no-cache netcat-openbsd bind-tools
+              echo "Waiting for DNS resolution of nats-srv..."
+              until nslookup nats-srv; do
+                echo "DNS not ready..."
+                sleep 2
+              done
+
+              echo "Waiting for NATS at nats-srv:4222..."
+              until nc -zv -w 2 nats-srv 4222; do
+                echo "NATS not ready..."
+                sleep 2
+              done
+              echo "NATS is up."
+
+              echo "Waiting for Redis at expiration-redis-srv:6379..."
+              until nc -zv -w 2 expiration-redis-srv 6379; do
+                echo "Redis not ready..."
+                sleep 2
+              done
+              echo "Redis is up."
+      containers:
+        - name: expiration
+          image: alibaba0010/expiration:1
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "500m"
+          env:
+            - name: NATS_CLIENT_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: NATS_URL
+              value: "http://nats-srv:4222"
+            - name: NATS_CLUSTER_ID
+              value: ticketing
+            - name: REDIS_HOST
+              value: expiration-redis-srv

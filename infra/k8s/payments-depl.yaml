@@ -12,6 +12,26 @@ spec:
       labels:
         app: payments
     spec:
+      initContainers:
+        - name: wait-for-nats
+          image: alpine:3.23
+          command:
+            - sh
+            - -c
+            - |
+              apk add --no-cache netcat-openbsd bind-tools
+              echo "Waiting for DNS resolution of nats-srv..."
+              until nslookup nats-srv; do
+                echo "DNS not ready..."
+                sleep 2
+              done
+
+              echo "Waiting for NATS at nats-srv:4222..."
+              until nc -zv -w 2 nats-srv 4222; do
+                echo "NATS not ready..."
+                sleep 2
+              done
+              echo "NATS is up."
       containers:
         - name: payments
           image: alibaba0010/payments:1
