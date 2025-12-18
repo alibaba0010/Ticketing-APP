@@ -14,7 +14,7 @@ import { OrderCancelledPublisher } from "../evemts-handler/publishers/order-canc
 // CREATE ORDER
 export const createOrder = async (req: Request, res: Response) => {
   const { ticketId } = req.body;
-  // EXPIRATION TIME-- 5MINS
+  // EXPIRATION TIME-- 1 MIN
   const EXPIRATION = 1 * 60;
 
   // Find the ticket the user is trying to order in the database
@@ -72,7 +72,7 @@ export const getOrderWithId = async (req: Request, res: Response) => {
   res.status(200).json(order);
 };
 
-// GET TICKET WITH ID
+// GET ORDERS WITH TICKETS FOR A USER
 export const getOrders = async (req: Request, res: Response) => {
   const orders = await Order.find({
     userId: req.currentUser!.id,

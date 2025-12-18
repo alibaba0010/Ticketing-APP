@@ -34,13 +34,14 @@ spec:
                 name: orders-srv
                 port:
                   number: 3003
-          # - path: /api/v1/payments/?(.*)
-          #   pathType: Prefix
-          #   backend:
-          #     service:
-          #       name: payments-srv
-          #       port:
-          #         number: 3004
+          - path: /api/v1/payments
+            # - path: /api/v1/payments/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: payments-srv
+                port:
+                  number: 3004
           - path: /
             # - path: /?(.*)
             pathType: Prefix

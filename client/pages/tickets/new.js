@@ -14,7 +14,6 @@ const NewTicket = () => {
     },
     onSuccess: () => Router.push("/"),
   });
-  console.log(`Title ${title} with price ${price}`);
   const onSubmit = (event) => {
     event.preventDefault();
 
